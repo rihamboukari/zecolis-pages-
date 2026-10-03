@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html class="h-full" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Zecolis Mobile - Écran Scanner Colis &amp; QR</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+    :root {
+      --sat: env(safe-area-inset-top, 0px);
+      --sar: env(safe-area-inset-right, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+      --sal: env(safe-area-inset-left, 0px);
+    }
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #050B14;
+      overscroll-behavior-y: contain;
+    }
+    .app-shell {
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .viewfinder {
+      width: min(270px, 68vw);
+      aspect-ratio: 1 / 1;
+      height: auto;
+    }
+    .mode-tab {
+      min-height: 44px;
+      min-width: 0;
+    }
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      flex: none;
+    }
+    .detection-pill {
+      max-width: min(90vw, 330px);
+    }
+    .footer-dock {
+      position: sticky;
+      bottom: 0;
+    }
+    .btn {
+      touch-action: manipulation;
+    }
+    .mock-statusbar,
+    .mock-homebar {
+      display: flex;
+    }
+    @media (orientation: landscape) and (max-height: 520px) {
+      .viewfinder {
+        width: min(180px, 34vw);
+      }
+    }
+    @media (pointer: coarse) and (max-width: 430px) {
+      .mock-statusbar,
+      .mock-homebar {
+        display: none;
+      }
+    }
+    @keyframes scanRay {
+      0% { top: 6%; opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { top: 92%; opacity: 0.2; }
+    }
+    .scanner-ray {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #FF6B00 30%, #22A55A 70%, transparent);
+      box-shadow: 0 0 16px 3px rgba(255, 107, 0, 0.7), 0 0 24px 6px rgba(34, 165, 90, 0.5);
+      border-radius: 9999px;
+      animation: scanRay 2.4s ease-in-out infinite alternate;
+    }
+    @keyframes pulseTarget {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.02); opacity: 1; }
+    }
+    .viewfinder-glow {
+      animation: pulseTarget 3s ease-in-out infinite;
+    }
+    .glass-pill {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+  </style>
+</head>
+<body class="text-slate-100 p-0 m-0 overflow-x-hidden bg-[#050B14]">
+<div class="app-shell relative w-full max-w-[430px] mx-auto flex flex-col bg-[#050B14]">
+<!-- Simulated Live Camera Background with subtle realistic airport/hub backdrop -->
+<div class="bg-layer">
+<img alt="Arrière-plan caméra scan colis" class="w-full h-full object-cover opacity-35 filter blur-[2px] brightness-75 scale-105 transform" src="img/scanner-fond.jpg"/>
+<!-- Vignette / dark gradient overlay for focal focus -->
+<div class="absolute inset-0 bg-gradient-to-b from-[#050B14]/90 via-transparent to-[#050B14]/95"></div>
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(5,11,20,0.85)_100%)]"></div>
+</div>
+<!-- TOP SECTION: Status bar & Header controls -->
+<header class="relative z-20 px-5 pt-[calc(0.75rem+var(--sat))] pb-2" style="padding-left:calc(1.25rem+var(--sal));padding-right:calc(1.25rem+var(--sar))">
+<!-- iOS Status Bar -->
+<div class="mock-statusbar items-center justify-between text-xs text-white/90 font-semibold mb-3 tracking-tight">
+<span>9:41</span>
+<div class="flex items-center space-x-1.5">
+<i class="w-3.5 h-3.5" data-lucide="signal"></i>
+<i class="w-3.5 h-3.5" data-lucide="wifi"></i>
+<div class="w-5 h-2.5 border border-white/80 rounded-sm p-[1px] flex items-center">
+<div class="w-full h-full bg-white rounded-sm"></div>
+</div>
+</div>
+</div>
+<!-- Header Navigation Bar -->
+<div class="flex items-center justify-between gap-2 mt-1">
+<!-- Close / Back Button -->
+<!-- CORRECTION : href="#" ne naviguait nulle part, le lien pointe vers l'accueil réel -->
+<a aria-label="Retour" class="icon-btn glass-pill flex items-center justify-center text-white/90 hover:text-white active:scale-95 transition select-none" href="accueil_mobile.html">
+<i class="w-5 h-5" data-lucide="arrow-left"></i>
+</a>
+<!-- Title Badge with Active Scan Radar -->
+<div class="flex min-w-0 items-center space-x-2 px-3 py-1.5 rounded-full glass-pill">
+<span class="relative flex h-2 w-2 flex-none">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+</span>
+<span class="text-xs font-bold tracking-wide uppercase text-white/90 truncate">Scanner Zecolis</span>
+<!-- CORRECTION : « AI Live » laissait croire à un scan réel, la mention signale la simulation -->
+<span class="text-[11px] px-1.5 py-0.5 rounded bg-orange-500/20 text-orange-400 font-semibold border border-orange-500/30 flex-none">Simulé</span>
+</div>
+<!-- Torch / Flashlight Toggle Button -->
+<button aria-label="Lampe torche" class="icon-btn glass-pill flex items-center justify-center text-amber-300 hover:text-amber-200 active:scale-95 transition shadow-sm select-none btn" id="torchBtn">
+<i class="w-5 h-5 fill-amber-300/30" data-lucide="zap"></i>
+</button>
+</div>
+<!-- CORRECTION : les onglets de mode étaient inertes, ils exposent maintenant leur état et annoncent la limite technique -->
+<div aria-label="Mode de scan" class="mt-4 flex p-1 bg-slate-900/80 backdrop-blur-md rounded-2xl border border-white/10 text-xs font-semibold" role="tablist">
+<button aria-selected="true" class="mode-tab flex-1 py-2 px-2 rounded-xl bg-gradient-to-r from-[#0B2A5B] to-[#144288] text-white shadow-md flex items-center justify-center gap-1.5 border border-blue-400/30 select-none btn" data-mode="Remise colis" role="tab" type="button">
+<i class="w-3.5 h-3.5 flex-none text-orange-400" data-lucide="package-check"></i>
+<span class="truncate">Remise colis</span>
+</button>
+<button aria-selected="false" class="mode-tab flex-1 py-2 px-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center justify-center gap-1.5 transition select-none btn" data-mode="QR Voyageur" role="tab" type="button">
+<i class="w-3.5 h-3.5 flex-none" data-lucide="qr-code"></i>
+<span class="truncate">QR Voyageur</span>
+</button>
+<button aria-selected="false" class="mode-tab flex-1 py-2 px-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center justify-center gap-1.5 transition select-none btn" data-mode="Scellé IATA" role="tab" type="button">
+<i class="w-3.5 h-3.5 flex-none" data-lucide="shield-alert"></i>
+<span class="truncate">Scellé IATA</span>
+</button>
+</div>
+</header>
+<!-- MIDDLE SECTION: Camera Viewfinder & Guidance -->
+<main class="relative z-20 flex-1 min-h-0 flex flex-col items-center justify-center px-6 py-6">
+<!-- Instructional Tagline -->
+<div class="text-center mb-5">
+<p class="text-sm font-semibold text-white/90">Cadrez le code QR ou le code-barres du colis</p>
+<!-- CORRECTION : la formulation promettait une validation automatique déjà opérationnelle -->
+<p class="text-xs text-slate-400 mt-0.5">Le décodage sera branché sur l'API de scan : aucune remise n'est validée ici.</p>
+</div>
+<!-- Viewfinder Target Area -->
+<div class="viewfinder relative rounded-3xl viewfinder-glow flex-none">
+<!-- Corner Reticles (Top-Left: Orange Zecolis) -->
+<div class="absolute -top-1 -left-1 w-9 h-9 border-t-4 border-l-4 border-[#FF6B00] rounded-tl-2xl"></div>
+<!-- Corner Reticles (Top-Right: Orange Zecolis) -->
+<div class="absolute -top-1 -right-1 w-9 h-9 border-t-4 border-r-4 border-[#FF6B00] rounded-tr-2xl"></div>
+<!-- Corner Reticles (Bottom-Left: Benin Green Zecolis) -->
+<div class="absolute -bottom-1 -left-1 w-9 h-9 border-b-4 border-l-4 border-[#22A55A] rounded-bl-2xl"></div>
+<!-- Corner Reticles (Bottom-Right: Benin Green Zecolis) -->
+<div class="absolute -bottom-1 -right-1 w-9 h-9 border-b-4 border-r-4 border-[#22A55A] rounded-br-2xl"></div>
+<!-- Scanner laser sweep animation line -->
+<div class="scanner-ray"></div>
+<!-- Viewfinder subtle inner grid & crosshair -->
+<div class="absolute inset-0 rounded-3xl border border-white/15 bg-white/[0.02] flex items-center justify-center overflow-hidden">
+<!-- Center crosshair marker -->
+<div class="relative w-12 h-12 flex items-center justify-center opacity-40">
+<div class="w-full h-[1px] bg-white/60"></div>
+<div class="h-full w-[1px] bg-white/60 absolute"></div>
+<div class="w-3 h-3 rounded-full border border-white/80 absolute"></div>
+</div>
+<!-- Subtle sample QR silhouette in target -->
+<div class="absolute opacity-15 pointer-events-none transform scale-90">
+<i class="w-1/2 h-1/2 text-white" data-lucide="qr-code"></i>
+</div>
+</div>
+<!-- Live Detection Pill (Simulated instant detection) -->
+<!-- CORRECTION : « Capteur prêt » et l'autofocus réel ne sont pas implémentés, le statut est explicite -->
+<div class="absolute -bottom-4 left-1/2 -translate-x-1/2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/40 shadow-lg flex items-center gap-2 backdrop-blur-md">
+<i class="w-3.5 h-3.5 flex-none text-emerald-400" data-lucide="check-circle-2"></i>
+<span class="text-xs font-semibold text-emerald-300 tracking-tight text-center" id="scannerStatus" role="status">Aperçu prêt • caméra non branchée</span>
+</div>
+</div>
+<!-- Quick Action Controls (Import image from gallery & Sound) -->
+<div class="flex flex-wrap items-center justify-center gap-3 mt-8">
+<!-- CORRECTION : le bouton n'ouvrait aucun sélecteur de fichier, il lance un vrai input -->
+<label class="btn flex items-center gap-2 px-4 py-2.5 rounded-full glass-pill text-xs font-medium text-slate-200 hover:text-white hover:bg-white/10 active:scale-95 transition select-none cursor-pointer">
+<i class="w-4 h-4 flex-none text-orange-400" data-lucide="image"></i>
+<span>Importer une photo</span>
+<input accept="image/*" class="sr-only" id="photoInput" type="file">
+</label>
+<!-- CORRECTION : le bouton Son n'avait aucun effet, il expose maintenant son état -->
+<button aria-label="Son du scan" aria-pressed="false" class="icon-btn glass-pill flex items-center justify-center text-slate-300 hover:text-white active:scale-95 transition select-none btn" id="soundBtn" type="button">
+<i class="w-4 h-4" data-lucide="volume-2"></i>
+</button>
+</div>
+</main>
+<!-- BOTTOM SECTION: Verification Card & Manual PIN Input Action -->
+<footer class="footer-dock relative z-20 px-5 pt-2 bg-gradient-to-t from-[#050B14] via-[#050B14]/95 to-transparent" style="padding-left:calc(1.25rem+var(--sal));padding-right:calc(1.25rem+var(--sar));padding-bottom:calc(1.5rem+var(--sab))">
+<!-- Last scanned / active shipment context chip -->
+<div class="mb-3.5 p-3 rounded-2xl bg-slate-900/85 border border-white/10 backdrop-blur-lg flex items-center justify-between gap-3">
+<div class="flex min-w-0 items-center gap-3">
+<div class="w-9 h-9 flex-none rounded-xl bg-orange-500/15 border border-orange-500/25 flex items-center justify-center text-orange-400">
+<i class="w-4 h-4" data-lucide="box"></i>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="text-xs font-bold text-white tracking-tight truncate">Colis #COL-7852</span>
+<span class="text-[11px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-semibold flex-none">En attente</span>
+</div>
+<p class="text-xs text-slate-400 truncate">Cotonou (COO) → France (CDG)</p>
+</div>
+</div>
+<div class="flex-none text-right">
+<span class="text-xs font-bold text-orange-400">7 500 F</span>
+<p class="text-[11px] text-slate-400">5 kg scellé</p>
+</div>
+</div>
+<!-- Primary Action: Manual OTP / Code Entry -->
+<!-- CORRECTION : le bouton était inerte, il ouvre maintenant un vrai champ de saisie -->
+<button aria-expanded="false" aria-controls="otpPanel" class="btn w-full min-h-[44px] py-3.5 px-4 rounded-2xl bg-[#FF6B00] hover:bg-[#ff7b1a] active:scale-[0.99] text-white font-bold text-sm shadow-lg shadow-orange-600/30 flex items-center justify-center gap-2 transition select-none" id="otpBtn" type="button">
+<i class="w-4 h-4 flex-none" data-lucide="key-round"></i>
+<span class="text-center">Saisir le code secret / OTP de remise</span>
+</button>
+<div class="hidden mt-2" id="otpPanel">
+<label class="sr-only" for="otpInput">Code secret de remise</label>
+<input autocomplete="one-time-code" class="w-full min-h-[44px] px-4 rounded-2xl bg-slate-900/85 border border-white/15 text-base text-white placeholder-white/40 focus:ring-1 focus:ring-orange-400/60 focus:outline-none" id="otpInput" inputmode="numeric" maxlength="8" placeholder="Code à 6 chiffres" type="text">
+<button class="btn w-full mt-2 min-h-[44px] rounded-2xl bg-white text-[#0B2A5B] font-bold text-sm active:scale-[0.99]" id="otpSubmitBtn" type="button">Vérifier le code</button>
+</div>
+<!-- Trust Badge & Help Link -->
+<div class="mt-3 px-1 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
+<div class="flex min-w-0 items-center gap-1 text-emerald-400/90 font-medium">
+<i class="w-3.5 h-3.5 flex-none" data-lucide="shield-check"></i>
+<!-- CORRECTION : le séquestre n'est pas implémenté, la règle future est annoncée comme telle -->
+<span>Séquestre à libérer après validation conjointe (non implémenté)</span>
+</div>
+<button class="btn flex-none min-h-[44px] px-2 -my-2 text-slate-300 hover:text-white font-semibold underline underline-offset-2 transition select-none" id="helpBtn" type="button">Aide</button>
+</div>
+<!-- CORRECTION : région de statut pour les retours des actions locales -->
+<p aria-live="polite" class="mt-2 px-1 text-xs text-orange-300 leading-snug hidden" id="scanNotice" role="status"></p>
+<!-- iOS Home Indicator -->
+<div class="mock-homebar w-32 h-1 flex-none bg-white/30 rounded-full mx-auto mt-4"></div>
+</footer>
+</div>
+<script>
+    lucide.createIcons();
+
+    // Toggle torch state demo
+    const torchBtn = document.getElementById('torchBtn');
+    let torchActive = false;
+    torchBtn.addEventListener('click', () => {
+      torchActive = !torchActive;
+      if (torchActive) {
+        torchBtn.classList.add('bg-amber-400/25', 'border-amber-400/60');
+        torchBtn.classList.remove('glass-pill');
+      } else {
+        torchBtn.classList.remove('bg-amber-400/25', 'border-amber-400/60');
+        torchBtn.classList.add('glass-pill');
+      }
+    });
+
+    // CORRECTION : chaque actionmuette du scanner rend désormais un retour explicite
+    const scanNotice = document.getElementById('scanNotice');
+    const scannerStatus = document.getElementById('scannerStatus');
+    const otpBtn = document.getElementById('otpBtn');
+    const otpPanel = document.getElementById('otpPanel');
+    const otpInput = document.getElementById('otpInput');
+    const otpSubmitBtn = document.getElementById('otpSubmitBtn');
+    const photoInput = document.getElementById('photoInput');
+    const soundBtn = document.getElementById('soundBtn');
+    const helpBtn = document.getElementById('helpBtn');
+    const modeTabs = Array.prototype.slice.call(document.querySelectorAll('[data-mode]'));
+
+    function notify(message) {
+      scanNotice.textContent = message;
+      scanNotice.classList.remove('hidden');
+    }
+
+    // La caméra réelle n'est pas branchée : on ne prétend pas lire un code.
+    modeTabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        modeTabs.forEach(function (other) {
+          const active = other === tab;
+          other.setAttribute('aria-selected', active ? 'true' : 'false');
+          other.classList.toggle('bg-gradient-to-r', active);
+          other.classList.toggle('from-[#0B2A5B]', active);
+          other.classList.toggle('to-[#144288]', active);
+          other.classList.toggle('text-white', active);
+          other.classList.toggle('shadow-md', active);
+          other.classList.toggle('border-blue-400/30', active);
+          other.classList.toggle('text-slate-400', !active);
+          other.classList.toggle('hover:text-slate-200', !active);
+        });
+        notify('Mode « ' + tab.getAttribute('data-mode') + ' » sélectionné. Le décodage reste simulé : aucun code n\'est lu pour le moment.');
+      });
+    });
+
+    otpBtn.addEventListener('click', function () {
+      const willOpen = otpPanel.classList.contains('hidden');
+      otpPanel.classList.toggle('hidden', !willOpen);
+      otpBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      if (willOpen) {
+        otpInput.focus();
+        notify('Saisie du code ouverte. La vérification sera branchée sur le service de remise.');
+      } else {
+        notify('Saisie du code refermée.');
+      }
+    });
+
+    otpSubmitBtn.addEventListener('click', function () {
+      const code = otpInput.value.trim();
+      if (code.length < 4) {
+        notify('Saisissez le code complet de remise avant de continuer.');
+        otpInput.focus();
+        return;
+      }
+      notify('Code « ' + code + ' » vérifié localement : aucune remise n\'est enregistrée, le service de scan n\'est pas branché.');
+    });
+
+    photoInput.addEventListener('change', function () {
+      const file = photoInput.files && photoInput.files[0];
+      if (!file) {
+        return;
+      }
+      notify('Photo « ' + file.name + ' » sélectionnée. L\'analyse d\'image sera branchée sur le service de scan.');
+    });
+
+    soundBtn.addEventListener('click', function () {
+      const active = soundBtn.getAttribute('aria-pressed') === 'true';
+      soundBtn.setAttribute('aria-pressed', active ? 'false' : 'true');
+      soundBtn.classList.toggle('bg-white/10', !active);
+      notify(active ? 'Retour sonore désactivé.' : 'Retour sonore activé pour les détections simulées.');
+    });
+
+    helpBtn.addEventListener('click', function () {
+      notify('Aide : scan, OTP et séquestre dépendent du service de scan qui reste à brancher. Aucun échange n\'est effectué.');
+      scannerStatus.textContent = 'Aperçu prêt • caméra non branchée';
+    });
+  </script>
+</body>
+</html>

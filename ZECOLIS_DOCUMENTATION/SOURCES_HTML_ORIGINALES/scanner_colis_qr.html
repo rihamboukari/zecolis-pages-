@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Zecolis Mobile - Écran Scanner Colis &amp; QR</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      background-color: #050B14;
+    }
+    @keyframes scanRay {
+      0% { top: 6%; opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { top: 92%; opacity: 0.2; }
+    }
+    .scanner-ray {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #FF6B00 30%, #22A55A 70%, transparent);
+      box-shadow: 0 0 16px 3px rgba(255, 107, 0, 0.7), 0 0 24px 6px rgba(34, 165, 90, 0.5);
+      border-radius: 9999px;
+      animation: scanRay 2.4s ease-in-out ease-in-out infinite alternate;
+    }
+    @keyframes pulseTarget {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.02); opacity: 1; }
+    }
+    .viewfinder-glow {
+      animation: pulseTarget 3s ease-in-out infinite;
+    }
+    .glass-pill {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+  </style>
+</head>
+<body class="h-full text-slate-100 p-0 m-0 select-none overflow-hidden bg-[#050B14]">
+<!-- Mobile screen container (390 x 844) -->
+<div class="relative w-full max-w-[390px] h-[844px] bg-[#050B14] overflow-hidden flex flex-col justify-between mx-auto">
+<!-- Simulated Live Camera Background with subtle realistic airport/hub backdrop -->
+<div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+<img alt="Arrière-plan caméra scan colis" class="w-full h-full object-cover opacity-35 filter blur-[2px] brightness-75 scale-105 transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkXVHdCIQ6QN7pUpLw_bWAH8ANqA19EccrYay6HvxY0i4SnjpKi9-_p-Ey2J_CNxmOTDvgc-0etGej0YJcJxSxpHdusLWIRVZ-iKgSj8G2MXmRqf9yEiHWdhegqV-nAuu81sTRUVKBUg57rB-UTMnVHv2fB6KwDE-1PX8_KnWwQe5a5-ZZ21UjxP4Uj-xW03X8HclK9WKCjvFeFyhf7zbUqu4_aDU0DghROOS0suCg8Vo2p89LiZW-Qg"/>
+<!-- Vignette / dark gradient overlay for focal focus -->
+<div class="absolute inset-0 bg-gradient-to-b from-[#050B14]/90 via-transparent to-[#050B14]/95"></div>
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(5,11,20,0.85)_100%)]"></div>
+</div>
+<!-- TOP SECTION: Status bar & Header controls -->
+<header class="relative z-20 pt-3 px-5 pb-2">
+<!-- iOS Status Bar -->
+<div class="flex items-center justify-between text-xs text-white/90 font-semibold mb-3 tracking-tight">
+<span>9:41</span>
+<div class="flex items-center space-x-1.5">
+<i class="w-3.5 h-3.5" data-lucide="signal"></i>
+<i class="w-3.5 h-3.5" data-lucide="wifi"></i>
+<div class="w-5 h-2.5 border border-white/80 rounded-sm p-[1px] flex items-center">
+<div class="w-full h-full bg-white rounded-2xs"></div>
+</div>
+</div>
+</div>
+<!-- Header Navigation Bar -->
+<div class="flex items-center justify-between mt-1">
+<!-- Close / Back Button -->
+<a class="w-10 h-10 rounded-full glass-pill flex items-center justify-center text-white/90 hover:text-white active:scale-95 transition" href="#">
+<i class="w-5 h-5" data-lucide="arrow-left"></i>
+</a>
+<!-- Title Badge with Active Scan Radar -->
+<div class="flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-pill">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+</span>
+<span class="text-xs font-bold tracking-wide uppercase text-white/90">Scanner Zecolis</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-orange-500/20 text-orange-400 font-semibold border border-orange-500/30">AI Live</span>
+</div>
+<!-- Torch / Flashlight Toggle Button -->
+<button class="w-10 h-10 rounded-full glass-pill flex items-center justify-center text-amber-300 hover:text-amber-200 active:scale-95 transition shadow-sm" id="torchBtn">
+<i class="w-5 h-5 fill-amber-300/30" data-lucide="zap"></i>
+</button>
+</div>
+<!-- Mode Selector Tabs (Pills) -->
+<div class="mt-4 flex p-1 bg-slate-900/80 backdrop-blur-md rounded-2xl border border-white/10 text-xs font-semibold">
+<button class="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-[#0B2A5B] to-[#144288] text-white shadow-md flex items-center justify-center space-x-1.5 border border-blue-400/30">
+<i class="w-3.5 h-3.5 text-orange-400" data-lucide="package-check"></i>
+<span>Remise colis</span>
+</button>
+<button class="flex-1 py-2 px-3 rounded-xl text-slate-400 hover:text-slate-200 flex items-center justify-center space-x-1.5 transition">
+<i class="w-3.5 h-3.5" data-lucide="qr-code"></i>
+<span>QR Voyageur</span>
+</button>
+<button class="flex-1 py-2 px-3 rounded-xl text-slate-400 hover:text-slate-200 flex items-center justify-center space-x-1.5 transition">
+<i class="w-3.5 h-3.5" data-lucide="shield-alert"></i>
+<span>Scellé IATA</span>
+</button>
+</div>
+</header>
+<!-- MIDDLE SECTION: Camera Viewfinder & Guidance -->
+<main class="relative z-20 flex-1 flex flex-col items-center justify-center px-6">
+<!-- Instructional Tagline -->
+<div class="text-center mb-5">
+<p class="text-sm font-semibold text-white/90">Cadrez le code QR ou le code-barres du colis</p>
+<p class="text-xs text-slate-400 mt-0.5">La validation de la remise s'effectue automatiquement</p>
+</div>
+<!-- Viewfinder Target Area -->
+<div class="relative w-[270px] h-[270px] rounded-3xl viewfinder-glow">
+<!-- Corner Reticles (Top-Left: Orange Zecolis) -->
+<div class="absolute -top-1 -left-1 w-9 h-9 border-t-4 border-l-4 border-[#FF6B00] rounded-tl-2xl"></div>
+<!-- Corner Reticles (Top-Right: Orange Zecolis) -->
+<div class="absolute -top-1 -right-1 w-9 h-9 border-t-4 border-r-4 border-[#FF6B00] rounded-tr-2xl"></div>
+<!-- Corner Reticles (Bottom-Left: Benin Green Zecolis) -->
+<div class="absolute -bottom-1 -left-1 w-9 h-9 border-b-4 border-l-4 border-[#22A55A] rounded-bl-2xl"></div>
+<!-- Corner Reticles (Bottom-Right: Benin Green Zecolis) -->
+<div class="absolute -bottom-1 -right-1 w-9 h-9 border-b-4 border-r-4 border-[#22A55A] rounded-br-2xl"></div>
+<!-- Scanner laser sweep animation line -->
+<div class="scanner-ray"></div>
+<!-- Viewfinder subtle inner grid & crosshair -->
+<div class="absolute inset-0 rounded-3xl border border-white/15 bg-white/[0.02] flex items-center justify-center overflow-hidden">
+<!-- Center crosshair marker -->
+<div class="relative w-12 h-12 flex items-center justify-center opacity-40">
+<div class="w-full h-[1px] bg-white/60"></div>
+<div class="h-full w-[1px] bg-white/60 absolute"></div>
+<div class="w-3 h-3 rounded-full border border-white/80 absolute"></div>
+</div>
+<!-- Subtle sample QR silhouette in target -->
+<div class="absolute opacity-15 pointer-events-none transform scale-90">
+<i class="w-36 h-36 text-white" data-lucide="qr-code"></i>
+</div>
+</div>
+<!-- Live Detection Pill (Simulated instant detection) -->
+<div class="absolute -bottom-4 left-1/2 -translate-x-1/2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/40 shadow-lg flex items-center space-x-2 backdrop-blur-md whitespace-nowrap">
+<i class="w-3.5 h-3.5 text-emerald-400" data-lucide="check-circle-2"></i>
+<span class="text-[11px] font-semibold text-emerald-300 tracking-tight">Capteur prêt • Autofocus actif</span>
+</div>
+</div>
+<!-- Quick Action Controls (Import image from gallery & Sound) -->
+<div class="flex items-center space-x-4 mt-8">
+<button class="flex items-center space-x-2 px-4 py-2 rounded-full glass-pill text-xs font-medium text-slate-200 hover:text-white hover:bg-white/10 active:scale-95 transition">
+<i class="w-4 h-4 text-orange-400" data-lucide="image"></i>
+<span>Importer une photo</span>
+</button>
+<button class="w-9 h-9 rounded-full glass-pill flex items-center justify-center text-slate-300 hover:text-white active:scale-95 transition">
+<i class="w-4 h-4" data-lucide="volume-2"></i>
+</button>
+</div>
+</main>
+<!-- BOTTOM SECTION: Verification Card & Manual PIN Input Action -->
+<footer class="relative z-20 px-5 pb-6 pt-2 bg-gradient-to-t from-[#050B14] via-[#050B14]/95 to-transparent">
+<!-- Last scanned / active shipment context chip -->
+<div class="mb-3.5 p-3 rounded-2xl bg-slate-900/85 border border-white/10 backdrop-blur-lg flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 rounded-xl bg-orange-500/15 border border-orange-500/25 flex items-center justify-center text-orange-400">
+<i class="w-4 h-4" data-lucide="box"></i>
+</div>
+<div>
+<div class="flex items-center space-x-1.5">
+<span class="text-xs font-bold text-white tracking-tight">Colis #COL-7852</span>
+<span class="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 font-semibold">En attente</span>
+</div>
+<p class="text-[11px] text-slate-400">Cotonou (COO) → France (CDG)</p>
+</div>
+</div>
+<div class="text-right">
+<span class="text-xs font-bold text-orange-400">7 500 F</span>
+<p class="text-[10px] text-slate-400">5 kg scellé</p>
+</div>
+</div>
+<!-- Primary Action: Manual OTP / Code Entry -->
+<button class="w-full py-3.5 px-4 rounded-2xl bg-[#FF6B00] hover:bg-[#ff7b1a] active:scale-[0.99] text-white font-bold text-sm shadow-lg shadow-orange-600/30 flex items-center justify-center space-x-2 transition">
+<i class="w-4 h-4" data-lucide="key-round"></i>
+<span>Saisir le code secret / OTP de remise</span>
+</button>
+<!-- Trust Badge & Help Link -->
+<div class="flex items-center justify-between mt-3 px-1 text-[11px] text-slate-400">
+<div class="flex items-center space-x-1 text-emerald-400/90 font-medium">
+<i class="w-3.5 h-3.5" data-lucide="shield-check"></i>
+<span>Séquestre débloqué après validation conjointe</span>
+</div>
+<button class="text-slate-300 hover:text-white font-semibold underline underline-offset-2 transition">Aide</button>
+</div>
+<!-- iOS Home Indicator -->
+<div class="w-32 h-1 bg-white/30 rounded-full mx-auto mt-4"></div>
+</footer>
+</div>
+<script>
+    lucide.createIcons();
+
+    // Toggle torch state demo
+    const torchBtn = document.getElementById('torchBtn');
+    let torchActive = false;
+    torchBtn.addEventListener('click', () => {
+      torchActive = !torchActive;
+      if (torchActive) {
+        torchBtn.classList.add('bg-amber-400/25', 'border-amber-400/60');
+        torchBtn.classList.remove('glass-pill');
+      } else {
+        torchBtn.classList.remove('bg-amber-400/25', 'border-amber-400/60');
+        torchBtn.classList.add('glass-pill');
+      }
+    });
+  </script>
+</body>
+</html>

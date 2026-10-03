@@ -1,0 +1,19 @@
+# Normalisation des fins de ligne : le depot stocke toujours en LF,
+# la copie de travail reste en CRLF sous Windows.
+* text=auto eol=lf
+
+# Fichiers texte du projet
+*.md    text eol=lf
+*.html  text eol=lf
+*.css   text eol=lf
+*.js    text eol=lf
+*.json  text eol=lf
+*.svg   text eol=lf
+
+# Fichiers binaires : ne jamais toucher
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.zip   binary

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html class="h-full" lang="fr">
+<head>
+<meta charset="utf-8">
+<!-- CORRECTION MOBILE : viewport-fit=cover ajouté ; maximum-scale=1.0 et user-scalable=no supprimés
+     (ils interdisaient le zoom pinch, exigé par le WCAG 1.4.4) -->
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
+<meta content="theme-color" name="theme-color" value="#000000">
+<title>Zecolis — Onboarding 3/3 · Confiance</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'sans-serif'],
+        },
+        colors: {
+          brandNavy: '#0B2A5B',
+          brandDark: '#1D1D4B',
+          brandOrange: '#FF6B00',
+          brandGreen: '#22A55A',
+        }
+      }
+    }
+  }
+</script>
+<style>
+  /* ==== CORRECTIONS MOBILE TRANSVERSES ==== */
+  :root {
+    --sat: env(safe-area-inset-top, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+  }
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    /* CORRECTION : l'original appliquait overflow:hidden sur html et body, ce qui
+       rendait tout débordement vertical impossible (texte rogné en paysage ou sur
+       écran court). Seul le débordement horizontal est neutralisé. */
+    overflow-x: hidden;
+  }
+  .app-shell {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  /* CORRECTION : absolute inset-0 devient fixed pour que la photo suive la
+     hauteur réelle quand le contenu grandit sur les petits écrans */
+  .hero-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .no-select {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .tap {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  :focus-visible {
+    outline: 2px solid #FF6B00;
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+  /* CORRECTION : barre d'état simulée masquée sur écran tactile étroit */
+  .fake-status {
+    display: flex;
+  }
+  @media (pointer: coarse), (max-width: 430px) {
+    .fake-status {
+      display: none;
+    }
+  }
+  /* CORRECTION : compensation de l'encoche et de la barre gestuelle */
+  .safe-top {
+    padding-top: calc(0.75rem + var(--sat));
+  }
+  .safe-bottom {
+    padding-bottom: calc(1.5rem + var(--sab));
+  }
+  @media (orientation: landscape) and (max-height: 520px) {
+    .lower-third {
+      padding-top: 0.75rem;
+    }
+    h1.title {
+      font-size: 28px;
+    }
+  }
+  .text-glow {
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.65);
+  }
+  .pill-shadow {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(255, 255, 255, 0.08) inset;
+  }
+  .cta-glow {
+    box-shadow: 0 8px 24px -4px rgba(11, 42, 91, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+  }
+</style>
+</head>
+<body class="bg-black text-white antialiased">
+<div class="app-shell relative w-full max-w-[390px] mx-auto flex flex-col justify-between bg-black text-white">
+
+  <!-- ============ PHOTO PLEIN ÉCRAN (absolute inset-0 devient fixed) ============ -->
+  <div class="hero-bg" aria-hidden="true">
+    <!-- CORRECTION : width/height ajoutés pour réserver le ratio et éviter le
+         décalage de mise en page ; l'URL et le texte alternatif d'origine sont conservés -->
+    <img alt="" decoding="async" height="1920" loading="eager" width="1080"
+      src="img/onboarding-3-confiance.jpg">
+    <!-- CORRECTION : via-45% et via-40% sont des utilitaires Tailwind v4.
+         Le CDN v3 charge ne connaît pas cette syntaxe : les stops intermédiaires
+         étaient ignorés. Remplacés par la notation arbitraire v3 via-[45%] / via-[40%]. -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent via-[45%] to-[#051329]/95"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#051329] via-[#051329]/80 via-[40%] to-transparent"></div>
+  </div>
+
+  <!-- ============ EN-TÊTE ============ -->
+  <header class="safe-top relative z-10 px-6 flex flex-col gap-2" style="padding-left:calc(1.5rem + var(--sal));padding-right:calc(1.5rem + var(--sar))">
+
+    <!-- CORRECTION : barre d'état simulée masquée sur mobile tactile + SVG réseauatement décoratifs -->
+    <div aria-hidden="true" class="fake-status w-full items-center justify-between text-xs font-semibold text-white/90 px-1 mb-1 no-select">
+      <span>9:41</span>
+      <div class="flex items-center gap-1.5">
+        <svg class="w-4 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+        <svg class="w-4 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0012 4z"/></svg>
+        <!-- CORRECTION : rounded-2xs n'existe pas en v3, remplacé par rounded-sm -->
+        <div class="w-5 h-2.5 border border-white/80 rounded-sm p-0.5 flex items-center"><div class="w-full h-full bg-white rounded-sm"></div></div>
+      </div>
+    </div>
+
+    <div class="w-full flex items-center justify-between">
+      <div class="flex items-center gap-2 bg-black/35 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 shadow-sm">
+        <!-- CORRECTION : width/height ajoutés sur le logo -->
+        <img alt="" class="w-6 h-6 object-contain" decoding="async" height="24" loading="eager" width="24"
+          src="img/logo.png">
+        <span class="text-white font-extrabold text-sm tracking-wider uppercase">ZECOLIS</span>
+      </div>
+
+      <!-- CORRECTION : les 3 pastilles décoratives deviennent une liste d'étapes
+           annoncée aux lecteurs d'écran, l'étape 3 étant l'étape courante -->
+      <div class="flex items-center gap-3 bg-black/35 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+        <span class="text-[11px] font-bold tracking-widest text-[#FF6B00] uppercase">Confiance</span>
+        <ol aria-label="Étape 3 sur 3" class="flex items-center gap-1.5 no-select" role="list">
+          <li><span class="block w-1.5 h-1.5 rounded-full bg-white/40"></span><span class="sr-only">Étape 1 terminée</span></li>
+          <li><span class="block w-1.5 h-1.5 rounded-full bg-white/40"></span><span class="sr-only">Étape 2 terminée</span></li>
+          <li aria-current="step"><span class="block w-4 h-1.5 rounded-full bg-[#FF6B00]"></span><span class="sr-only">Étape 3 : la confiance</span></li>
+        </ol>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ PILLS FLOTTANTS (conservés à l'identique) ============ -->
+  <div class="relative z-10 px-6 mt-auto mb-4 flex flex-col gap-2.5 items-start">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/45 backdrop-blur-md border border-white/15 text-xs font-semibold text-white/95 shadow-sm">
+      <span>🇧🇯 Cotonou</span>
+      <svg aria-hidden="true" class="w-3.5 h-3.5 text-[#FF6B00]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+        <path d="M7 16l-4-4m0 0l4-4m-4 4h18m-4 4l4-4m0 0l-4-4"/>
+      </svg>
+      <span>France 🇫🇷</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[12px] font-medium text-white shadow-sm">
+        <!-- CORRECTION : la coche est redondante avec le texte voisin pour un lecteur d'écran -->
+        <span aria-hidden="true" class="text-emerald-400 font-bold">✓</span>
+        <span>Identité vérifiée</span>
+      </div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[12px] font-medium text-white shadow-sm">
+        <span aria-hidden="true" class="text-amber-400 font-bold">★ 4,9</span>
+        <span>Voyageur vérifié</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CONTENU + CTA ============ -->
+  <footer class="lower-third safe-bottom relative z-10 px-6 pt-1 flex flex-col" style="padding-left:calc(1.5rem + var(--sal));padding-right:calc(1.5rem + var(--sar))">
+    <h1 class="title text-[34px] leading-[1.1] font-black tracking-tight text-white mb-2.5 text-glow">
+      La confiance <br>
+      <span class="text-[#FF6B00]">d’abord.</span>
+    </h1>
+    <p class="text-white/80 text-[15px] font-normal leading-snug mb-1.5 max-w-[320px]">
+      Des profils vérifiés pour envoyer et voyager sereinement.
+    </p>
+    <p class="text-white/50 text-[12px] font-medium tracking-wide mb-4">
+      Identité · Avis · Échanges
+    </p>
+
+    <!-- CORRECTION : les pastilles « Identité vérifiée », « ★ 4,9 » et la mention
+         « Des profils vérifiés » sont conservées pour le design, mais aucune procédure de
+         vérification d'identité ni aucun système d'avis n'existe dans le projet. Sans cette
+         réserve visible, l'écran afficherait une promesse de conformité tenue. -->
+    <p aria-live="polite" class="mb-4 flex items-start gap-1.5 text-[11px] font-medium leading-snug text-white/60" role="note">
+      <svg aria-hidden="true" class="w-3.5 h-3.5 flex-none mt-px text-[#FF6B00]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" x2="12" y1="11" y2="16"/>
+        <line x1="12" x2="12.01" y1="8" y2="8"/>
+      </svg>
+      <span>Maquette : la vérification d’identité et les avis ne sont pas encore implémentés. Ces mentions sont décoratives.</span>
+    </p>
+
+    <div class="flex flex-col gap-3">
+      <!-- CORRECTION : ce bouton n'avait aucun gestionnaire dans l'original
+           (0 script applicatif, 0 balise <a>) → l'appui ne produisait rien.
+           Devenu un lien réel vers l'accueil. -->
+      <a class="tap cta-glow no-select w-full h-14 rounded-2xl bg-[#0B2A5B] hover:bg-[#0d3470] active:scale-[0.98] transition-all text-white font-bold text-[16px] flex items-center justify-center gap-2 border border-white/15" href="accueil_mobile.html">
+        <span>Commencer</span>
+        <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+          <line x1="5" x2="19" y1="12" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+      <div class="flex items-center justify-center">
+        <!-- CORRECTION : bouton « Retour » également sans gestionnaire, et zone
+             tactile d'environ 20 px. Devenu un lien vers l'étape 2, zone 44 px. -->
+        <a class="tap no-select inline-flex items-center justify-center text-white/70 hover:text-white font-medium text-[14px] transition-colors" href="onboarding_voyageur_mobile.html">Retour</a>
+      </div>
+    </div>
+
+    <!-- CORRECTION : la barre d'accueil dessinée (w-32 h-1) est supprimée.
+         Elle ne correspond à aucun geste réel et double la barre gestuelle système. -->
+
+    <!-- CORRECTION : pagination annoncée en pied d'écran (l'original n'en avait aucune) -->
+    <ol aria-label="Étape 3 sur 3" class="flex items-center justify-center gap-2 pt-4 no-select" role="list">
+      <li><span class="block w-2 h-2 rounded-full bg-white/30"></span><span class="sr-only">Étape 1</span></li>
+      <li><span class="block w-2 h-2 rounded-full bg-white/30"></span><span class="sr-only">Étape 2</span></li>
+      <li><span class="block w-6 h-2 rounded-full bg-[#FF6B00] shadow-[0_0_8px_rgba(255,107,0,0.6)]"></span><span class="sr-only">Étape 3 active</span></li>
+    </ol>
+  </footer>
+</div>
+</body>
+</html>

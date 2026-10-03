@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>Zecolis Mobile - Rechercher</title>
+<!-- Google Fonts: Plus Jakarta Sans / Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN with Forms & Container Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#1D1D4B',
+              primary: '#0B2A5B',
+              orange: '#FF6B00',
+              emerald: '#22A55A',
+              bg: '#F8FAFC'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+<!-- Global Custom Styles -->
+<style data-purpose="base-layout">
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    /* Hide scrollbar for horizontal chip bars */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-brand-bg text-slate-900 min-h-screen flex flex-col justify-start items-center p-0 m-0">
+<!-- BEGIN: MobileDeviceContainer (390px x 844px standalone mobile viewport) -->
+<div class="w-full max-w-[390px] min-h-[844px] bg-[#F8FAFC] flex flex-col relative pb-28 shadow-2xl overflow-x-hidden border-x border-slate-100">
+<!-- BEGIN: iOSStatusBar -->
+<div class="w-full pt-3 px-7 pb-1 flex justify-between items-center text-slate-900 text-xs font-semibold select-none z-30" data-purpose="ios-status-bar">
+<span>9:41</span>
+<div class="flex items-center space-x-1.5 text-slate-900">
+<!-- Cellular Signal Icon -->
+<svg class="w-4 h-3 fill-current" viewbox="0 0 17 11">
+<rect height="3" rx="0.6" width="2.5" x="0" y="8"></rect>
+<rect height="5.5" rx="0.6" width="2.5" x="4" y="5.5"></rect>
+<rect height="8" rx="0.6" width="2.5" x="8" y="3"></rect>
+<rect height="10.5" rx="0.6" width="2.5" x="12" y="0.5"></rect>
+</svg>
+<!-- Wifi Icon -->
+<svg class="w-3.5 h-3 fill-current" viewbox="0 0 16 12">
+<path d="M8 12a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6zm5.66-6.66a8 8 0 0 0-11.32 0 .9.9 0 1 1-1.28-1.28 9.8 9.8 0 0 1 13.88 0 .9.9 0 0 1-1.28 1.28zm-2.83 2.83a4 4 0 0 0-5.66 0 .9.9 0 1 1-1.28-1.28 5.8 5.8 0 0 1 8.22 0 .9.9 0 0 1-1.28 1.28z"></path>
+</svg>
+<!-- Battery Icon -->
+<div class="w-5 h-2.5 rounded-sm border border-slate-900 flex items-center p-0.5">
+<div class="bg-slate-900 h-full w-full rounded-2xs"></div>
+</div>
+</div>
+</div>
+<!-- END: iOSStatusBar -->
+<!-- BEGIN: MainHeader -->
+<header class="w-full px-5 pt-2 pb-2 bg-white/90 backdrop-blur-md sticky top-0 z-20 border-b border-slate-100 flex items-center justify-between" data-purpose="app-header">
+<!-- Left: Brand Logo & Icon -->
+<div class="flex items-center gap-2.5">
+<img alt="Logo ZéColis" class="w-9 h-9 object-contain rounded-xl shadow-xs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAndoIzklWUTfzbfN__lPpnRtEZha9OAFDM8vtiyf7CjYsY03y_3ocD1Nmu47SFuewNRlHPnRp9wjfxMRmoTFjItDDpT-d9kSMKHVZPHEoOUD-gtcAkOb2E6hLpV1GrDP3tBnlZkiPiX5XXNskRM0b484wdwtUEs8X_Mt-iKBIn0q2G5LYBvPoAbEWs90k4YqypfJb0jNIDNg-EtwebcwcrQEX6DWR5hlfvun3k3Mv5QHJs5sNxMGb_HW-bcDnJ5u9bt3g"/>
+<div class="flex flex-col">
+<span class="text-sm font-extrabold tracking-tight text-[#0B2A5B] leading-none">ZéColis</span>
+<span class="text-[9px] font-medium text-[#FF6B00] uppercase tracking-wider mt-0.5">Air Parcel Hub</span>
+</div>
+</div>
+<!-- Right: Notification Bell & User Avatar -->
+<div class="flex items-center space-x-3">
+<!-- Notification button with orange dot -->
+<button class="relative w-9 h-9 flex items-center justify-center rounded-full bg-slate-100 text-slate-700 active:scale-95 transition-all">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+<path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+</svg>
+<span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-[#FF6B00] border-2 border-white rounded-full"></span>
+</button>
+<!-- User Profile Avatar -->
+<div class="w-9 h-9 rounded-full overflow-hidden border border-slate-200 ring-2 ring-slate-100/50">
+<img alt="Profil Utilisateur" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1U1zV-f-yAeRnKn6Wz_tngEZ0Ev_BDUQ2oE6GmkjpCGnEkAlteDG7Ekz7QF6PcI3p9BHAspL0jBRR9ER0pYG1WlQS5SnR6RpBurhyAnEJqEjAbGvZdirOkzVhYD44X0_yrupgy-ixRvWu0TLK1rz2nJru5EsXnl_Q5nAysRNNmq_C98Husi-kaukaiTWFDgqso8MrftNtTWRt0-uLFrg2vImi2wGjj1xUtUn3q0RHUve4zDqsZR1jOFpFE"/>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: CorridorRibbon -->
+<div class="w-full bg-slate-100/70 border-b border-slate-200/60 px-5 py-1.5 flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Axe Actif</span>
+</div>
+<div class="flex items-center gap-1.5 text-[11px] font-bold text-[#0B2A5B] tracking-wider uppercase">
+<span>FRANCE</span>
+<span class="text-[#FF6B00] text-xs font-black">⇄</span>
+<span>BÉNIN</span>
+</div>
+</div>
+<!-- END: CorridorRibbon -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 px-4 pt-3 space-y-3.5" data-purpose="search-main-content">
+<!-- Editorial Title Block -->
+<section class="mt-1" data-purpose="editorial-header">
+<h1 class="text-[22px] font-extrabold tracking-tight text-[#0F172A] leading-tight">
+          Trouvez <span class="text-[#FF6B00]">ce qu’il vous faut.</span>
+</h1>
+<p class="text-xs text-[#64748B] mt-0.5 font-medium">
+          Un trajet, un colis, une opportunité garantie.
+        </p>
+</section>
+<!-- Dual Intent Selector Tabs -->
+<section class="grid grid-cols-2 p-1 bg-slate-200/80 rounded-2xl gap-1" data-purpose="intent-toggle">
+<button class="py-2.5 px-3 rounded-xl font-semibold text-xs transition-all flex items-center justify-center gap-1.5 shadow-sm bg-[#0B2A5B] text-white" id="btn-mode-sender">
+<span class="text-sm">📦</span>
+<span>Envoyer un colis</span>
+</button>
+<button class="py-2.5 px-3 rounded-xl font-semibold text-xs transition-all flex items-center justify-center gap-1.5 text-slate-600 hover:text-slate-900" id="btn-mode-traveler">
+<span class="text-sm">✈️</span>
+<span>Voyager avec un colis</span>
+</button>
+</section>
+<!-- Main Search Card Container -->
+<section class="bg-white rounded-[22px] p-4 shadow-sm border border-slate-200/80 relative" data-purpose="main-search-card">
+<!-- Header Mode Indicator inside Card -->
+<div class="flex items-center justify-between mb-3">
+<span class="text-[11px] font-bold uppercase tracking-wider text-slate-400" id="card-mode-title">
+            Où voulez-vous envoyer votre colis ?
+          </span>
+<span class="text-[10px] font-semibold bg-blue-50 text-[#0B2A5B] px-2 py-0.5 rounded-full border border-blue-100" id="mode-pill">
+            Mode Expéditeur
+          </span>
+</div>
+<!-- Inputs Group with Swap Button -->
+<div class="relative space-y-2">
+<!-- Departure Input Box -->
+<div class="bg-slate-50 hover:bg-slate-100/70 border border-slate-200/90 rounded-xl px-3.5 py-2.5 flex items-center justify-between transition-colors">
+<div class="flex items-center gap-2.5">
+<div class="w-7 h-7 rounded-lg bg-blue-100/80 flex items-center justify-center text-[#0B2A5B]">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+<circle cx="12" cy="10" r="3"></circle>
+</svg>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">DÉPART</span>
+<span class="text-sm font-bold text-slate-900 leading-tight" id="departure-text">Cotonou</span>
+</div>
+</div>
+<span class="text-[11px] font-medium bg-white px-2 py-0.5 rounded-md border border-slate-200 text-slate-700 shadow-2xs flex items-center gap-1">
+<span>Bénin</span> <span class="text-xs">🇧🇯</span>
+</span>
+</div>
+<!-- Circular Swap (Permutation) Button -->
+<button aria-label="Intervertir départ et arrivée" class="absolute -right-1 top-[48px] -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white border border-slate-300 shadow-md flex items-center justify-center text-slate-700 active:scale-90 hover:bg-slate-50 transition-all" id="btn-swap-locations">
+<svg class="w-4 h-4 text-[#0B2A5B]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="m7 15 5 5 5-5"></path>
+<path d="m7 9 5-5 5 5"></path>
+</svg>
+</button>
+<!-- Arrival Input Box -->
+<div class="bg-slate-50 hover:bg-slate-100/70 border border-slate-200/90 rounded-xl px-3.5 py-2.5 flex items-center justify-between transition-colors">
+<div class="flex items-center gap-2.5">
+<div class="w-7 h-7 rounded-lg bg-orange-100/80 flex items-center justify-center text-[#FF6B00]">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+<circle cx="12" cy="10" r="3"></circle>
+</svg>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">ARRIVÉE</span>
+<span class="text-sm font-bold text-slate-900 leading-tight" id="arrival-text">France</span>
+</div>
+</div>
+<span class="text-[11px] font-medium bg-white px-2 py-0.5 rounded-md border border-slate-200 text-slate-700 shadow-2xs flex items-center gap-1">
+<span>Paris / Régions</span> <span class="text-xs">🇫🇷</span>
+</span>
+</div>
+</div>
+<!-- Bottom Criteria Grid (Date & Luggage/Package) -->
+<div class="grid grid-cols-2 gap-2 mt-2.5 pt-2.5 border-t border-slate-100">
+<!-- Date Filter Box -->
+<div class="bg-slate-50 rounded-xl p-2.5 border border-slate-200/70 flex items-center gap-2 cursor-pointer hover:bg-slate-100/60">
+<div class="text-slate-400">
+<svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] uppercase font-bold text-slate-400">Période</span>
+<span class="text-xs font-bold text-slate-800">18–24 Sept.</span>
+</div>
+</div>
+<!-- Weight & Type Box -->
+<div class="bg-slate-50 rounded-xl p-2.5 border border-slate-200/70 flex items-center gap-2 cursor-pointer hover:bg-slate-100/60">
+<div class="text-slate-400">
+<svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+<line x1="12" x2="12" y1="22.08" y2="12"></line>
+</svg>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] uppercase font-bold text-slate-400" id="weight-label">Capacité</span>
+<span class="text-xs font-bold text-slate-800" id="weight-value">Max 5 kg • Valise</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Filter Chips Scrollable Bar -->
+<section class="space-y-1.5" data-purpose="filter-chips">
+<div class="flex items-center justify-between text-[11px] font-semibold text-slate-500 px-1">
+<span>Affiner votre recherche</span>
+<span class="text-[#FF6B00] text-[10px] cursor-pointer font-bold">Réinitialiser</span>
+</div>
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+<!-- Chip 1: Active Date -->
+<button class="filter-chip active flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-orange-50 text-[#FF6B00] border border-[#FF6B00]/40 flex items-center gap-1.5 shadow-2xs">
+<span>📅</span>
+<span>18–25 Sept.</span>
+</button>
+<!-- Chip 2: Max Weight -->
+<button class="filter-chip flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-white text-slate-700 border border-slate-200/90 flex items-center gap-1.5 shadow-2xs hover:bg-slate-50">
+<span>⚖️</span>
+<span>≤ 10 kg</span>
+</button>
+<!-- Chip 3: Max Price -->
+<button class="filter-chip flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-white text-slate-700 border border-slate-200/90 flex items-center gap-1.5 shadow-2xs hover:bg-slate-50">
+<span>💰</span>
+<span>≤ 10 €/kg</span>
+</button>
+<!-- Chip 4: Verified Only -->
+<button class="filter-chip flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-[#22A55A] border border-emerald-200 flex items-center gap-1 shadow-2xs">
+<svg class="w-3 h-3 text-[#22A55A]" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill-rule="evenodd"></path>
+</svg>
+<span>Vérifié uniquement</span>
+</button>
+</div>
+</section>
+<!-- Primary Big Action Search Button -->
+<section data-purpose="search-cta">
+<button class="w-full h-13 py-3.5 bg-[#FF6B00] hover:bg-[#e05e00] rounded-2xl text-white font-bold text-sm tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 active:scale-[0.98] transition-all" id="cta-search">
+<svg class="w-4 h-4 text-white stroke-[2.5]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<circle cx="11" cy="11" r="8"></circle>
+<line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+<span id="cta-button-text">Rechercher des voyageurs</span>
+</button>
+</section>
+<!-- BEGIN: MarketplaceResultsFeed -->
+<section class="pt-2 space-y-3" data-purpose="results-feed">
+<!-- Feed Header -->
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<h2 class="font-extrabold text-sm text-[#0F172A]" id="feed-title">
+              12 voyageurs disponibles
+            </h2>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-100 text-emerald-800">
+<span class="w-1 h-1 rounded-full bg-emerald-600 mr-1 animate-ping"></span>
+              En direct
+</span>
+</div>
+<!-- Sort Button -->
+<button class="text-xs font-semibold text-slate-500 hover:text-slate-800 flex items-center gap-1 bg-white border border-slate-200 px-2 py-1 rounded-lg">
+<span>Trier ▾</span>
+</button>
+</div>
+<!-- Result Card 1: Koffi D. (Traveler) -->
+<article class="bg-white rounded-2xl p-3.5 border border-slate-200/80 shadow-xs hover:border-slate-300 transition-all flex flex-col gap-3">
+<div class="flex items-start justify-between">
+<!-- Traveler Avatar & Info -->
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Koffi D." class="w-12 h-12 rounded-xl object-cover border border-slate-200" src="https://lh3.googleusercontent.com/aida/AEtjO1W7J3Kb4QVvtnuumJ1ArQwatVk4TxLXZiDy2Sau3syg6arE3S-2c6D564S14-DC8J9rIhGE4R2b9W7U_WBRosvs4ileoWXJGiE63xFb_MUNERp_w505SxIgBuqKAORezhP5syrB_eNKqtNorATZMfZ8Vfp7v9IOTfX6daI2qMUNcbyNQ4bUX9w3IIL6DN_u7SRZEh1u1rQNtms5QTIA3gPvdxiUf8Rg_RDw6xklQEYvy85ubUa3G-MRNVnp"/>
+<span class="absolute -bottom-1 -right-1 bg-emerald-500 text-white rounded-full p-0.5 border border-white">
+<svg class="w-2.5 h-2.5" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill-rule="evenodd"></path>
+</svg>
+</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<h3 class="font-bold text-sm text-slate-900">Koffi D.</h3>
+<span class="text-[10px] font-medium bg-emerald-50 text-emerald-700 px-1.5 py-0.2 rounded border border-emerald-200">
+                    ✓ Identité vérifiée
+                  </span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 text-xs text-slate-500">
+<span class="text-amber-500 font-bold flex items-center gap-0.5">
+                    ★ 4.9
+                  </span>
+<span>•</span>
+<span>(38 avis)</span>
+</div>
+</div>
+</div>
+<!-- Price & Capacity Badge -->
+<div class="text-right">
+<span class="text-xs font-extrabold text-[#0B2A5B] block">9 € <span class="text-[10px] font-normal text-slate-400">/ kg</span></span>
+<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">8 kg dispo</span>
+</div>
+</div>
+<!-- Trip Detail Specs -->
+<div class="bg-slate-50 rounded-xl p-2.5 flex items-center justify-between text-xs">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-slate-400">Trajet</span>
+<span class="font-bold text-slate-800">Cotonou (COO) → Paris (CDG)</span>
+</div>
+<div class="text-right flex flex-col">
+<span class="text-[10px] uppercase font-bold text-slate-400">Départ</span>
+<span class="font-semibold text-slate-700">18 sept. 2025</span>
+</div>
+</div>
+<!-- Card Bottom Action -->
+<div class="flex items-center justify-between pt-0.5">
+<span class="text-[11px] font-medium text-slate-500 flex items-center gap-1">
+<span class="text-slate-400">🛄</span> Enregistré Air France direct
+            </span>
+<button class="bg-[#0B2A5B] hover:bg-[#1D1D4B] text-white text-xs font-semibold px-4 py-2 rounded-xl active:scale-95 transition-all">
+              Voir l'annonce →
+            </button>
+</div>
+</article>
+<!-- Result Card 2: Amina S. (Traveler) -->
+<article class="bg-white rounded-2xl p-3.5 border border-slate-200/80 shadow-xs hover:border-slate-300 transition-all flex flex-col gap-3">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Amina S." class="w-12 h-12 rounded-xl object-cover border border-slate-200" src="https://lh3.googleusercontent.com/aida/AEtjO1U1zV-f-yAeRnKn6Wz_tngEZ0Ev_BDUQ2oE6GmkjpCGnEkAlteDG7Ekz7QF6PcI3p9BHAspL0jBRR9ER0pYG1WlQS5SnR6RpBurhyAnEJqEjAbGvZdirOkzVhYD44X0_yrupgy-ixRvWu0TLK1rz2nJru5EsXnl_Q5nAysRNNmq_C98Husi-kaukaiTWFDgqso8MrftNtTWRt0-uLFrg2vImi2wGjj1xUtUn3q0RHUve4zDqsZR1jOFpFE"/>
+<span class="absolute -bottom-1 -right-1 bg-emerald-500 text-white rounded-full p-0.5 border border-white">
+<svg class="w-2.5 h-2.5" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill-rule="evenodd"></path>
+</svg>
+</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<h3 class="font-bold text-sm text-slate-900">Amina S.</h3>
+<span class="text-[10px] font-medium bg-emerald-50 text-emerald-700 px-1.5 py-0.2 rounded border border-emerald-200">
+                    ✓ Vérifié
+                  </span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 text-xs text-slate-500">
+<span class="text-amber-500 font-bold flex items-center gap-0.5">
+                    ★ 5.0
+                  </span>
+<span>•</span>
+<span>(24 avis)</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="text-xs font-extrabold text-[#0B2A5B] block">10 € <span class="text-[10px] font-normal text-slate-400">/ kg</span></span>
+<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">6 kg dispo</span>
+</div>
+</div>
+<div class="bg-slate-50 rounded-xl p-2.5 flex items-center justify-between text-xs">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-slate-400">Trajet</span>
+<span class="font-bold text-slate-800">Cotonou → Lyon / Paris</span>
+</div>
+<div class="text-right flex flex-col">
+<span class="text-[10px] uppercase font-bold text-slate-400">Départ</span>
+<span class="font-semibold text-slate-700">21 sept. 2025</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-0.5">
+<span class="text-[11px] font-medium text-slate-500 flex items-center gap-1">
+<span class="text-slate-400">⚡</span> Réponse rapide (&lt; 15 min)
+            </span>
+<button class="bg-[#0B2A5B] hover:bg-[#1D1D4B] text-white text-xs font-semibold px-4 py-2 rounded-xl active:scale-95 transition-all">
+              Voir l'annonce →
+            </button>
+</div>
+</article>
+<!-- Result Card 3: Example Verified Parcel -->
+<article class="bg-white rounded-2xl p-3.5 border border-slate-200/80 shadow-xs flex flex-col gap-3">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<img alt="Colis scellé" class="w-12 h-12 rounded-xl object-cover border border-slate-200" src="https://lh3.googleusercontent.com/aida/AEtjO1W-JTwzs9zrkvrzD20_tcZh4XbHvH22pHO9hOxqooEhCv28tnV7WBlw8O2kCXyaY5tgRAYi9I5KPFTK75E_8TGsHnwLmoOmj0HaGVhJGyCvajt2xKviFzD-_txyP2JgWRRxxpfBXz8rjq7g1j-QhTcD6OzTc9GjMBxmP05WZhoKPiiM86GGqeBQMLMBYvQ8eVeUBnOTYhd9ke1brkr0G_ESacTRzGvrOaBpfKSv4-xqMKJr0u1heqoJZvSq"/>
+<div class="flex flex-col">
+<span class="text-[10px] font-bold uppercase tracking-wider text-[#FF6B00]">Colis en attente</span>
+<h3 class="font-bold text-xs text-slate-900">Petit boîtier électronique scellé</h3>
+<span class="text-[11px] text-slate-500">Poids net : 3.5 kg • Document inclus</span>
+</div>
+</div>
+<div class="text-right">
+<span class="text-xs font-extrabold text-[#22A55A] block">12 € / kg</span>
+<span class="text-[10px] text-slate-500">Rémunération : ~42 €</span>
+</div>
+</div>
+<div class="flex items-center justify-between bg-slate-50 rounded-xl px-3 py-2 text-xs">
+<span class="font-semibold text-slate-700">Cotonou → Paris Région</span>
+<button class="border border-[#0B2A5B] text-[#0B2A5B] font-semibold text-xs px-3 py-1 rounded-lg hover:bg-blue-50">
+              Voir le colis
+            </button>
+</div>
+</article>
+</section>
+<!-- END: MarketplaceResultsFeed -->
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: BottomNavigation (Fixed iOS Tabbar) -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] bg-white/95 backdrop-blur-lg border-t border-slate-200/80 px-4 pt-2 pb-5 z-40" data-purpose="bottom-tabbar">
+<div class="flex items-center justify-around relative">
+<!-- Tab 1: Accueil -->
+<button class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 transition-colors">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+<span class="text-[10px] font-semibold">Accueil</span>
+</button>
+<!-- Tab 2: Recherche (Active Tab) -->
+<button class="flex flex-col items-center gap-1 text-[#0B2A5B] relative font-bold">
+<svg class="w-5 h-5 stroke-[2.5]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<circle cx="11" cy="11" r="8"></circle>
+<line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+<span class="text-[10px]">Recherche</span>
+<!-- Orange dot indicator for active tab -->
+<span class="w-1.5 h-1.5 bg-[#FF6B00] rounded-full mt-0.5"></span>
+</button>
+<!-- Tab 3: Publish Button (Center Floating Orange Circle) -->
+<div class="relative -top-4 flex flex-col items-center">
+<button class="w-13 h-13 w-12 h-12 rounded-full bg-[#FF6B00] text-white flex items-center justify-center shadow-lg shadow-orange-500/30 hover:bg-[#e05e00] active:scale-95 transition-all">
+<svg class="w-6 h-6 stroke-[3]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<line x1="12" x2="12" y1="5" y2="19"></line>
+<line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+</button>
+<span class="text-[10px] font-bold text-slate-700 mt-1">Publier</span>
+</div>
+<!-- Tab 4: Messages -->
+<button class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 relative transition-colors">
+<div class="relative">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+</svg>
+<span class="absolute -top-1 -right-2 bg-[#FF6B00] text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center border border-white">
+              2
+            </span>
+</div>
+<span class="text-[10px] font-semibold">Messages</span>
+</button>
+<!-- Tab 5: Profil -->
+<button class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 transition-colors">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+<circle cx="12" cy="7" r="4"></circle>
+</svg>
+<span class="text-[10px] font-semibold">Profil</span>
+</button>
+</div>
+<!-- iOS Home Indicator Pill -->
+<div class="w-32 h-1 bg-slate-900/40 rounded-full mx-auto mt-3"></div>
+</nav>
+<!-- END: BottomNavigation -->
+</div>
+<!-- END: MobileDeviceContainer -->
+<!-- BEGIN: InteractiveScripts -->
+<script data-purpose="search-interaction">
+    document.addEventListener('DOMContentLoaded', () => {
+      // Toggle elements
+      const btnSender = document.getElementById('btn-mode-sender');
+      const btnTraveler = document.getElementById('btn-mode-traveler');
+      const cardTitle = document.getElementById('card-mode-title');
+      const modePill = document.getElementById('mode-pill');
+      const ctaButtonText = document.getElementById('cta-button-text');
+      const feedTitle = document.getElementById('feed-title');
+      const weightLabel = document.getElementById('weight-label');
+      const weightValue = document.getElementById('weight-value');
+
+      // Swap button elements
+      const btnSwap = document.getElementById('btn-swap-locations');
+      const depText = document.getElementById('departure-text');
+      const arrText = document.getElementById('arrival-text');
+
+      // Filter chips
+      const chips = document.querySelectorAll('.filter-chip');
+
+      // 1. Dual Mode Switcher
+      btnSender.addEventListener('click', () => {
+        btnSender.className = 'py-2.5 px-3 rounded-xl font-semibold text-xs transition-all flex items-center justify-center gap-1.5 shadow-sm bg-[#0B2A5B] text-white';
+        btnTraveler.className = 'py-2.5 px-3 rounded-xl font-semibold text-xs transition-all flex items-center justify-center gap-1.5 text-slate-600 hover:text-slate-900';
+        
+        cardTitle.textContent = "Où voulez-vous envoyer votre colis ?";
+        modePill.textContent = "Mode Expéditeur";
+        ctaButtonText.textContent = "Rechercher des voyageurs";
+        feedTitle.textContent = "12 voyageurs disponibles";
+        weightLabel.textContent = "Capacité";
+        weightValue.textContent = "Max 5 kg • Valise";
+      });
+
+      btnTraveler.addEventListener('click', () => {
+        btnTraveler.className = 'py-2.5 px-3 rounded-xl font-semibold text-xs transition-all flex items-center justify-center gap-1.5 shadow-sm bg-[#0B2A5B] text-white';
+        btnSender.className = 'py-2.5 px-3 rounded-xl font-semibold text-xs transition-all flex items-center justify-center gap-1.5 text-slate-600 hover:text-slate-900';
+        
+        cardTitle.textContent = "Trouvez des colis à transporter";
+        modePill.textContent = "Mode Voyageur";
+        ctaButtonText.textContent = "Rechercher des colis";
+        feedTitle.textContent = "28 colis en attente";
+        weightLabel.textContent = "Espace disponible";
+        weightValue.textContent = "10 kg disponibles";
+      });
+
+      // 2. Permutation of Departure & Arrival
+      btnSwap.addEventListener('click', () => {
+        const currentDep = depText.textContent;
+        depText.textContent = arrText.textContent;
+        arrText.textContent = currentDep;
+
+        // Visual feedback micro-animation
+        btnSwap.classList.add('rotate-180');
+        setTimeout(() => {
+          btnSwap.classList.remove('rotate-180');
+        }, 200);
+      });
+
+      // 3. Chip Active Toggle
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          if (!chip.classList.contains('active')) {
+            chip.classList.toggle('ring-2');
+            chip.classList.toggle('ring-orange-300');
+          }
+        });
+      });
+    });
+  </script>
+<!-- END: InteractiveScripts -->
+</body></html>

@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html class="h-full bg-[#F8FAFC]" lang="fr">
+<head>
+<meta charset="utf-8">
+<!-- CORRECTION MOBILE : zoom et pincement réautorisés (maximum-scale / user-scalable retirés) + viewport-fit=cover pour les encoches -->
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
+<meta content="theme-color" name="theme-color" value="#FFFFFF">
+<title>Zecolis - Accueil</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'zecolis-navy-deep': '#1D1D4B',
+          'zecolis-navy': '#0B2A5B',
+          'zecolis-orange': '#FF6B00',
+          'zecolis-orange-light': '#FFF7ED',
+          'zecolis-green': '#22A55A',
+          'zecolis-surface': '#F8FAFC'
+        },
+        fontFamily: {
+          sans: ['Inter', 'system-ui', 'sans-serif']
+        },
+        boxShadow: {
+          'dock': '0 10px 25px -5px rgba(11, 42, 91, 0.12), 0 8px 10px -6px rgba(11, 42, 91, 0.08)'
+        }
+      }
+    }
+  }
+</script>
+<!-- CORRECTION MOBILE : la police déclarée est enfin chargée (§ 4.4) -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  /* ==== CORRECTIONS MOBILE TRANSVERSES ==== */
+  :root {
+    --sat: env(safe-area-inset-top, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+  }
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    touch-action: manipulation;
+    /* CORRECTION : on ne neutralise plus le pull-to-refresh, on borne seulement le rebond */
+    overscroll-behavior-y: auto;
+  }
+  .app-shell {
+    min-height: 100vh;
+    min-height: 100dvh; /* CORRECTION : 100dvh au lieu de min-h-screen */
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* CORRECTION : les carrousels deviennent scrollables au clavier et annoncés comme tels */
+  .carousel {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .carousel > * {
+    scroll-snap-align: start;
+  }
+  /* CORRECTION : toute cible interactive fait au moins 44 x 44 px */
+  .tap {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  .tap-sm {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+  /* CORRECTION : focus visible au clavier (navigation sans souris) */
+  :focus-visible {
+    outline: 2px solid #FF6B00;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  .no-scrollbar:focus-visible {
+    outline-offset: -2px;
+  }
+  /* CORRECTION : aucun texte sous 11 px */
+  .badge-xs {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+  /* CORRECTION : les animations permanentes sont désactivées si l'utilisateur le demande */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  /* CORRECTION : très petits écrans (iPhone SE et moins) */
+  @media (max-width: 360px) {
+    .u-tight {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+  }
+</style>
+</head>
+<body class="min-h-full bg-[#F8FAFC] text-[#0F172A] antialiased selection:bg-[#FF6B00]/20 selection:text-[#FF6B00]">
+<div class="app-shell relative w-full max-w-[430px] mx-auto bg-[#F8FAFC] flex flex-col">
+  <!-- CORRECTION : les 4 zones de sécurité sont gérées par variables CSS, plus d'espaceur factice (h-2 / h-4) -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 px-4 pt-[calc(0.75rem+var(--sat))] pb-2 transition-all" style="padding-left:calc(1rem + var(--sal));padding-right:calc(1rem + var(--sar))">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <img alt="Logo Zecolis" class="h-8 w-auto flex-none object-contain" src="img/logo.png">
+        <div class="flex flex-col min-w-0">
+          <span class="badge-xs font-bold tracking-widest text-[#FF6B00] uppercase leading-none">Corridor France ↔ Bénin</span>
+          <span class="text-xs font-semibold text-[#0B2A5B] truncate">Trajets directs</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-1 flex-none">
+        <!-- CORRECTION : cible 44 x 44 px au lieu de 36 x 36 px -->
+        <button aria-label="Notifications (2 non lues)" class="tap rounded-full bg-slate-100 flex items-center justify-center text-slate-700 active:scale-95 transition-transform" type="button" data-not-implemented="Notifications">
+          <i class="w-5 h-5" data-lucide="bell"></i>
+          <span class="absolute mt-[-18px] ml-[14px] w-2.5 h-2.5 bg-[#FF6B00] rounded-full ring-2 ring-white"></span>
+        </button>
+        <!-- CORRECTION : avatar cliquable de 44 px minimum -->
+        <button aria-label="Ouvrir mon profil" class="tap rounded-full flex items-center justify-center active:scale-95 transition-transform" type="button" data-not-implemented="Profil">
+          <span class="relative block w-9 h-9">
+            <img alt="" class="w-9 h-9 rounded-full object-cover ring-2 ring-white shadow-sm" src="img/avatar-profil-accueil.jpg">
+            <span class="absolute -bottom-0.5 -right-0.5 bg-[#22A55A] text-white p-1 rounded-full ring-1 ring-white">
+              <i class="w-2.5 h-2.5" data-lucide="check"></i>
+            </span>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div class="mt-2 flex items-center justify-between gap-2 text-xs">
+      <span class="font-semibold text-slate-900 text-sm truncate">Bonjour, Riham</span>
+      <span class="badge-xs font-medium text-slate-600 flex items-center flex-none">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#22A55A] mr-1.5 animate-pulse"></span>
+        Réseau actif
+      </span>
+    </div>
+  </header>
+
+  <!-- CORRECTION : padding bas calculé pour ne jamais masquer le dernier contenu sous le dock -->
+  <main class="flex-1 w-full flex flex-col u-tight pb-[calc(9rem+var(--sab))]">
+    <section class="mt-3" aria-labelledby="hero-title">
+      <div class="relative rounded-3xl overflow-hidden shadow-sm h-[220px] sm:h-[260px] bg-slate-900">
+        <!-- CORRECTION : alt neutre, l'image est une illustration et non une photo réelle du produit -->
+        <img alt="Illustration : un voyageur et une expéditrice échangent un colis" class="w-full h-full object-cover object-center" src="img/hero-accueil.jpg">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0B2A5B]/95 via-[#0B2A5B]/40 to-transparent"></div>
+        <div class="absolute inset-0 p-4 flex flex-col justify-between">
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="inline-flex items-center px-2 py-1 rounded-full badge-xs font-extrabold uppercase tracking-wider bg-[#FF6B00] text-white">France ↔ Bénin</span>
+            <span class="inline-flex items-center px-2 py-1 rounded-full badge-xs font-medium bg-black/50 text-white">Trajets réguliers</span>
+          </div>
+          <div class="mb-1">
+            <h1 class="text-2xl font-bold text-white leading-tight tracking-tight" id="hero-title">
+              Votre colis peut déjà <span class="text-[#FF6B00]">voyager.</span>
+            </h1>
+            <p class="text-xs text-slate-100 mt-1">Trouvez quelqu'un qui part déjà.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORRECTION : champs de saisie réels (16 px pour éviter l'auto-zoom iOS) au lieu de <span> -->
+    <section class="relative z-20 -mt-6" aria-labelledby="search-title">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4">
+        <h2 class="sr-only" id="search-title">Rechercher un trajet</h2>
+        <form class="space-y-2" id="searchForm" novalidate>
+          <div class="relative flex flex-col">
+            <label class="sr-only" for="departInput">Ville de départ</label>
+            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3 min-h-[52px] focus-within:border-[#0B2A5B]">
+              <i class="w-4 h-4 flex-none text-[#FF6B00]" data-lucide="map-pin"></i>
+              <input class="ml-2 flex-1 min-w-0 bg-transparent border-0 p-0 text-base font-medium text-[#0B2A5B] placeholder-slate-400 focus:ring-0 focus:outline-none" id="departInput" name="depart" placeholder="Départ (ex. Cotonou)" autocomplete="address-level2" type="text">
+            </div>
+            <!-- CORRECTION : bouton d'inversion 44 px, réellement fonctionnel -->
+            <button aria-label="Inverser le trajet" class="tap absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-[#0B2A5B] active:rotate-180 transition-transform duration-300" id="swapBtn" type="button">
+              <i class="w-4 h-4" data-lucide="arrow-up-down"></i>
+            </button>
+          </div>
+          <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3 min-h-[52px] focus-within:border-[#0B2A5B]">
+            <i class="w-4 h-4 flex-none text-[#22A55A]" data-lucide="navigation-2"></i>
+            <label class="sr-only" for="arriveeInput">Ville d'arrivée</label>
+            <input class="ml-2 flex-1 min-w-0 bg-transparent border-0 p-0 text-base font-medium text-[#0B2A5B] placeholder-slate-400 focus:ring-0 focus:outline-none" id="arriveeInput" name="arrivee" placeholder="Arrivée (ex. Paris)" autocomplete="address-level2" type="text">
+          </div>
+          <!-- CORRECTION : bouton 52 px + état de chargement + message d'erreur accessible -->
+          <button class="tap-sm w-full mt-1 bg-[#FF6B00] active:bg-[#e05e00] text-white py-3.5 px-4 rounded-xl font-semibold text-base flex items-center justify-center gap-2 transition-colors" id="searchBtn" type="submit">
+            <i class="w-4 h-4" data-lucide="search"></i>
+            <span id="searchBtnText">Rechercher</span>
+          </button>
+          <p aria-live="polite" class="hidden text-xs text-slate-600 pt-1" id="searchFeedback"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="mt-5" aria-labelledby="intent-title">
+      <h2 class="font-bold text-base text-slate-900 mb-3" id="intent-title">Que voulez-vous faire ?</h2>
+      <div class="grid grid-cols-2 gap-3">
+        <!-- CORRECTION : l'écran « Publier un colis » a été reçu, la carte devient un lien réel -->
+        <a class="tap relative text-left rounded-2xl overflow-hidden p-3.5 min-h-[148px] flex flex-col justify-between active:scale-[0.98] transition-transform shadow-sm border border-slate-100" href="publier_colis_mobile.html">
+          <span class="absolute inset-0 bg-gradient-to-t from-[#0B2A5B]/90 via-[#0B2A5B]/40 to-transparent"></span>
+          <span class="relative z-10">
+            <span class="inline-flex items-center px-2 py-1 rounded-full badge-xs font-extrabold uppercase tracking-wider bg-[#FF6B00] text-white mb-1.5">Expédition</span>
+            <span class="block font-bold text-base text-white leading-tight">Envoyer un colis</span>
+            <span class="block text-xs text-white/90 font-medium mt-1 leading-snug">Je cherche un voyageur</span>
+          </span>
+          <span class="relative z-10 inline-flex items-center gap-1 self-start text-xs font-bold text-[#0B2A5B] bg-white px-3 min-h-[36px] rounded-full shadow-sm">
+            Continuer <i class="w-3.5 h-3.5" data-lucide="arrow-right"></i>
+          </span>
+        </a>
+        <!-- CORRECTION : l'écran « Publier un voyage » a été reçu, la carte devient un lien réel -->
+        <a class="tap relative text-left rounded-2xl overflow-hidden p-3.5 min-h-[148px] flex flex-col justify-between active:scale-[0.98] transition-transform shadow-sm border border-slate-100" href="publier_voyage_mobile.html">
+          <span class="absolute inset-0 bg-gradient-to-t from-[#0B2A5B]/90 via-[#0B2A5B]/40 to-transparent"></span>
+          <span class="relative z-10">
+            <span class="inline-flex items-center px-2 py-1 rounded-full badge-xs font-extrabold uppercase tracking-wider bg-white/40 text-white mb-1.5">Voyageur</span>
+            <span class="block font-bold text-base text-white leading-tight">Voyager avec un colis</span>
+            <span class="block text-xs text-white/90 font-medium mt-1 leading-snug">Je propose de l'espace valise</span>
+          </span>
+          <span class="relative z-10 inline-flex items-center gap-1 self-start text-xs font-bold text-[#0B2A5B] bg-white px-3 min-h-[36px] rounded-full shadow-sm">
+            Publier <i class="w-3.5 h-3.5" data-lucide="arrow-right"></i>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <section class="mt-4" aria-labelledby="status-title">
+      <h2 class="sr-only" id="status-title">Activité en cours</h2>
+      <div class="bg-white rounded-xl p-3 border border-slate-200/80 shadow-sm flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <span class="w-2.5 h-2.5 flex-none rounded-full bg-[#22A55A] animate-pulse"></span>
+          <div class="min-w-0">
+            <p class="text-xs font-bold text-slate-900 truncate">1 envoi en cours <span class="text-slate-500 font-normal">#COL-7852</span></p>
+            <p class="badge-xs text-slate-600">2 colis • 1 voyage réservé</p>
+          </div>
+        </div>
+        <!-- CORRECTION : cible 44 px -->
+        <button class="tap-sm flex-none px-2 text-xs font-bold text-[#FF6B00]" data-not-implemented="Suivi de colis" type="button">
+          Suivi <i class="w-3.5 h-3.5 inline align-[-2px]" data-lucide="chevron-right"></i>
+        </button>
+      </div>
+    </section>
+
+    <section class="mt-5" aria-labelledby="travel-title">
+      <div class="flex items-center justify-between gap-2 mb-2.5">
+        <div class="min-w-0">
+          <h2 class="font-bold text-base text-slate-900 leading-tight truncate" id="travel-title">Voyageurs disponibles</h2>
+          <p class="badge-xs text-slate-600">Trajets à venir</p>
+        </div>
+        <button class="tap-sm flex-none px-2 text-xs font-bold text-[#FF6B00]" data-not-implemented="Place de marché" type="button">Tout voir</button>
+      </div>
+      <!-- CORRECTION : carrousel focalisable au clavier, scroll-snap explicite, contenu étendu annoncé -->
+      <div aria-label="Voyageurs disponibles, défilement horizontal" class="carousel flex gap-3.5 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4" role="group" tabindex="0">
+        <article class="w-[272px] flex-none snap-start bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="badge-xs px-2 py-1 rounded-md font-extrabold uppercase bg-slate-100 text-slate-700">Voyage confirmé</span>
+              <span class="badge-xs flex items-center text-slate-600"><i class="w-3 h-3 mr-1" data-lucide="calendar"></i>14 mai 2025</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 pb-3 border-b border-slate-100">
+              <div class="min-w-0">
+                <p class="badge-xs font-bold text-slate-500 uppercase tracking-wider">Trajet direct</p>
+                <p class="text-sm font-extrabold text-[#0B2A5B] truncate">Cotonou → Paris</p>
+              </div>
+              <div class="flex-none text-right">
+                <p class="badge-xs font-bold text-slate-700">9 kg</p>
+                <p class="text-sm font-extrabold text-slate-900">9 € / kg</p>
+              </div>
+            </div>
+            <div class="mt-3 flex items-center gap-2.5">
+              <img alt="" class="w-9 h-9 flex-none rounded-full object-cover border border-slate-100" src="img/avatar-accueil-1.jpg">
+              <div class="min-w-0">
+                <p class="text-xs font-bold text-slate-900 truncate">KPO Ivy</p>
+                <p class="badge-xs text-slate-600">★ 4,9 (34 avis)</p>
+              </div>
+            </div>
+          </div>
+          <button class="tap-sm w-full mt-3 bg-[#0B2A5B] active:bg-[#071c3d] text-white rounded-xl font-medium text-sm flex items-center justify-center gap-1.5" data-not-implemented="Détail du voyage" type="button">
+            Voir le voyage <i class="w-4 h-4" data-lucide="arrow-right"></i>
+          </button>
+        </article>
+        <article class="w-[272px] flex-none snap-start bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="badge-xs px-2 py-1 rounded-md font-extrabold uppercase bg-slate-100 text-slate-700">Voyage confirmé</span>
+              <span class="badge-xs flex items-center text-slate-600"><i class="w-3 h-3 mr-1" data-lucide="calendar"></i>18 mai 2025</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 pb-3 border-b border-slate-100">
+              <div class="min-w-0">
+                <p class="badge-xs font-bold text-slate-500 uppercase tracking-wider">Trajet direct</p>
+                <p class="text-sm font-extrabold text-[#0B2A5B] truncate">Paris → Cotonou</p>
+              </div>
+              <div class="flex-none text-right">
+                <p class="badge-xs font-bold text-slate-700">14 kg</p>
+                <p class="text-sm font-extrabold text-slate-900">10 € / kg</p>
+              </div>
+            </div>
+            <div class="mt-3 flex items-center gap-2.5">
+              <img alt="" class="w-9 h-9 flex-none rounded-full object-cover border border-slate-100" src="img/avatar-accueil-2.jpg">
+              <div class="min-w-0">
+                <p class="text-xs font-bold text-slate-900 truncate">Koffi D.</p>
+                <p class="badge-xs text-slate-600">★ 5,0 (18 avis)</p>
+              </div>
+            </div>
+          </div>
+          <button class="tap-sm w-full mt-3 bg-[#0B2A5B] active:bg-[#071c3d] text-white rounded-xl font-medium text-sm flex items-center justify-center gap-1.5" data-not-implemented="Détail du voyage" type="button">
+            Voir le voyage <i class="w-4 h-4" data-lucide="arrow-right"></i>
+          </button>
+        </article>
+        <article class="w-[272px] flex-none snap-start bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="badge-xs px-2 py-1 rounded-md font-extrabold uppercase bg-slate-100 text-slate-700">Voyage confirmé</span>
+              <span class="badge-xs flex items-center text-slate-600"><i class="w-3 h-3 mr-1" data-lucide="calendar"></i>22 mai 2025</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 pb-3 border-b border-slate-100">
+              <div class="min-w-0">
+                <p class="badge-xs font-bold text-slate-500 uppercase tracking-wider">Trajet direct</p>
+                <p class="text-sm font-extrabold text-[#0B2A5B] truncate">Cotonou → Lyon</p>
+              </div>
+              <div class="flex-none text-right">
+                <p class="badge-xs font-bold text-slate-700">6 kg</p>
+                <p class="text-sm font-extrabold text-slate-900">8 € / kg</p>
+              </div>
+            </div>
+            <div class="mt-3 flex items-center gap-2.5">
+              <img alt="" class="w-9 h-9 flex-none rounded-full object-cover border border-slate-100" src="img/avatar-accueil-3.jpg">
+              <div class="min-w-0">
+                <p class="text-xs font-bold text-slate-900 truncate">Amina S.</p>
+                <p class="badge-xs text-slate-600">★ 4,9 (42 avis)</p>
+              </div>
+            </div>
+          </div>
+          <button class="tap-sm w-full mt-3 bg-[#0B2A5B] active:bg-[#071c3d] text-white rounded-xl font-medium text-sm flex items-center justify-center gap-1.5" data-not-implemented="Détail du voyage" type="button">
+            Voir le voyage <i class="w-4 h-4" data-lucide="arrow-right"></i>
+          </button>
+        </article>
+      </div>
+    </section>
+
+    <section class="mt-5" aria-labelledby="parcel-title">
+      <div class="mb-2.5">
+        <h2 class="font-bold text-base text-slate-900 leading-tight" id="parcel-title">Colis à transporter</h2>
+        <p class="badge-xs text-slate-600">Prêts à être pris en charge</p>
+      </div>
+      <div aria-label="Colis à transporter, défilement horizontal" class="carousel flex gap-3.5 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4" role="group" tabindex="0">
+        <article class="w-[264px] flex-none snap-start bg-white rounded-2xl p-3.5 shadow-sm border border-slate-100 flex flex-col justify-between">
+          <div>
+            <div class="mb-3">
+              <span class="badge-xs px-2 py-1 rounded-md font-bold bg-slate-100 text-slate-700">Objets</span>
+            </div>
+            <div class="flex items-start justify-between gap-2">
+              <div class="min-w-0">
+                <p class="text-sm font-bold text-slate-900">Carton compact scellé</p>
+                <p class="badge-xs text-slate-600 truncate">Cotonou → Paris</p>
+              </div>
+              <div class="flex-none text-right">
+                <p class="badge-xs font-bold text-slate-700">5 kg</p>
+                <p class="text-sm font-extrabold text-slate-900">12 € / kg</p>
+              </div>
+            </div>
+          </div>
+          <button class="tap-sm w-full mt-3 border border-[#FF6B00] text-[#FF6B00] active:bg-[#FF6B00]/5 rounded-xl font-semibold text-sm flex items-center justify-center gap-1.5" data-not-implemented="Détail du colis" type="button">
+            Voir le colis <i class="w-4 h-4" data-lucide="external-link"></i>
+          </button>
+        </article>
+        <article class="w-[264px] flex-none snap-start bg-white rounded-2xl p-3.5 shadow-sm border border-slate-100 flex flex-col justify-between">
+          <div>
+            <div class="mb-3">
+              <span class="badge-xs px-2 py-1 rounded-md font-bold bg-slate-100 text-slate-700">Objets</span>
+            </div>
+            <div class="flex items-start justify-between gap-2">
+              <div class="min-w-0">
+                <p class="text-sm font-bold text-slate-900">Appareil photo &amp; accessoires</p>
+                <p class="badge-xs text-slate-600 truncate">Paris → Cotonou</p>
+              </div>
+              <div class="flex-none text-right">
+                <p class="badge-xs font-bold text-slate-700">3,2 kg</p>
+                <p class="text-sm font-extrabold text-slate-900">15 € / kg</p>
+              </div>
+            </div>
+          </div>
+          <button class="tap-sm w-full mt-3 border border-[#FF6B00] text-[#FF6B00] active:bg-[#FF6B00]/5 rounded-xl font-semibold text-sm flex items-center justify-center gap-1.5" data-not-implemented="Détail du colis" type="button">
+            Voir le colis <i class="w-4 h-4" data-lucide="external-link"></i>
+          </button>
+        </article>
+        <article class="w-[264px] flex-none snap-start bg-white rounded-2xl p-3.5 shadow-sm border border-slate-100 flex flex-col justify-between">
+          <div>
+            <div class="mb-3">
+              <span class="badge-xs px-2 py-1 rounded-md font-bold bg-slate-100 text-slate-700">Documents</span>
+            </div>
+            <div class="flex items-start justify-between gap-2">
+              <div class="min-w-0">
+                <p class="text-sm font-bold text-slate-900">Pli scellé</p>
+                <p class="badge-xs text-slate-600 truncate">Cotonou → Toulouse</p>
+              </div>
+              <div class="flex-none text-right">
+                <p class="badge-xs font-bold text-slate-700">1,2 kg</p>
+                <p class="text-sm font-extrabold text-slate-900">20 € <span class="badge-xs font-normal text-slate-500">forfait</span></p>
+              </div>
+            </div>
+          </div>
+          <button class="tap-sm w-full mt-3 border border-[#FF6B00] text-[#FF6B00] active:bg-[#FF6B00]/5 rounded-xl font-semibold text-sm flex items-center justify-center gap-1.5" data-not-implemented="Détail du colis" type="button">
+            Voir le colis <i class="w-4 h-4" data-lucide="external-link"></i>
+          </button>
+        </article>
+      </div>
+    </section>
+
+    <!-- CORRECTION : les 6 pastilles d'affirmation non prouvées sont retirées ; les 3 cartes deviennent des <button> de 44 px -->
+    <section class="mt-5" aria-labelledby="trust-title">
+      <div class="flex items-center justify-between gap-2 mb-2.5">
+        <h2 class="font-bold text-sm uppercase tracking-wider text-[#0B2A5B]" id="trust-title">Engagements</h2>
+        <span class="badge-xs text-slate-500">Faites glisser</span>
+      </div>
+      <div aria-label="Engagements de la plateforme, défilement horizontal" class="carousel flex gap-3 overflow-x-auto no-scrollbar py-1 -mx-4 px-4" role="group" tabindex="0">
+        <div class="min-w-[280px] max-w-[280px] flex-none snap-center rounded-2xl p-4 border border-slate-200 bg-white flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1.5 text-[#0B2A5B] font-bold text-sm uppercase tracking-wider mb-1.5">
+              <i class="w-4 h-4 flex-none text-[#22A55A]" data-lucide="shield-check"></i>
+              <span class="truncate">Garantie</span>
+            </div>
+            <p class="text-sm font-bold text-slate-900 leading-snug">En cas de litige, un accompagnement est prévu.</p>
+            <p class="badge-xs text-slate-600 mt-1">Conditions à valider avec le donneur d'ordre.</p>
+          </div>
+          <button class="tap-sm self-start mt-3 px-2 text-xs font-bold text-[#0B2A5B]" data-not-implemented="Conditions de la garantie" type="button">En savoir plus</button>
+        </div>
+        <div class="min-w-[280px] max-w-[280px] flex-none snap-center rounded-2xl p-4 border border-slate-200 bg-white flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1.5 text-[#0B2A5B] font-bold text-sm uppercase tracking-wider mb-1.5">
+              <i class="w-4 h-4 flex-none text-[#0B2A5B]" data-lucide="lock"></i>
+              <span class="truncate">Paiement</span>
+            </div>
+            <p class="text-sm font-bold text-slate-900 leading-snug">Le paiement sera sécurisé à la remise.</p>
+            <p class="badge-xs text-slate-600 mt-1">Aucune séquestre ni code OTP n'est implémenté à ce stade.</p>
+          </div>
+          <button class="tap-sm self-start mt-3 px-2 text-xs font-bold text-[#FF6B00]" data-not-implemented="Protection des paiements" type="button">En savoir plus</button>
+        </div>
+        <div class="min-w-[280px] max-w-[280px] flex-none snap-center rounded-2xl p-4 border border-slate-200 bg-white flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1.5 text-[#0B2A5B] font-bold text-sm uppercase tracking-wider mb-1.5">
+              <i class="w-4 h-4 flex-none text-[#0B2A5B]" data-lucide="badge-check"></i>
+              <span class="truncate">Douane</span>
+            </div>
+            <p class="text-sm font-bold text-slate-900 leading-snug">Un guide des règles de bagages sera mis à disposition.</p>
+            <p class="badge-xs text-slate-600 mt-1">Document non encore fourni.</p>
+          </div>
+          <button class="tap-sm self-start mt-3 px-2 text-xs font-bold text-[#0B2A5B]" data-not-implemented="Guide douane" type="button">En savoir plus</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-4 mb-2" aria-labelledby="profile-title">
+      <div class="bg-white rounded-xl p-3 border border-slate-100 flex items-center justify-between gap-2">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <h2 class="text-xs font-semibold text-slate-700 truncate" id="profile-title">Profil complété à 70%</h2>
+            <span class="badge-xs font-bold text-[#FF6B00] flex-none">Étape 2/3</span>
+          </div>
+          <!-- CORRECTION : barre de progression annoncée aux lecteurs d'écran -->
+          <div aria-label="Profil complété à 70 %, étape 2 sur 3" aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden" role="progressbar">
+            <div class="bg-[#FF6B00] h-1.5 rounded-full w-[70%]"></div>
+          </div>
+        </div>
+        <button class="tap-sm flex-none px-3 text-xs font-bold text-[#0B2A5B] bg-slate-100 rounded-lg" data-not-implemented="Compléter le profil" type="button">Compléter</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- CORRECTION : FAB remonté au-dessus du dock + de la zone de geste iOS -->
+  <div class="fixed z-40 flex flex-col items-end pointer-events-auto" style="bottom:calc(6.25rem + var(--sab));right:calc(0.875rem + var(--sar))">
+    <button aria-haspopup="dialog" class="tap-sm flex items-center gap-2.5 bg-[#0B2A5B] text-white pl-2.5 pr-3.5 py-2 rounded-full shadow-lg border border-white/20 active:scale-95 transition-all" id="openScannerBtn" type="button">
+      <span class="w-8 h-8 flex-none rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+        <i class="w-4 h-4 text-[#FF6B00]" data-lucide="scan-line"></i>
+      </span>
+      <span class="flex flex-col text-left">
+        <span class="badge-xs font-bold tracking-tight text-white leading-tight">Scanner</span>
+        <span class="badge-xs font-medium text-slate-300 leading-none mt-0.5">Colis &amp; QR</span>
+      </span>
+    </button>
+  </div>
+
+  <!-- CORRECTION : modale conforme (role=dialog, aria-modal, titre, fermeture par Échap, piège de focus, retour d'état) -->
+  <div aria-labelledby="scannerTitle" aria-modal="true" class="fixed inset-0 z-50 bg-slate-900/95 hidden flex-col justify-between p-4 max-w-[430px] mx-auto" id="qr-scanner-modal" role="dialog">
+    <div class="w-full flex items-center justify-between gap-2 pt-[calc(0.5rem+var(--sat))] pb-1 z-20">
+      <button aria-label="Fermer le scanner" class="tap rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white active:scale-95" data-close-scanner type="button">
+        <i class="w-5 h-5" data-lucide="arrow-left"></i>
+      </button>
+      <div class="flex items-center gap-1.5 bg-black/40 px-3 py-1 rounded-full border border-white/10 min-w-0">
+        <span class="w-2 h-2 flex-none rounded-full bg-[#22A55A]"></span>
+        <span class="text-xs font-bold text-white tracking-wide truncate" id="scannerTitle">Scanner de colis</span>
+      </div>
+      <button aria-pressed="false" aria-label="Activer le flash" class="tap rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white active:scale-95" id="torchBtn" type="button">
+        <i class="w-5 h-5" data-lucide="zap"></i>
+      </button>
+    </div>
+
+    <div class="flex-1 flex flex-col items-center justify-center relative my-auto z-10 w-full">
+      <div aria-live="polite" class="hidden mb-3 w-full text-center">
+        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-[#FF6B00]/10 border border-[#FF6B00] text-[#FF6B00] text-xs font-bold uppercase tracking-wider" id="scannerStatus">Analyse du code…</span>
+      </div>
+      <div class="relative w-[min(280px,68vw)] aspect-square rounded-3xl overflow-hidden border border-white/10 bg-black/50 flex items-center justify-center">
+        <div class="absolute top-3 left-3 w-7 h-7 border-t-2 border-l-2 border-[#FF6B00] rounded-tl-xl"></div>
+        <div class="absolute top-3 right-3 w-7 h-7 border-t-2 border-r-2 border-[#FF6B00] rounded-tr-xl"></div>
+        <div class="absolute bottom-3 left-3 w-7 h-7 border-b-2 border-l-2 border-[#22A55A] rounded-bl-xl"></div>
+        <div class="absolute bottom-3 right-3 w-7 h-7 border-b-2 border-r-2 border-[#22A55A] rounded-br-xl"></div>
+        <div class="absolute inset-x-4 top-1/3 h-0.5 bg-[#FF6B00]/70 rounded-full animate-pulse"></div>
+        <div class="text-center px-4">
+          <i class="w-10 h-10 mx-auto text-white/40" data-lucide="scan-line"></i>
+          <p class="text-sm font-semibold text-white/90 leading-snug mt-2">Présentez le QR code du colis</p>
+          <p class="badge-xs text-white/60 mt-1">Le décodage sera branché sur l'API de scan.</p>
+        </div>
+      </div>
+      <!-- CORRECTION : vrai sélecteur de fichier au lieu d'une alert() -->
+      <label class="tap-sm mt-5 inline-flex items-center gap-2 px-4 rounded-full bg-white/10 border border-white/10 text-white text-sm font-medium active:scale-95">
+        <i class="w-4 h-4 flex-none text-amber-400" data-lucide="image"></i>
+        Importer une image
+        <input accept="image/*" class="sr-only" id="qrFileInput" type="file">
+      </label>
+    </div>
+
+    <div class="w-full z-20 flex flex-col gap-2" style="padding-bottom:calc(0.75rem + var(--sab))">
+      <!-- CORRECTION : ouvre un vrai champ de saisie au lieu de fermer la modale -->
+      <button class="tap-sm w-full bg-[#FF6B00] text-white rounded-2xl font-bold text-base flex items-center justify-center gap-2 active:scale-[0.99]" id="openOtpBtn" type="button">
+        <i class="w-4 h-4 flex-none" data-lucide="key-round"></i>
+        Saisir le code à la main
+      </button>
+      <div class="hidden" id="otpPanel">
+        <label class="sr-only" for="otpInput">Code de remise</label>
+        <input autocomplete="one-time-code" class="w-full h-14 px-4 bg-white/10 border border-white/20 rounded-2xl text-base text-white placeholder-white/40 focus:ring-1 focus:ring-white/60 focus:outline-none" id="otpInput" inputmode="numeric" maxlength="8" placeholder="Code à 6 chiffres" type="text">
+        <button class="tap-sm w-full mt-2 bg-white text-[#0B2A5B] rounded-2xl font-bold text-base active:scale-[0.99]" id="otpSubmitBtn" type="button">Valider le code</button>
+      </div>
+      <button class="tap-sm w-full text-sm font-semibold text-white/80 active:text-white" data-close-scanner type="button">Annuler et retourner à l'accueil</button>
+      <!-- CORRECTION : accès à l'écran scanner dédié, reçu en version corrigée -->
+      <a class="tap-sm w-full text-center text-xs font-semibold text-white/60 active:text-white/90" href="scanner_colis_qr_mobile.html">Ouvrir le scanner QR dédié</a>
+    </div>
+  </div>
+
+  <!-- CORRECTION : dock = 44 px de haut minimum, zone de geste respectée, plus d'indicateur d'accueil factice -->
+  <nav aria-label="Navigation principale" class="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none" style="padding-bottom:var(--sab)">
+    <div class="w-full max-w-[430px] px-3 pointer-events-auto">
+      <div class="bg-white rounded-3xl shadow-dock border border-slate-200 px-2 py-1 flex items-center justify-between relative">
+        <button aria-current="page" class="tap-sm flex-1 flex flex-col items-center justify-center rounded-2xl text-[#FF6B00]" type="button">
+          <i class="w-5 h-5" data-lucide="home"></i>
+          <span class="badge-xs font-bold mt-0.5">Accueil</span>
+        </button>
+        <!-- CORRECTION : l'écran Recherche a été reçu, l'onglet devient un lien réel -->
+        <a class="tap-sm flex-1 flex flex-col items-center justify-center rounded-2xl text-slate-500 active:bg-slate-50" href="recherche_mobile.html">
+          <i class="w-5 h-5" data-lucide="search"></i>
+          <span class="badge-xs font-medium mt-0.5">Recherche</span>
+        </a>
+        <div class="flex flex-col items-center -mt-7">
+          <!-- CORRECTION : la publication est disponible, le bouton devient un lien vers le formulaire colis -->
+          <a aria-label="Publier une annonce" class="tap w-12 h-12 rounded-full bg-[#FF6B00] active:scale-95 shadow-lg flex items-center justify-center text-white ring-4 ring-white" href="publier_colis_mobile.html">
+            <i class="w-6 h-6" data-lucide="plus"></i>
+          </a>
+          <span class="badge-xs font-bold text-slate-800 mt-1">Publier</span>
+        </div>
+        <button class="tap-sm flex-1 flex flex-col items-center justify-center rounded-2xl text-slate-500 active:bg-slate-50" data-not-implemented="Messages" type="button">
+          <span class="relative">
+            <i class="w-5 h-5" data-lucide="message-square"></i>
+            <span class="absolute -top-1 -right-1.5 bg-[#FF6B00] text-white badge-xs font-bold w-4 h-4 rounded-full flex items-center justify-center ring-1 ring-white">2</span>
+          </span>
+          <span class="badge-xs font-medium mt-0.5">Messages</span>
+        </button>
+        <button class="tap-sm flex-1 flex flex-col items-center justify-center rounded-2xl text-slate-500 active:bg-slate-50" data-not-implemented="Profil" type="button">
+          <i class="w-5 h-5" data-lucide="user"></i>
+          <span class="badge-xs font-medium mt-0.5">Profil</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CORRECTION : toast accessible au lieu des ancres mortes silencieuses -->
+  <div aria-live="polite" class="fixed left-1/2 -translate-x-1/2 z-[60] w-[min(92vw,380px)] hidden" id="toast" role="status" style="bottom:calc(8rem + var(--sab))">
+    <div class="rounded-2xl bg-slate-900/95 text-white text-sm px-4 py-3 shadow-lg flex items-start gap-2">
+      <i class="w-4 h-4 flex-none mt-0.5 text-amber-400" data-lucide="info"></i>
+      <span id="toastText"></span>
+    </div>
+  </div>
+</div>
+
+<script data-purpose="mobile-behaviour">
+  /* ---------- Initialisation ---------- */
+  function refreshIcons() {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }
+  document.addEventListener('DOMContentLoaded', refreshIcons);
+
+  /* ---------- CORRECTION : toast pour les écrans non encore reçus ---------- */
+  var toastEl = document.getElementById('toast');
+  var toastText = document.getElementById('toastText');
+  var toastTimer = null;
+  function notify(message) {
+    toastText.textContent = message + ' : cet écran n\'a pas encore été reçu. Il sera branché à l\'écran mobile correspondant.';
+    toastEl.classList.remove('hidden');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toastEl.classList.add('hidden');
+    }, 4000);
+    refreshIcons();
+  }
+  document.addEventListener('click', function (event) {
+    var trigger = event.target.closest('[data-not-implemented]');
+    if (trigger) {
+      notify(trigger.getAttribute('data-not-implemented'));
+    }
+  });
+
+  /* ---------- CORRECTION : inversion réelle du trajet ---------- */
+  var departInput = document.getElementById('departInput');
+  var arriveeInput = document.getElementById('arriveeInput');
+  document.getElementById('swapBtn').addEventListener('click', function () {
+    var tmp = departInput.value;
+    departInput.value = arriveeInput.value;
+    arriveeInput.value = tmp;
+    refreshIcons();
+  });
+
+  /* ---------- CORRECTION : recherche avec état de chargement puis navigation réelle ---------- */
+  /* L'écran « Recherche » ayant été reçu, le formulaire conduit désormais à la
+     page de résultats au lieu d'annoncer qu'elle manque. */
+  var searchForm = document.getElementById('searchForm');
+  var searchBtn = document.getElementById('searchBtn');
+  var searchBtnText = document.getElementById('searchBtnText');
+  var searchFeedback = document.getElementById('searchFeedback');
+  searchForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var depart = departInput.value.trim();
+    var arrivee = arriveeInput.value.trim();
+    searchFeedback.classList.remove('hidden');
+    if (!depart || !arrivee) {
+      searchFeedback.textContent = 'Renseignez un départ et une arrivée pour lancer la recherche.';
+      return;
+    }
+    searchBtn.disabled = true;
+    searchBtnText.textContent = 'Ouverture…';
+    setTimeout(function () {
+      window.location.href = 'recherche_mobile.html';
+    }, 400);
+  });
+
+  /* ---------- CORRECTION : modale accessible (focus, Échap, retour du focus) ---------- */
+  var modal = document.getElementById('qr-scanner-modal');
+  var openBtn = document.getElementById('openScannerBtn');
+  var otpPanel = document.getElementById('otpPanel');
+  var otpInput = document.getElementById('otpInput');
+  var statusBox = modal.querySelector('[aria-live="polite"]');
+  var lastFocused = null;
+
+  function openModal() {
+    lastFocused = document.activeElement;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    var focusable = modal.querySelector('button, input, [tabindex]:not([tabindex="-1"])');
+    if (focusable) {
+      focusable.focus();
+    }
+  }
+  function closeModal() {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    otpPanel.classList.add('hidden');
+    statusBox.classList.add('hidden');
+    if (lastFocused) {
+      lastFocused.focus();
+    }
+  }
+  openBtn.addEventListener('click', openModal);
+  Array.prototype.forEach.call(modal.querySelectorAll('[data-close-scanner]'), function (btn) {
+    btn.addEventListener('click', closeModal);
+  });
+  document.addEventListener('keydown', function (event) {
+    if (modal.classList.contains('hidden')) {
+      return;
+    }
+    if (event.key === 'Escape') {
+      closeModal();
+    }
+    if (event.key === 'Tab') {
+      var focusables = Array.prototype.slice.call(modal.querySelectorAll('button, input, [tabindex]:not([tabindex="-1"])')).filter(function (el) {
+        return !el.classList.contains('hidden') && el.offsetParent !== null;
+      });
+      if (!focusables.length) {
+        return;
+      }
+      var first = focusables[0];
+      var last = focusables[focusables.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  });
+
+  /* ---------- CORRECTION : flash en état réel (bouton aria-pressed) ---------- */
+  document.getElementById('torchBtn').addEventListener('click', function () {
+    var pressed = this.getAttribute('aria-pressed') === 'true';
+    this.setAttribute('aria-pressed', pressed ? 'false' : 'true');
+    this.classList.toggle('bg-amber-400/30', !pressed);
+  });
+
+  /* ---------- CORRECTION : import d'image réel (plus de alert) ---------- */
+  document.getElementById('qrFileInput').addEventListener('change', function () {
+    var file = this.files && this.files[0];
+    if (!file) {
+      return;
+    }
+    statusBox.classList.remove('hidden');
+    modal.querySelector('#scannerStatus').textContent = 'Image « ' + file.name + ' » prête pour le décodage';
+  });
+
+  /* ---------- CORRECTION : saisie manuelle du code ---------- */
+  document.getElementById('openOtpBtn').addEventListener('click', function () {
+    otpPanel.classList.remove('hidden');
+    otpInput.focus();
+  });
+  document.getElementById('otpSubmitBtn').addEventListener('click', function () {
+    var code = otpInput.value.trim();
+    if (!code) {
+      otpInput.focus();
+      return;
+    }
+    statusBox.classList.remove('hidden');
+    modal.querySelector('#scannerStatus').textContent = 'Code « ' + code + ' » transmis à la vérification';
+  });
+</script>
+</body>
+</html>

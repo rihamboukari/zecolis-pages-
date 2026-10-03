@@ -1,0 +1,204 @@
+<!DOCTYPE html><html class="h-full bg-[#F8FAFC]" lang="fr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>ZECOLIS - Mot de passe oublié</title>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Custom Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#0B2A5B',
+              dark: '#1D1D4B',
+              orange: '#FF6B00',
+              green: '#22A55A',
+              bg: '#F8FAFC',
+              secondary: '#64748B',
+              muted: '#94A3B8',
+              border: '#F1F5F9',
+            }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<!-- Custom Typography and Reset Styles -->
+<style data-purpose="custom-typography">
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+  </style>
+</head>
+<body class="h-full w-full max-w-[390px] mx-auto bg-[#F8FAFC] text-[#1D1D4B] flex flex-col justify-between overflow-x-hidden antialiased">
+<!-- BEGIN: TopHeader -->
+<header class="w-full pt-4 px-6 pb-2 shrink-0">
+<!-- Top Action Row -->
+<div class="flex items-center justify-between">
+<!-- Back Navigation Button -->
+<button aria-label="Retour" class="w-11 h-11 flex items-center justify-center rounded-full bg-white border border-[#F1F5F9] shadow-xs active:scale-95 transition-transform text-[#0B2A5B]" data-purpose="back-button" onclick="window.history.back()" type="button">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-left" aria-hidden="true" class="lucide lucide-arrow-left w-5 h-5"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+</button>
+<!-- Brand Logo Pill Badge -->
+<div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-[#F1F5F9] shadow-xs">
+<img alt="ZECOLIS Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIyiOkLs9h1kqnE4BPQKM4gG8AUVK0tLRoioSzRY1akdKbf-ER6qj8KiSMP--Ig1hJbIFYOnVQIoDThe_blUUf68Yjn4JiekOMc64ao_XNEg4zJVlTrO9ARxTXMCixdmVKJTvKiU2_ZtWVMxInynhwJdnWJOPwwFzy0L0mlFiiBIfet0m8VEhquOsUDkMY7_E1txi2muP0jB3wWTLO9l771MlBVVexSwlNne-rlTyP7kQxHk6S34TMf-J2PnxuzJjhV4s">
+<span class="text-xs font-semibold text-[#0B2A5B] tracking-tight">Réinitialisation</span>
+</div>
+<!-- Security Status Badge -->
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full border border-[#F1F5F9] shadow-xs">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield-check" aria-hidden="true" class="lucide lucide-shield-check w-4 h-4 text-[#22A55A]"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+<span class="text-[10px] font-bold tracking-wider text-[#0B2A5B] uppercase">Sécurisé</span>
+</div>
+</div>
+</header>
+<!-- END: TopHeader -->
+<!-- BEGIN: MainContent -->
+<main class="w-full px-6 pt-2 pb-4 flex-1 flex flex-col pt-6">
+<!-- Screen 1: Request Password Reset Form -->
+<section class="transition-opacity duration-300" id="reset-form-container">
+<!-- Key Icon Squircle -->
+<div class="w-[52px] h-[52px] rounded-2xl bg-[#FFF3EB] flex items-center justify-center mb-5">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="key-round" aria-hidden="true" class="lucide lucide-key-round w-6 h-6 text-[#FF6B00]"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle></svg>
+</div>
+<!-- Page Headings -->
+<h1 class="text-2xl font-extrabold tracking-tight text-[#1D1D4B] leading-tight mb-2">
+        Mot de passe <span class="text-[#FF6B00]">oublié ?</span>
+</h1>
+<p class="text-sm text-[#64748B] leading-relaxed mb-6 font-medium">
+        Entrez votre adresse e-mail pour recevoir un lien de réinitialisation sécurisé.
+      </p>
+<!-- Reset Request Form -->
+<form class="space-y-4" id="reset-password-form" onsubmit="handleFormSubmit(event)">
+<!-- Email Input Group -->
+<div class="space-y-1.5">
+<label class="block text-[11px] uppercase tracking-wider font-semibold text-[#94A3B8]" for="email-input">
+            Adresse e-mail
+          </label>
+<div class="relative flex items-center">
+<div class="absolute left-4 pointer-events-none flex items-center text-[#94A3B8]">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="mail" aria-hidden="true" class="lucide lucide-mail w-5 h-5"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>
+</div>
+<input class="w-full h-14 pl-12 pr-4 bg-white rounded-2xl border border-[#F1F5F9] focus:border-[#0B2A5B] focus:ring-1 focus:ring-[#0B2A5B] text-sm text-[#1D1D4B] placeholder-[#CBD5E1] font-medium shadow-sm transition outline-none" id="email-input" name="email" placeholder="votre@email.com" required="" type="email">
+</div>
+</div>
+<!-- Submit Button CTA -->
+<button class="w-full h-14 mt-4 bg-[#0B2A5B] text-white rounded-2xl font-bold text-base shadow-md shadow-[#0B2A5B]/20 active:scale-[0.98] transition-transform duration-150 flex items-center justify-center gap-2" id="submit-btn" type="submit">
+<span id="btn-text" class="">Réinitialiser mon mot de passe</span>
+<span class="hidden" id="btn-spinner">
+<svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+<path class="opacity-75" d="M4 12a8 8 0 0 1 8-8v8H4z" fill="currentColor"></path>
+</svg>
+</span>
+</button>
+</form>
+<!-- Navigation Link to Login -->
+<div class="mt-6 text-center">
+<p class="text-sm text-[#64748B]">
+          Vous vous souvenez de votre mot de passe ?
+          <a class="text-[#FF6B00] font-semibold hover:underline block mt-1" href="#">
+            Se connecter
+          </a>
+</p>
+</div>
+</section>
+<!-- Screen 2: Confirmation / Success View (Initially Hidden) -->
+<section class="hidden transition-opacity duration-300 text-left" id="confirmation-container">
+<!-- Success Mail Icon Squircle -->
+<div class="w-[52px] h-[52px] rounded-2xl bg-emerald-50 flex items-center justify-center mb-5">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="mail-check" aria-hidden="true" class="lucide lucide-mail-check w-6 h-6 text-[#22A55A]"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"></path><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path><path d="m16 19 2 2 4-4"></path></svg>
+</div>
+<!-- Confirmation Title and Info -->
+<h2 class="text-2xl font-extrabold tracking-tight text-[#1D1D4B] leading-tight mb-2">
+        Vérifiez votre <span class="text-[#22A55A]">e-mail</span>
+</h2>
+<p class="text-sm text-[#64748B] leading-relaxed mb-4">
+        Si un compte est associé à l'adresse <strong class="text-[#1D1D4B] font-semibold" id="submitted-email-text"></strong>, vous recevrez les instructions pour réinitialiser votre mot de passe.
+      </p>
+<!-- Informational Hint Box -->
+<div class="bg-white rounded-2xl p-4 border border-[#F1F5F9] shadow-xs mb-6">
+<p class="text-xs text-[#64748B] leading-relaxed">
+          Pensez à vérifier votre dossier de courriers indésirables (spams) si vous ne trouvez pas notre message d'ici quelques minutes.
+        </p>
+</div>
+<!-- Back to Login CTA Button -->
+<button class="w-full h-14 bg-[#0B2A5B] text-white rounded-2xl font-bold text-base shadow-md shadow-[#0B2A5B]/20 active:scale-[0.98] transition-transform duration-150 flex items-center justify-center gap-2" onclick="resetToInitialState()" type="button">
+        Retour à la connexion
+      </button>
+</section>
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: BottomTrustAndIndicator -->
+<footer class="w-full px-6 pb-2 shrink-0 flex flex-col items-center">
+<!-- Security Assurance Note -->
+<div class="flex items-center gap-1.5 mb-3">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield" aria-hidden="true" class="lucide lucide-shield w-3.5 h-3.5 text-[#22A55A]"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+<span class="text-xs text-[#64748B]">Vos informations restent sécurisées.</span>
+</div>
+<!-- iOS Home Bar Indicator -->
+<div class="w-32 h-1 bg-slate-300 rounded-full mb-1"></div>
+</footer>
+<!-- END: BottomTrustAndIndicator -->
+<!-- BEGIN: InteractivityScript -->
+<script data-purpose="form-submission-handler">
+    // Initialize Lucide icons on DOM ready
+    lucide.createIcons();
+
+    // Handles form submit with simulated async network state
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      
+      const emailInput = document.getElementById('email-input');
+      const submitBtn = document.getElementById('submit-btn');
+      const btnText = document.getElementById('btn-text');
+      const btnSpinner = document.getElementById('btn-spinner');
+      const emailValue = emailInput.value.trim();
+
+      if (!emailValue) return;
+
+      // Enter loading state
+      submitBtn.disabled = true;
+      btnText.textContent = 'Envoi en cours...';
+      btnSpinner.classList.remove('hidden');
+
+      // Simulate API call delay
+      setTimeout(() => {
+        // Update confirmation screen data
+        document.getElementById('submitted-email-text').textContent = emailValue;
+
+        // Hide form view and display success view
+        document.getElementById('reset-form-container').classList.add('hidden');
+        document.getElementById('confirmation-container').classList.remove('hidden');
+
+        // Re-initialize Lucide icons for dynamically revealed content
+        lucide.createIcons();
+
+        // Reset submit button state
+        submitBtn.disabled = false;
+        btnText.textContent = 'Réinitialiser mon mot de passe';
+        btnSpinner.classList.add('hidden');
+      }, 900);
+    }
+
+    // Resets back to initial form view
+    function resetToInitialState() {
+      document.getElementById('confirmation-container').classList.add('hidden');
+      document.getElementById('reset-form-container').classList.remove('hidden');
+      document.getElementById('reset-password-form').reset();
+      lucide.createIcons();
+    }
+  </script>
+<!-- END: InteractivityScript -->
+
+
+</body></html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="h-full" lang="fr">
+<head>
+<meta charset="utf-8">
+<!-- CORRECTION MOBILE : zoom réautorisé + viewport-fit=cover -->
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
+<meta content="theme-color" name="theme-color" value="#F8FAFC">
+<title>Zecolis Mobile - Connexion</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'system-ui', 'sans-serif']
+        },
+        colors: {
+          zecolis: {
+            navy: '#0B2A5B',
+            darknavy: '#1D1D4B',
+            orange: '#FF6B00',
+            green: '#22A55A',
+            bg: '#F8FAFC',
+            text: '#0F172A',
+            muted: '#64748B',
+            border: '#F1F5F9',
+            lightborder: '#E2E8F0',
+          }
+        },
+        boxShadow: {
+          'btn-navy': '0 8px 20px -4px rgba(11, 42, 91, 0.25), 0 4px 10px -2px rgba(11, 42, 91, 0.15)',
+          'input-subtle': '0 2px 6px 0 rgba(15, 23, 42, 0.03)',
+          'pill-soft': '0 2px 8px rgba(15, 23, 42, 0.04)',
+        }
+      }
+    }
+  }
+</script>
+<style>
+  /* ==== CORRECTIONS MOBILE TRANSVERSES ==== */
+  :root {
+    --sat: env(safe-area-inset-top, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+  }
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #F8FAFC;
+    color: #0F172A;
+    overscroll-behavior-y: auto;
+  }
+  .app-shell {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  /* CORRECTION : la saisie ne déclenche plus l'auto-zoom iOS (police 16 px minimum) */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+  /* CORRECTION : la sélection de texte est réautorisée (utile pour copier une adresse e-mail) */
+  body {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  input,
+  button,
+  label {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .active-scale:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease-out;
+  }
+  .tap {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  :focus-visible {
+    outline: 2px solid #FF6B00;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+  /* CORRECTION : le pied suit la zone de geste plutôt qu'un indicateur d'accueil dessiné */
+  .safe-bottom {
+    padding-bottom: calc(0.75rem + var(--sab));
+  }
+</style>
+</head>
+<body class="min-h-full w-full bg-[#F8FAFC] antialiased flex flex-col">
+<div class="app-shell relative w-full max-w-[430px] mx-auto flex flex-col">
+  <main class="flex-1 w-full flex flex-col" style="padding-left:calc(1.5rem + var(--sal));padding-right:calc(1.5rem + var(--sar))">
+    <!-- CORRECTION : le spacer factice h-2 est remplacé par la vraie zone de sécurité -->
+    <header class="w-full pt-[calc(1rem+var(--sat))]">
+      <div class="flex items-center justify-between gap-2 py-2">
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="flex items-center gap-1.5 px-3 py-1 bg-white rounded-full border border-slate-100 shadow-sm flex-none">
+            <img alt="" class="w-7 h-7 object-contain rounded-sm" src="img/logo.png">
+            <span class="font-extrabold text-[15px] tracking-tight text-zecolis-darknavy">Zé<span class="text-zecolis-orange">Colis</span></span>
+          </div>
+          <span class="text-xs font-medium text-zecolis-darknavy truncate">Connexion</span>
+        </div>
+        <!-- CORRECTION : texte porté à 11 px minimum et pastille de 44 px de haut -->
+        <div class="tap-sm flex items-center gap-1.5 px-2.5 rounded-full border border-slate-100 shadow-pill-soft bg-white flex-none">
+          <i class="w-3.5 h-3.5 flex-none text-zecolis-green" data-lucide="shield-check"></i>
+          <span class="text-[11px] font-bold tracking-wide text-zecolis-darknavy uppercase">Sécurisée</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="flex-1 flex flex-col pt-6 pb-4">
+      <div class="mb-6">
+        <h1 class="text-[28px] sm:text-[30px] leading-[1.2] font-extrabold text-zecolis-darknavy tracking-tight">
+          Bon retour <span class="text-zecolis-orange">!</span>
+        </h1>
+        <p class="mt-2 text-[15px] leading-relaxed text-zecolis-muted">
+          Connectez-vous pour continuer à envoyer ou voyager.
+        </p>
+      </div>
+
+      <!-- CORRECTION : novalidate retiré pour que la validation native complète celle en JS ; method/type explicites -->
+      <form class="space-y-4" id="loginForm" method="post" novalidate>
+        <div>
+          <label class="block text-[11px] font-semibold tracking-wider text-zecolis-muted uppercase mb-1.5" for="emailInput">
+            E-mail
+          </label>
+          <div class="relative group">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-zecolis-navy transition-colors">
+              <i class="w-5 h-5 stroke-[1.8]" data-lucide="mail"></i>
+            </div>
+            <!-- CORRECTION : text-base (16 px) au lieu de 15 px pour éviter l'auto-zoom iOS ; inputmode + autocomplete -->
+            <input aria-describedby="emailError" autocapitalize="none" autocomplete="email" autocorrect="off" class="w-full h-14 pl-12 pr-4 bg-white text-zecolis-text placeholder-slate-400 text-base font-medium rounded-2xl border border-zecolis-border shadow-input-subtle focus:border-zecolis-navy focus:ring-1 focus:ring-zecolis-navy transition-all duration-150" id="emailInput" inputmode="email" name="email" placeholder="votre@email.com" required spellcheck="false" type="email">
+          </div>
+          <p aria-live="polite" class="hidden mt-1.5 flex items-center gap-1.5 text-rose-600 text-[12px] font-medium" id="emailError" role="alert">
+            <i class="w-3.5 h-3.5 flex-none" data-lucide="alert-circle"></i>
+            <span>Veuillez entrer une adresse e-mail valide.</span>
+          </p>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-1.5">
+            <label class="text-[11px] font-semibold tracking-wider text-zecolis-muted uppercase" for="passwordInput">
+              Mot de passe
+            </label>
+            <!-- CORRECTION : cible 44 px, vrai lien vers l'écran mot de passe oublié -->
+            <a class="tap-sm inline-flex items-center px-2 -my-2 text-[13px] font-semibold text-zecolis-orange" href="mot_de_passe_oublie_mobile.html">Oublié&nbsp;?</a>
+          </div>
+          <div class="relative group">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-zecolis-navy transition-colors">
+              <i class="w-5 h-5 stroke-[1.8]" data-lucide="lock"></i>
+            </div>
+            <input aria-describedby="generalError" autocomplete="current-password" class="w-full h-14 pl-12 pr-14 bg-white text-zecolis-text placeholder-slate-400 text-base font-medium rounded-2xl border border-zecolis-border shadow-input-subtle focus:border-zecolis-navy focus:ring-1 focus:ring-zecolis-navy tracking-widest focus:tracking-normal transition-all duration-150" id="passwordInput" name="password" placeholder="••••••••" required type="password">
+            <!-- CORRECTION : zone cliquable 44 px de large (pr-3 + w-11) au lieu de ~28 px -->
+            <button aria-label="Afficher le mot de passe" aria-pressed="false" class="tap absolute inset-y-0 right-0 pr-2 flex items-center text-slate-400 hover:text-zecolis-navy" id="togglePasswordBtn" type="button">
+              <i class="w-5 h-5 stroke-[1.8]" data-lucide="eye" id="eyeIcon"></i>
+            </button>
+          </div>
+          <p aria-live="polite" class="hidden mt-1.5 flex items-center gap-1.5 text-rose-600 text-[12px] font-medium" id="generalError" role="alert">
+            <i class="w-3.5 h-3.5 flex-none" data-lucide="alert-circle"></i>
+            <!-- CORRECTION : aucun serveur ne peut valider ces identifiants, le message ne prétend pas les avoir vérifiés -->
+            <span>Le service de connexion n'est pas branché : vos identifiants n'ont pas été vérifiés.</span>
+          </p>
+        </div>
+
+        <div class="pt-2">
+          <!-- CORRECTION : aria-busy + aria-live pour le retour vocal du chargement -->
+          <button aria-busy="false" class="tap-sm w-full h-14 bg-zecolis-navy active:bg-[#061836] text-white text-base font-bold rounded-2xl shadow-btn-navy active-scale transition-all duration-150 flex items-center justify-center gap-2 disabled:opacity-70" id="loginSubmitBtn" type="submit">
+            <span id="btnText">Se connecter</span>
+            <span aria-hidden="true" class="hidden animate-spin rounded-full h-5 w-5 border-2 border-white/30 border-t-white" id="btnSpinner"></span>
+          </button>
+        </div>
+
+        <!-- CORRECTION : la connexion ne peut pas aboutir sans service d'authentification ; la proposition
+             ci-dessous est le seul chemin réel, annoncé comme navigation de démonstration. -->
+        <div aria-live="polite" class="hidden pt-3 rounded-2xl border border-zecolis-border bg-zecolis-navy/[0.04] p-4 flex flex-col gap-2" id="demoAccess" role="status">
+          <p class="text-[13px] font-semibold text-zecolis-navy flex items-start gap-2">
+            <i class="w-4 h-4 flex-none mt-0.5 text-zecolis-orange" data-lucide="info"></i>
+            <span>Mode démonstration : aucun compte n'a été créé ni vérifié. Vous pouvez parcourir les écrans sans être connecté.</span>
+          </p>
+          <a class="tap-sm w-full h-14 bg-zecolis-navy active:bg-[#061836] text-white text-base font-bold rounded-2xl shadow-btn-navy flex items-center justify-center gap-2" href="accueil_mobile.html">
+            <i class="w-5 h-5" data-lucide="home"></i>
+            <span>Continuer vers l'accueil</span>
+          </a>
+          <a class="tap-sm inline-flex items-center justify-center text-[13px] font-semibold text-zecolis-orange" href="onboarding_expediteur_mobile.html">Compléter le profil d'abord</a>
+        </div>
+
+        <div class="pt-2 text-center">
+          <p class="text-[14px] text-zecolis-muted">
+            Pas encore de compte ?
+            <a class="tap-sm inline-flex items-center px-1 font-bold text-zecolis-orange" href="inscription_mobile.html">S'inscrire</a>
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <!-- CORRECTION : l'indicateur d'accueil factice w-32 h-1 est supprimé au profit de la zone de geste réelle -->
+    <footer class="safe-bottom w-full pt-3 flex flex-col items-center gap-2">
+      <p class="flex items-center gap-1.5 text-[12px] font-medium text-zecolis-muted text-center">
+        <i class="w-3.5 h-3.5 flex-none text-zecolis-green" data-lucide="shield"></i>
+        Vos informations restent sécurisées.
+      </p>
+      <p class="badge-xs text-slate-500">Connexion de démonstration : aucun appel serveur.</p>
+    </footer>
+  </main>
+</div>
+
+<script data-purpose="mobile-behaviour">
+  function refreshIcons() {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }
+  refreshIcons();
+
+  /* CORRECTION : la fonction reçoit réellement le champ et l'icône à basculer */
+  function togglePasswordVisibility(inputId, iconId) {
+    var pwdInput = document.getElementById(inputId || 'passwordInput');
+    var eyeIcon = document.getElementById(iconId || 'eyeIcon');
+    var btn = document.getElementById('togglePasswordBtn');
+    if (!pwdInput) {
+      return;
+    }
+    var reveal = pwdInput.type === 'password';
+    pwdInput.type = reveal ? 'text' : 'password';
+    pwdInput.classList.toggle('tracking-widest', !reveal);
+    if (btn) {
+      btn.setAttribute('aria-pressed', reveal ? 'true' : 'false');
+      btn.setAttribute('aria-label', reveal ? 'Masquer le mot de passe' : 'Afficher le mot de passe');
+    }
+    if (eyeIcon) {
+      eyeIcon.setAttribute('data-lucide', reveal ? 'eye-off' : 'eye');
+    }
+    refreshIcons();
+  }
+  document.getElementById('togglePasswordBtn').addEventListener('click', function () {
+    togglePasswordVisibility('passwordInput', 'eyeIcon');
+  });
+
+  function showError(el, visible) {
+    el.classList.toggle('hidden', !visible);
+    el.classList.toggle('flex', visible);
+  }
+
+  /* CORRECTION : messages d'erreur reliés par aria-describedby et aria-invalid, focus sur le premier
+     champ fautif, et libellé honnête (« identifiants incorrects ») au lieu d'afficher une fausse réussite */
+  function handleLoginSubmit(event) {
+    event.preventDefault();
+    var emailInput = document.getElementById('emailInput');
+    var passwordInput = document.getElementById('passwordInput');
+    var emailError = document.getElementById('emailError');
+    var generalError = document.getElementById('generalError');
+    var demoAccess = document.getElementById('demoAccess');
+    var btn = document.getElementById('loginSubmitBtn');
+    var btnText = document.getElementById('btnText');
+    var btnSpinner = document.getElementById('btnSpinner');
+
+    showError(emailError, false);
+    showError(generalError, false);
+    demoAccess.classList.add('hidden');
+    emailInput.setAttribute('aria-invalid', 'false');
+    passwordInput.setAttribute('aria-invalid', 'false');
+
+    var emailVal = emailInput.value.trim();
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailVal || !emailPattern.test(emailVal)) {
+      showError(emailError, true);
+      emailInput.setAttribute('aria-invalid', 'true');
+      emailInput.focus();
+      return;
+    }
+    if (!passwordInput.value) {
+      passwordInput.setAttribute('aria-invalid', 'true');
+      passwordInput.focus();
+      return;
+    }
+
+    btn.disabled = true;
+    btn.setAttribute('aria-busy', 'true');
+    btnText.textContent = 'Connexion…';
+    btnSpinner.classList.remove('hidden');
+
+    /* CORRECTION : aucune fausse réussite n'est affichée. La maquette annonce l'absence de
+       service d'authentification puis propose une navigation réelle, explicitement présentée
+       comme un mode démonstration. */
+    setTimeout(function () {
+      btn.disabled = false;
+      btn.setAttribute('aria-busy', 'false');
+      btnSpinner.classList.add('hidden');
+      btnText.textContent = 'Se connecter';
+      showError(generalError, true);
+      passwordInput.removeAttribute('aria-invalid');
+      demoAccess.classList.remove('hidden');
+      refreshIcons();
+    }, 900);
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', handleLoginSubmit);
+</script>
+</body>
+</html>

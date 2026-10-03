@@ -1,0 +1,99 @@
+<!DOCTYPE html><html class="h-full" lang="fr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Zecolis - Onboarding Écran 3 (Confiance)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brandNavy: '#0B2A5B',
+            brandDark: '#1D1D4B',
+            brandOrange: '#FF6B00',
+            brandGreen: '#22A55A',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    * { -webkit-tap-highlight-color: transparent; }
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-black text-white antialiased h-full w-full overflow-hidden flex flex-col justify-between select-none relative">
+<!-- Background Photography (Edge-to-Edge) -->
+<div class="absolute inset-0 z-0">
+<img alt="Rencontre de confiance et remise en main propre d'un colis à l'aéroport" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida/AEtjO1WPy6LUCDG2iT3bnrO_P0sBN7p_P72b7k9Sf6fHQOu74sZjVSoxUbXomooCsk2Foub1a_pA4qaFAdg0rtQp9Pqjtisd78zf1-WOImH30_3kaMmn0ad4hrE2VOBQy2woY-JlsoKaeIq2hQZ0ln0pHxqervydNvO29PI08H_d7C6GO3BbeTqu6oh6x6LJICXzbDkFR2IZJuz1qYOyNgaW2-QjlCGNf1Zyc_Xz5gPxX1YhkGA7LiXlPZfRI3c">
+<!-- Photographic gradient overlay: transparent at top, deep navy tint in bottom half -->
+<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#051329]/95 via-45%"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-[#051329] via-[#051329]/80 to-transparent via-40%"></div>
+</div>
+<!-- Top Navigation Bar & Brand Header -->
+<header class="relative z-10 pt-3 px-6 flex flex-col gap-2"><div class="w-full flex items-center justify-between text-xs font-semibold text-white/90 px-1 mb-1 select-none"><span class="">9:41</span><div class="flex items-center gap-1.5"><svg class="w-4 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"></path></svg><svg class="w-4 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0012 4z"></path></svg><div class="w-5 h-2.5 border border-white/80 rounded-sm p-0.5 flex items-center"><div class="w-full h-full bg-white rounded-2xs"></div></div></div></div><div class="w-full flex items-center justify-between"><div class="flex items-center gap-2 bg-black/35 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 shadow-sm"><img alt="Logo Zecolis" class="w-6 h-6 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWrsLbPw3dl2BqkY-HH3NFCy1lCoK6tYvS0bn80wULejhf_hXBJdwVOF-yO6GBS88lzClZ_Oy3sa5wgjwNe8FuDO2DhOkoJzvwFuBzCtvAvEThQMtherjDMpVmCL8LeikjOjmm0XY9WO32CyflRAUisLhposXhlNXsGTIKB1dXzSIXY9bf9XlJNAJDr_kxfFTdLmr7bUZEWUV-Iy9GHC6eBCUCmAthB94sFlkVcw6c36sr800_pF2T1Ww_e4I-i5w8tnY"><span class="text-white font-extrabold text-sm tracking-wider uppercase">ZECOLIS</span></div><div class="flex items-center gap-3 bg-black/35 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10"><span class="text-[11px] font-bold tracking-widest text-[#FF6B00] uppercase">CONFIANCE</span><div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-white/40"></span><span class="w-1.5 h-1.5 rounded-full bg-white/40"></span><span class="w-4 h-1.5 rounded-full bg-[#FF6B00]"></span></div></div></div></header>
+<!-- Middle Contextual Badges / Trust Chips -->
+<div class="relative z-10 px-6 mt-auto mb-4 flex flex-col gap-2.5 items-start">
+<!-- Route pill Cotonou ↔ France -->
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/45 backdrop-blur-md border border-white/15 text-xs font-semibold text-white/95 shadow-sm">
+<span class="">🇧🇯 Cotonou</span>
+<svg class="w-3.5 h-3.5 text-[#FF6B00]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+<path d="M7 16l-4-4m0 0l4-4m-4 4h18m-4 4l4-4m0 0l-4-4"></path>
+</svg>
+<span class="">France 🇫🇷</span>
+</div>
+<!-- Chips: Identité vérifiée & ★ 4,9 Voyageur vérifié -->
+<div class="flex items-center gap-2">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[12px] font-medium text-white shadow-sm">
+<span class="text-emerald-400 font-bold">✓</span>
+<span class="">Identité vérifiée</span>
+</div>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[12px] font-medium text-white shadow-sm">
+<span class="text-amber-400 font-bold">★ 4,9</span>
+<span class="">Voyageur vérifié</span>
+</div>
+</div>
+</div>
+<!-- Bottom Content & Action Section -->
+<footer class="relative z-10 px-6 pb-8 pt-1 flex flex-col">
+<!-- Main Headline -->
+<h1 class="text-[34px] leading-[1.1] font-black tracking-tight text-white mb-2.5">
+      La confiance <br>
+<span class="text-[#FF6B00]">d’abord.</span>
+</h1>
+<!-- Single Supporting Sentence -->
+<p class="text-white/80 text-[15px] font-normal leading-snug mb-1.5 max-w-[320px]">
+      Des profils vérifiés pour envoyer et voyager sereinement.
+    </p>
+<!-- Very small supporting line -->
+<p class="text-white/50 text-[12px] font-medium tracking-wide mb-6">
+      Identité · Avis · Échanges
+    </p>
+<!-- Bottom Actions: Primary Button "Commencer →" + Retour Link -->
+<div class="flex flex-col gap-3">
+<button class="w-full h-14 rounded-2xl bg-[#0B2A5B] hover:bg-[#0d3470] active:scale-[0.98] transition-all text-white font-bold text-[16px] flex items-center justify-center gap-2 shadow-lg shadow-[#0B2A5B]/50 border border-white/15">
+<span class="">Commencer</span>
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+<line x1="5" x2="19" y1="12" y2="12"></line>
+<polyline points="12 5 19 12 12 19"></polyline>
+</svg>
+</button>
+<div class="flex items-center justify-center pt-1">
+<button class="text-white/70 hover:text-white font-medium text-[14px] transition-colors py-1">
+          Retour
+        </button>
+</div>
+</div>
+<!-- Home Indicator Bar -->
+<div class="w-32 h-1 bg-white/30 rounded-full mx-auto mt-4"></div>
+</footer>
+
+
+
+</body></html>

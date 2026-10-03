@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="h-full" lang="fr">
+<head>
+<meta charset="utf-8">
+<!-- CORRECTION MOBILE : zoom réautorisé + viewport-fit=cover (l'original interdisait maximum-scale / user-scalable) -->
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
+<meta content="theme-color" name="theme-color" value="#040d1c">
+<title>Zecolis — Onboarding 1/3 · Expéditeur</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'Plus Jakarta Sans', 'sans-serif']
+        },
+        colors: {
+          zecolis: {
+            navy: '#0B2A5B',
+            dark: '#071630',
+            deep: '#040d1c',
+            orange: '#FF6B00',
+            orangeLight: '#FF8533',
+            green: '#22A55A',
+            lightBg: '#FCFBF8',
+            cardBorder: 'rgba(255, 255, 255, 0.15)'
+          }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  /* ==== CORRECTIONS MOBILE TRANSVERSES ==== */
+  :root {
+    --sat: env(safe-area-inset-top, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+  }
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* CORRECTION : le défilement vertical est rétabli (l'original faisait overflow: hidden sur le body) */
+    overflow-x: hidden;
+  }
+  /* CORRECTION : hauteur adaptative au lieu de h-[844px] figé */
+  .app-shell {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  /* CORRECTION : la photo plein écran suit la hauteur réelle de la page (position: fixed) */
+  .hero-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  /* CORRECTION : plus de user-select: none global — seule l'interface non textuelle est protégée */
+  .no-select {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .tap {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  :focus-visible {
+    outline: 2px solid #FF6B00;
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+  /* CORRECTION : les pulsations permanentes sont neutralisées si l'utilisateur le demande */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+  /* CORRECTION : barre d'état iOS simulée masquée sur écran tactile étroit (elle existe déjà sur l'appareil) */
+  .fake-status {
+    display: flex;
+  }
+  @media (pointer: coarse), (max-width: 430px) {
+    .fake-status {
+      display: none;
+    }
+  }
+  /* CORRECTION : l'indicateur d'accueil dessiné est remplacé par la zone de geste réelle */
+  .safe-bottom {
+    padding-bottom: calc(0.75rem + var(--sab));
+  }
+  /* CORRECTION : en paysage très court, la photo et les blocs restent atteignables */
+  @media (orientation: landscape) and (max-height: 520px) {
+    .lower-third {
+      padding-top: 1rem;
+    }
+    h1.title {
+      font-size: 30px;
+    }
+  }
+  .text-tight {
+    letter-spacing: -0.035em;
+  }
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 16px -2px rgba(7, 22, 48, 0.18);
+  }
+  .glass-pill-dark {
+    background: rgba(7, 22, 48, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.35);
+  }
+  .btn-gradient {
+    background: linear-gradient(135deg, #0B2A5B 0%, #071D40 100%);
+    box-shadow: 0 10px 24px -4px rgba(11, 42, 91, 0.45), 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  .btn-gradient:active {
+    transform: scale(0.985);
+    opacity: 0.95;
+  }
+</style>
+</head>
+<body class="bg-[#030914]">
+<div class="app-shell relative w-full max-w-[390px] mx-auto flex flex-col justify-between bg-zecolis-deep sm:rounded-[44px] sm:shadow-2xl overflow-hidden">
+
+  <!-- ============ PHOTO PLEIN ÉCRAN (était en absolute inset-0, devient fixed) ============ -->
+  <div class="hero-bg" aria-hidden="true">
+    <img alt="" loading="eager"
+      src="img/onboarding-1-expediteur.jpg">
+    <!-- voiles d'origine conservés à l'identique -->
+    <div class="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-[#071630]/75 via-[#071630]/30 to-transparent"></div>
+    <div class="absolute inset-x-0 top-[38%] bottom-0 bg-gradient-to-b from-transparent via-[#051124]/75 to-[#040d1c]"></div>
+  </div>
+
+  <!-- ============ LAYER 1 : EN-TÊTE ============ -->
+  <div class="relative z-20 pt-[calc(0.75rem+var(--sat))]" style="padding-left:calc(1.25rem + var(--sal));padding-right:calc(1.25rem + var(--sar))">
+
+    <!-- CORRECTION : barre d'état simulée masquée sur mobile (elle double la vraie barre système) -->
+    <div aria-hidden="true" class="fake-status items-center justify-between text-white/90 text-[13px] font-semibold tracking-tight py-1 px-1">
+      <span>9:41</span>
+      <div class="flex items-center space-x-2">
+        <svg class="w-4 h-3 fill-current text-white/85 no-select" viewBox="0 0 17 12">
+          <rect x="0" y="8" width="2.5" height="4" rx="0.5" />
+          <rect x="4" y="6" width="2.5" height="6" rx="0.5" />
+          <rect x="8" y="3.5" width="2.5" height="8.5" rx="0.5" />
+          <rect x="12" y="0.5" width="2.5" height="11.5" rx="0.5" />
+        </svg>
+        <svg class="w-3.5 h-3 fill-current text-white/85 no-select" viewBox="0 0 16 12">
+          <path d="M8 2.5C10.7 2.5 13.1 3.6 14.8 5.4L16 4.1C13.9 2 11.1 0.7 8 0.7C4.9 0.7 2.1 2 0 4.1L1.2 5.4C2.9 3.6 5.3 2.5 8 2.5ZM8 6.5C9.7 6.5 11.2 7.2 12.3 8.3L13.5 7.1C12.1 5.7 10.1 4.8 8 4.8C5.9 4.8 3.9 5.7 2.5 7.1L3.7 8.3C4.8 7.2 6.3 6.5 8 6.5ZM8 10.5C8.8 10.5 9.5 11.2 9.5 12C9.5 12.8 8.8 13.5 8 13.5C7.2 13.5 6.5 12.8 6.5 12C6.5 11.2 7.2 10.5 8 10.5Z" />
+        </svg>
+        <div class="w-5 h-2.5 rounded-[3px] border border-white/80 p-0.5 flex items-center">
+          <div class="h-full w-3.5 bg-white/90 rounded-[1.5px]"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-1">
+      <div class="glass-pill rounded-full py-1.5 px-3 flex items-center space-x-2">
+        <div class="w-6 h-6 flex-shrink-0">
+          <img alt="" class="w-full h-full object-contain" src="img/logo.png">
+        </div>
+        <span class="text-[10.5px] font-bold text-zecolis-navy tracking-[0.24em] uppercase">ZECOLIS</span>
+      </div>
+
+      <!-- CORRECTION : « Passer » devient un vrai lien vers l'accueil (l'original n'avait aucun gestionnaire) -->
+      <a class="tap glass-pill no-select rounded-full px-3.5 text-zecolis-navy text-[12.5px] font-semibold flex items-center space-x-1 hover:bg-white transition-colors duration-150" href="accueil_mobile.html">
+        <span>Passer</span>
+        <svg aria-hidden="true" class="w-3.5 h-3.5 stroke-current stroke-[2.2] fill-none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- CORRECTION : la barre de progression devient comprehensible (étape courante annoncée) -->
+    <ol aria-label="Étapes de l'onboarding" class="mt-3.5 flex items-center space-x-1.5 no-select" role="list">
+      <li aria-current="step" class="flex-1">
+        <span class="block h-[3px] w-full bg-gradient-to-r from-zecolis-orange to-zecolis-orangeLight rounded-full shadow-[0_0_8px_rgba(255,107,0,0.6)]"></span>
+        <span class="sr-only">Étape 1 sur 3 : envoyer un colis</span>
+      </li>
+      <li class="flex-1"><span class="block h-[3px] w-full bg-white/25 rounded-full"></span><span class="sr-only">Étape 2 sur 3</span></li>
+      <li class="flex-1"><span class="block h-[3px] w-full bg-white/25 rounded-full"></span><span class="sr-only">Étape 3 sur 3</span></li>
+    </ol>
+  </div>
+
+  <!-- ============ LAYER 2 : PILLS FLOTTANTS (conservés à l'identique) ============ -->
+  <div class="relative z-10 px-5 mt-4 flex flex-col space-y-2.5">
+    <div class="self-start glass-pill-dark rounded-full py-1.5 px-3.5 flex items-center space-x-2">
+      <span aria-hidden="true" class="text-xs">🇧🇯</span>
+      <span class="text-[11.5px] font-semibold text-white/95 tracking-wide">Cotonou</span>
+      <div aria-hidden="true" class="flex items-center text-zecolis-orange px-0.5">
+        <svg class="w-3.5 h-3.5 stroke-current stroke-[2.2] fill-none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+        </svg>
+      </div>
+      <span class="text-[11.5px] font-semibold text-white/95 tracking-wide">Paris</span>
+      <span aria-hidden="true" class="text-xs">🇫🇷</span>
+    </div>
+
+    <div class="flex items-center space-x-2">
+      <div class="glass-pill-dark rounded-full py-1.5 px-3 flex items-center space-x-1.5">
+        <div aria-hidden="true" class="w-3.5 h-3.5 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+          <svg class="w-2.5 h-2.5 stroke-current stroke-[2.5] fill-none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <span class="text-[11px] font-medium text-white/90">Colis prêt</span>
+      </div>
+      <div class="glass-pill-dark rounded-full py-1.5 px-3 flex items-center space-x-1.5">
+        <div aria-hidden="true" class="w-3.5 h-3.5 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+          <svg class="w-2.5 h-2.5 stroke-current stroke-[2.5] fill-none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <span class="text-[11px] font-medium text-white/90">Voyage vérifié</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-1" aria-hidden="true"></div>
+
+  <!-- ============ LAYER 3 : TYPOGRAPHIE + CTA ============ -->
+  <div class="lower-third relative z-20 px-6 pb-6 pt-2 safe-bottom">
+    <div class="flex items-center space-x-2 mb-2 no-select">
+      <span aria-hidden="true" class="w-2 h-2 rounded-full bg-zecolis-orange animate-pulse"></span>
+      <span class="text-[11px] font-bold text-zecolis-orange tracking-[0.22em] uppercase">Envoyer un colis</span>
+    </div>
+
+    <h1 class="title text-[38px] sm:text-[41px] leading-[1.08] font-black text-tight text-white mb-3">
+      Envoyez<br>
+      <span class="text-zecolis-orange">moins cher.</span>
+    </h1>
+
+    <p class="text-[14.5px] leading-snug font-normal text-slate-300 max-w-[310px] mb-5">
+      Votre colis voyage avec quelqu’un qui part déjà.
+    </p>
+
+    <!-- CORRECTION : « Suivant » devient un vrai lien vers l'écran 2 (reçu) — l'original n'avait aucun gestionnaire -->
+    <a class="tap w-full h-[56px] btn-gradient no-select rounded-[16px] border border-white/15 text-white font-bold text-[16px] tracking-tight flex items-center justify-center space-x-2 transition-all duration-200 shadow-xl" href="onboarding_voyageur_mobile.html">
+      <span>Suivant</span>
+      <svg aria-hidden="true" class="w-4 h-4 stroke-current stroke-[2.4] fill-none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </a>
+
+    <!-- CORRECTION : pastilles de pagination annoncées et libellées (elles n'étaient que des éléments décoratifs) -->
+    <ol aria-label="Étape 1 sur 3" class="flex items-center justify-center space-x-2 mt-4 mb-1 no-select" role="list">
+      <li><span class="block w-6 h-1.5 bg-zecolis-orange rounded-full shadow-[0_0_8px_rgba(255,107,0,0.5)]"></span><span class="sr-only">Étape 1 active</span></li>
+      <li><span class="block w-1.5 h-1.5 bg-white/35 rounded-full"></span><span class="sr-only">Étape 2</span></li>
+      <li><span class="block w-1.5 h-1.5 bg-white/35 rounded-full"></span><span class="sr-only">Étape 3</span></li>
+    </ol>
+
+    <!-- CORRECTION : l'indicateur d'accueil dessiné (w-32 h-1) est supprimé au profit de la zone de geste réelle -->
+    <p class="sr-only">Fin de l'écran</p>
+  </div>
+</div>
+</body>
+</html>

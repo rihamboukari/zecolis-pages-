@@ -1,0 +1,741 @@
+<!DOCTYPE html><html class="h-full bg-slate-900" lang="fr" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<title>ZECOLIS - Publier un voyage</title>
+<!-- Google Fonts: Inter & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 with Forms & Container Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#0B2A5B',
+              deepNavy: '#1D1D4B',
+              orange: '#FF6B00',
+              green: '#22A55A',
+              bg: '#F8FAFC',
+              slateText: '#0F172A',
+              muted: '#64748B',
+              border: '#E2E8F0',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          boxShadow: {
+            'card': '0 2px 10px -2px rgba(15, 23, 42, 0.05), 0 1px 3px -1px rgba(15, 23, 42, 0.03)',
+            'float-btn': '0 8px 24px -4px rgba(255, 107, 0, 0.35)',
+            'pop': '0 20px 40px -12px rgba(11, 42, 91, 0.15)',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="viewport-constraint">
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      background-color: #0F172A;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Inter', sans-serif;
+    }
+    .app-screen {
+      width: 100%;
+      max-width: 390px;
+      min-height: 844px;
+      background-color: #F8FAFC;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    .app-screen::-webkit-scrollbar {
+      display: none;
+    }
+    .app-screen {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Toggle switch styling */
+    .toggle-checkbox:checked {
+      right: 2px;
+      border-color: #FF6B00;
+    }
+    .toggle-checkbox:checked + .toggle-label {
+      background-color: #FF6B00;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 font-sans select-none">
+<!-- BEGIN: MobileContainer -->
+<div class="app-screen text-brand-slateText min-h-screen pb-36 relative" data-purpose="mobile-screen-frame">
+<!-- BEGIN: iOSStatusBar -->
+<div class="sticky top-0 z-40 bg-white/95 backdrop-blur-md px-6 pt-3 pb-2 flex justify-between items-center text-xs font-semibold tracking-tight text-[#0F172A]" data-purpose="status-bar">
+<span class="font-medium text-[13px]">9:41</span>
+<!-- Dynamic Island / Top Notch balance -->
+<div class="w-24 h-4 rounded-full bg-slate-900/5"></div>
+<div class="flex items-center space-x-1.5">
+<!-- Cellular Icon -->
+<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+<path d="M2 17h2v4H2zm5-4h2v8H7zm5-4h2v12h-2zm5-5h2v17h-2zm5-4h2v21h-2z"></path>
+</svg>
+<!-- Wifi Icon -->
+<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+<path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0012 4zm0 3.5c3.27 0 6.27 1.25 8.54 3.32L12 19.34 3.46 10.82A13.36 13.36 0 0112 7.5z"></path>
+</svg>
+<!-- Battery Icon -->
+<div class="w-5 h-2.5 rounded-[3px] border border-current p-0.5 flex items-center">
+<div class="h-full w-3 bg-current rounded-xs"></div>
+</div>
+</div>
+</div>
+<!-- END: iOSStatusBar -->
+<!-- BEGIN: HeaderMobile (Top app bar & Steps) -->
+<header class="bg-white border-b border-brand-border px-4 pt-2 pb-3.5 sticky top-[41px] z-30 shadow-xs" data-purpose="screen-header">
+<div class="flex items-center justify-between">
+<!-- Bouton retour tactile -->
+<button aria-label="Retour" class="w-9 h-9 -ml-1 rounded-full flex items-center justify-center text-brand-slateText hover:bg-slate-100 active:scale-95 transition-all" onclick="history.back()" type="button">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24">
+<line x1="19" x2="5" y1="12" y2="12"></line>
+<polyline points="12 19 5 12 12 5"></polyline>
+</svg>
+</button>
+<!-- Titre centre -->
+<div class="text-center"><div class="flex items-center justify-center gap-1.5"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwWbFr6KhIkaTG4yi09s8hHvFPxwCKY_VdaK-jbVn_DlK4Na9zAREKAvdU0Teni-qOlhCRHxz-SZGvYpjZop9VyjVFSglYviIAb2TxWdPEvVpaq9UtHesQOKNK7qQk2C4pjyk_emTQj20VQtoF23zwBAYqcE2CJ9D-zU-is1wx8Xm5ZB8QqB7leaij7_s38A_jDF_SYapHQL975LYjAKM02AjI_pPvAsaNXaGIbJK0krQLIfdU2zZJLbEOKMWqxAeFtLM" alt="ZéColis" class="h-7 w-auto object-cover"><h1 class="text-base font-bold font-display tracking-tight text-brand-slateText">Publier</h1></div><p class="text-[11px] font-medium text-brand-muted leading-tight">Proposez votre espace disponible</p></div>
+<!-- Help Button -->
+<button aria-label="Aide et consignes" class="w-9 h-9 -mr-1 rounded-full flex items-center justify-center text-brand-muted hover:text-brand-navy active:scale-95 transition-all" onclick="openRulesModal()" type="button">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+<line x1="12" x2="12.01" y1="17" y2="17"></line>
+</svg>
+</button>
+</div>
+<!-- Progression compacte à 3 étapes -->
+
+</header>
+<!-- END: HeaderMobile -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 px-4 pt-3.5 space-y-4">
+<!-- B. TYPE DE PUBLICATION (Segmented Control) -->
+<section data-purpose="publication-type-selector">
+<div class="grid grid-cols-2 p-1 bg-slate-200/80 rounded-2xl gap-1">
+<!-- Option 1 : Je voyage (Actif) -->
+<button class="flex items-center justify-center space-x-2 py-2.5 px-3 rounded-xl bg-brand-navy text-white font-semibold text-xs shadow-sm transition-all" id="btn-type-voyage" type="button">
+<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24">
+<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path>
+</svg>
+<span class="">Je voyage</span>
+</button>
+<!-- Option 2 : J'envoie un colis (Inactif) -->
+<button class="flex items-center justify-center space-x-2 py-2.5 px-3 rounded-xl bg-white border border-brand-border text-brand-muted hover:text-brand-slateText font-medium text-xs transition-all" id="btn-type-colis" onclick="alert('Bascule vers le formulaire d\'envoi de colis.')" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+<line x1="12" x2="12" y1="22.08"></line>
+</svg>
+<span class="">J'envoie un colis</span>
+</button>
+</div>
+</section>
+<!-- C. INTRODUCTION -->
+<section class="px-1 pt-1" data-purpose="intro-banner">
+<h2 class="text-lg font-bold font-display text-brand-slateText tracking-tight leading-snug">
+        Votre prochain voyage peut aussi vous rapporter.
+      </h2>
+<p class="text-xs text-brand-muted mt-1 leading-relaxed">
+        Indiquez votre trajet et l'espace disponible dans vos bagages.
+      </p>
+</section>
+<form class="space-y-4" id="form-publish-travel" onsubmit="handleFormSubmit(event)">
+<!-- D. SECTION « MON TRAJET » -->
+<section class="bg-white rounded-[20px] p-4 border border-brand-border shadow-card relative" data-purpose="mon-trajet-section">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center space-x-1.5">
+<h3 class="text-sm font-bold text-brand-slateText uppercase tracking-wide">Mon trajet</h3>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-50 text-brand-navy border border-blue-100">Direct</span>
+</div>
+<div class="relative space-y-2">
+<!-- DÉPART -->
+<div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-xl bg-orange-100 text-brand-orange flex items-center justify-center shrink-0">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" viewBox="0 0 24 24">
+<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+<circle cx="12" cy="10" r="3"></circle>
+</svg>
+</div>
+<div>
+<span class="block text-[10px] font-bold uppercase tracking-wider text-brand-muted">Départ</span>
+<span class="text-sm font-bold text-brand-slateText leading-none" id="depart-city">Cotonou</span>
+</div>
+</div>
+<span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 shadow-2xs" id="depart-country">
+              Bénin (BJ) 🇧🇯
+            </span>
+</div>
+<!-- Bouton central interactif d'inversion bidirectionnelle (ArrowUpDown) -->
+<div class="absolute right-6 top-1/2 -translate-y-1/2 z-20">
+<button aria-label="Inverser les villes" class="w-8 h-8 rounded-full bg-white border border-slate-300 shadow-md flex items-center justify-center text-brand-navy hover:text-brand-orange active:scale-90 hover:rotate-180 transition-all duration-300" id="btn-swap-route" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+<polyline points="7 10 12 5 17 10"></polyline>
+<line x1="12" x2="12" y1="5" y2="19"></line>
+<polyline points="17 14 12 19 7 14"></polyline>
+</svg>
+</button>
+</div>
+<!-- ARRIVÉE -->
+<div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-xl bg-emerald-100 text-brand-green flex items-center justify-center shrink-0">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" viewBox="0 0 24 24">
+<path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+<circle cx="12" cy="10" r="3"></circle>
+</svg>
+</div>
+<div>
+<span class="block text-[10px] font-bold uppercase tracking-wider text-brand-muted">Arrivée</span>
+<span class="text-sm font-bold text-brand-slateText leading-none" id="arrive-city">France</span>
+</div>
+</div>
+<span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 shadow-2xs" id="arrive-country">
+              Paris, Lyon... (FR) 🇫🇷
+            </span>
+</div>
+</div>
+</section>
+<!-- E. SECTION « DATE DU VOYAGE » -->
+<section class="bg-white rounded-[20px] p-4 border border-brand-border shadow-card space-y-3" data-purpose="date-du-voyage-section">
+<div class="flex items-center justify-between">
+<h3 class="text-sm font-bold text-brand-slateText">Date du voyage</h3>
+<!-- Bascule discrète : Date précise vs Dates flexibles -->
+<div class="flex items-center space-x-3 text-xs">
+<label class="flex items-center space-x-1 cursor-pointer">
+<input checked="" class="w-3.5 h-3.5 text-brand-orange focus:ring-brand-orange border-slate-300" name="date_type" type="radio" value="precise">
+<span class="text-xs font-medium text-brand-slateText">Date précise</span>
+</label>
+<label class="flex items-center space-x-1 cursor-pointer">
+<input class="w-3.5 h-3.5 text-brand-orange focus:ring-brand-orange border-slate-300" name="date_type" type="radio" value="flexible">
+<span class="text-xs text-brand-muted">Dates flexibles</span>
+</label>
+</div>
+</div>
+<!-- Champ de date élégant -->
+<div class="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-200/80 cursor-pointer active:bg-slate-100 transition-colors">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-xl bg-blue-50 text-brand-navy flex items-center justify-center">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
+</div>
+<div>
+<span class="block text-[10px] uppercase font-bold text-brand-muted">Date de départ</span>
+<span class="text-sm font-bold text-brand-slateText" id="trip-date-display">18 septembre 2026</span>
+</div>
+</div>
+<svg class="w-4 h-4 text-brand-muted" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</div>
+<p class="text-[11px] text-brand-muted leading-tight">
+          Vous pourrez indiquer une période si votre date est flexible.
+        </p>
+</section>
+<!-- F. SECTION « COMBIEN D'ESPACE POUVEZ-VOUS PROPOSER ? » -->
+<section class="bg-white rounded-[20px] p-4 border border-brand-border shadow-card space-y-3" data-purpose="capacity-section">
+<div>
+<h3 class="text-sm font-bold text-brand-slateText">Combien d'espace pouvez-vous proposer ?</h3>
+<p class="text-xs text-brand-muted mt-0.5">Indiquez le poids maximum que vous pouvez transporter.</p>
+</div>
+<!-- Chips tactiles de sélection de poids -->
+<div class="grid grid-cols-5 gap-1.5" id="weight-selector-chips">
+<button class="weight-chip py-2 rounded-xl text-xs font-semibold border border-slate-200 bg-slate-50 text-brand-slateText hover:bg-slate-100 transition-all text-center" data-weight="2" type="button">
+            2 kg
+          </button>
+<button class="weight-chip py-2 rounded-xl text-xs font-semibold border border-slate-200 bg-slate-50 text-brand-slateText hover:bg-slate-100 transition-all text-center" data-weight="5" type="button">
+            5 kg
+          </button>
+<button class="weight-chip active-chip py-2 rounded-xl text-xs font-bold border-2 border-brand-orange bg-[#FFF7ED] text-brand-orange shadow-xs transition-all text-center relative" data-weight="10" type="button">
+            10 kg
+          </button>
+<button class="weight-chip py-2 rounded-xl text-xs font-semibold border border-slate-200 bg-slate-50 text-brand-slateText hover:bg-slate-100 transition-all text-center" data-weight="20" type="button">
+            20 kg
+          </button>
+<button class="weight-chip py-2 rounded-xl text-xs font-semibold border border-slate-200 bg-slate-50 text-brand-slateText hover:bg-slate-100 transition-all text-center" data-weight="autre" type="button">
+            Autre
+          </button>
+</div>
+<!-- Résumé sous les chips -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+<div class="flex items-center space-x-2 text-brand-muted">
+<svg class="w-4 h-4 text-brand-navy" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
+<path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
+<path d="M7 21h10"></path>
+<path d="M12 3v18"></path>
+<path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path>
+</svg>
+<span class="font-medium">Capacité sélectionnée</span>
+</div>
+<span class="font-bold text-brand-slateText" id="weight-summary-text">Poids proposé : 10 kg maximum</span>
+</div>
+</section>
+<!-- G. SECTION « OÙ SE TROUVE CET ESPACE ? » -->
+<section class="bg-white rounded-[20px] p-4 border border-brand-border shadow-card space-y-3" data-purpose="luggage-type-section">
+<div>
+<h3 class="text-sm font-bold text-brand-slateText">Où se trouve cet espace ?</h3>
+<p class="text-xs text-brand-muted mt-0.5">Utilisé pour faire correspondre les colis compatibles.</p>
+</div>
+<div class="grid grid-cols-3 gap-2" id="space-type-container">
+<!-- Option 1: Bagage en soute (Actif par défaut) -->
+<button class="space-option-btn p-2.5 rounded-xl border-2 border-brand-green bg-emerald-50/60 text-left transition-all relative" data-space="soute" type="button">
+<div class="flex justify-between items-start mb-1">
+<span class="text-lg">🧳</span>
+<span class="checkmark-icon w-4 h-4 rounded-full bg-brand-green text-white flex items-center justify-center">
+<svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewBox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+</span>
+</div>
+<span class="block text-[11px] font-bold text-brand-slateText leading-tight">Bagage en soute</span>
+</button>
+<!-- Option 2: Bagage cabine -->
+<button class="space-option-btn p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left transition-all relative" data-space="cabine" type="button">
+<div class="flex justify-between items-start mb-1">
+<span class="text-lg">🎒</span>
+<span class="checkmark-icon w-4 h-4 rounded-full bg-transparent text-transparent flex items-center justify-center">
+<svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewBox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+</span>
+</div>
+<span class="block text-[11px] font-medium text-brand-slateText leading-tight">Bagage cabine</span>
+</button>
+<!-- Option 3: Espace dédié -->
+<button class="space-option-btn p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left transition-all relative" data-space="dedie" type="button">
+<div class="flex justify-between items-start mb-1">
+<span class="text-lg">📦</span>
+<span class="checkmark-icon w-4 h-4 rounded-full bg-transparent text-transparent flex items-center justify-center">
+<svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewBox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+</span>
+</div>
+<span class="block text-[11px] font-medium text-brand-slateText leading-tight">Espace dédié</span>
+</button>
+</div>
+</section>
+<!-- H. SECTION « VOTRE RÉMUNÉRATION » -->
+<section class="bg-white rounded-[20px] p-4 border border-brand-border shadow-card space-y-3" data-purpose="pricing-remuneration-section">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="text-sm font-bold text-brand-slateText">Votre rémunération</h3>
+<p class="text-xs text-brand-muted mt-0.5">Combien souhaitez-vous recevoir pour l'espace proposé ?</p>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">
+            Moyenne : 8-10€
+          </span>
+</div>
+<!-- Champ de tarif au kg avec saisie -->
+<div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between">
+<div>
+<span class="block text-xs font-semibold text-brand-slateText">Prix par kg</span>
+<span class="text-[10px] text-brand-muted font-medium">Conversion indicative ≈ 5 900 FCFA</span>
+</div>
+<div class="flex items-center space-x-1">
+<input class="w-16 text-right font-bold text-base text-brand-orange bg-white border border-slate-200 rounded-lg py-1 px-1.5 focus:ring-brand-orange focus:border-brand-orange" id="input-rate" max="50" min="1" step="0.5" type="number" value="9">
+<span class="text-xs font-bold text-brand-slateText">€ / kg</span>
+</div>
+</div>
+<!-- Calculateur automatique dynamique -->
+<div class="p-2.5 rounded-xl bg-blue-50/70 border border-blue-100 text-[11px] text-brand-navy font-semibold flex items-center space-x-2">
+<svg class="w-4 h-4 text-brand-navy shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="12" x2="12" y1="16" y2="12"></line>
+<line x1="12" x2="12.01" y1="8" y2="8"></line>
+</svg>
+<span id="price-example-calc" class="">Exemple pour 5 kg : 45,00 € • Pour 10 kg : 90,00 €</span>
+</div>
+<!-- Toggle interactif Prix négociable -->
+<div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+<div class="pr-2">
+<span class="text-xs font-bold text-brand-slateText block">Prix négociable</span>
+<span class="text-[11px] text-brand-muted">Permet aux expéditeurs de vous faire une proposition raisonnable</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" id="toggle-negotiable" type="checkbox">
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-orange"></div>
+</label>
+</div>
+</section>
+<!-- I. SECTION « QUELQUES DÉTAILS » -->
+<section class="bg-white rounded-[20px] p-4 border border-brand-border shadow-card space-y-3" data-purpose="details-and-photo-section">
+<div>
+<h3 class="text-sm font-bold text-brand-slateText">Quelques détails</h3>
+<p class="text-xs text-brand-muted mt-0.5">Précisez les types d'objets acceptés et votre vol.</p>
+</div>
+<!-- Textarea moderne avec compteur -->
+<div class="relative">
+<textarea class="w-full text-xs rounded-xl border-slate-200 text-brand-slateText focus:border-brand-navy focus:ring-brand-navy/20 p-3 placeholder:text-slate-400 resize-none leading-relaxed" id="trip-description" maxlength="300" placeholder="Exemple : je peux transporter de petits colis, documents ou vêtements scellés. Vol direct Air France." rows="3">Je peux transporter des documents ou vêtements scellés. Vol régulier sans escale.</textarea>
+<div class="flex justify-end mt-1">
+<span class="text-[10px] text-brand-muted font-medium" id="char-counter">84 / 300</span>
+</div>
+</div>
+<!-- Zone d'ajout de photo facultative -->
+<div class="p-3 rounded-2xl border border-dashed border-slate-300 bg-slate-50/50 flex items-center justify-between">
+<div class="flex items-center space-x-2.5">
+<div class="w-8 h-8 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-500 shadow-2xs">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2z"></path>
+<circle cx="12" cy="13" r="4"></circle>
+</svg>
+</div>
+<div>
+<span class="block text-xs font-bold text-brand-slateText">Photo du bagage ou billet (optionnel)</span>
+<span class="text-[10px] text-brand-muted leading-tight">Rassure les expéditeurs sur votre vol</span>
+</div>
+</div>
+<button class="px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 text-brand-navy text-xs font-semibold hover:bg-slate-50 shadow-2xs active:scale-95 transition-all" type="button">
+            + Ajouter
+          </button>
+</div>
+</section>
+<!-- J. SECTION « APERÇU DE VOTRE VOYAGE » -->
+<section class="space-y-1.5" data-purpose="live-preview-section">
+<div class="flex items-center justify-between px-1">
+<span class="text-[11px] font-bold uppercase tracking-wider text-brand-muted">Aperçu en direct dans le fil</span>
+<span class="text-[10px] font-bold text-emerald-600 flex items-center space-x-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="">Visible publiquement</span>
+</span>
+</div>
+<div class="bg-white rounded-2xl p-3.5 border border-brand-border shadow-card relative">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-2.5">
+<div class="relative">
+<img alt="Riham K." class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-xs" src="https://lh3.googleusercontent.com/aida/AEtjO1WHAj1O081c6_H8s8bLYmnwysMCkZWWL8SB6POZ9CTgqGGUcEFn_AC77fYtjGshtChNzR5V6o0ma_c7bkVEedyJreYE890XWInX0_BLSr1jQA2Cp1YCdACDJ7GCq9xDM2_L-5Wg4mBxBwtErPPsPMVd3DDO9UZfYCL4d1jTwVLct_O_RoFMrOuyCdl52hJ2KVAE_yRjgbQnyOn-32R2WLA_9tJ_6XDtX2LBzjxTqTvbU2k2bAvF-5-z54WY">
+<span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-brand-green text-white rounded-full flex items-center justify-center text-[9px] border border-white">
+                  ✓
+                </span>
+</div>
+<div>
+<div class="flex items-center space-x-1">
+<span class="text-xs font-bold text-brand-slateText">Riham K.</span>
+<span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1 py-0.2 rounded">Vérifié</span>
+</div>
+<span class="text-[11px] text-brand-muted font-medium" id="preview-route-text">✈️ Cotonou → France • 18 sept. 2026</span>
+</div>
+</div>
+<span class="text-xs font-bold text-brand-orange px-2 py-0.5 rounded-full bg-orange-50 border border-orange-200" id="preview-price-badge">
+              9,00 € / kg
+            </span>
+</div>
+<div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+<div class="flex items-center space-x-1.5">
+<span class="px-2 py-0.5 rounded-md bg-slate-100 text-brand-slateText font-bold text-[11px]" id="preview-weight-badge">
+                10 kg disponibles
+              </span>
+<span class="text-[11px] text-slate-500 font-medium">Réponse &lt; 1h</span>
+</div>
+<button class="text-[11px] font-semibold text-brand-navy hover:underline" onclick="document.getElementById('weight-selector-chips').scrollIntoView({behavior: 'smooth'})" type="button">
+              Modifier
+            </button>
+</div>
+</div>
+</section>
+<!-- K. SECTION JURIDIQUE & CONSENTEMENT « AVANT DE PUBLIER » -->
+<section class="p-3.5 rounded-2xl bg-slate-100/90 border border-slate-200 space-y-2.5" data-purpose="legal-consent-section">
+<div class="flex items-start space-x-2.5">
+<div class="w-6 h-6 rounded-lg bg-emerald-100 text-brand-green flex items-center justify-center shrink-0 mt-0.5">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+<polyline points="9 12 11 14 15 10"></polyline>
+</svg>
+</div>
+<div>
+<h4 class="text-xs font-bold text-brand-slateText leading-none">Avant de publier</h4>
+<p class="text-[11px] text-brand-muted mt-1 leading-relaxed">
+              Vous confirmez que ce voyage correspond à un déplacement réel et que les informations indiquées sont exactes. Vous acceptez les règles applicables aux voyageurs et au transport des colis.
+            </p>
+<button class="text-[11px] font-bold text-brand-navy hover:underline inline-flex items-center mt-1" onclick="openRulesModal()" type="button">
+<span class="">Voir les règles voyageurs</span>
+<span class="ml-0.5">→</span>
+</button>
+</div>
+</div>
+<!-- UNE SEULE checkbox claire et obligatoire -->
+<label class="flex items-center space-x-2.5 pt-2 border-t border-slate-200/80 cursor-pointer">
+<input checked="" class="w-4 h-4 rounded text-brand-orange focus:ring-brand-orange border-slate-300" id="checkbox-rules" required="" type="checkbox">
+<span class="text-xs font-medium text-brand-slateText leading-tight">
+            Je confirme les informations et les règles applicables à mon voyage.
+          </span>
+</label>
+</section>
+</form>
+</main>
+<!-- END: MainContent -->
+<!-- L. BOUTON PRINCIPAL (Fixed / Sticky CTA) & iOS Home Bar -->
+<div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] z-40 bg-white/95 backdrop-blur-md border-t border-brand-border px-4 pt-2.5 pb-6 shadow-pop" data-purpose="sticky-cta-bar">
+<button class="w-full h-14 bg-brand-orange hover:bg-orange-600 active:scale-[0.98] text-white font-bold text-base rounded-2xl shadow-float-btn flex items-center justify-center space-x-2 transition-all" form="form-publish-travel" id="btn-submit-voyage" type="submit">
+<span class="">Publier mon voyage</span>
+<span class="text-lg">✈</span>
+</button>
+<p class="text-[10px] text-center text-brand-muted mt-2 font-medium flex items-center justify-center space-x-1">
+<svg class="w-3 h-3 text-brand-green" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+</svg>
+<span class="">Vous pourrez modifier ou retirer votre annonce à tout moment.</span>
+</p>
+<!-- iOS Home Indicator -->
+<div class="w-32 h-1 bg-slate-300 rounded-full mx-auto mt-2.5"></div>
+</div>
+<!-- MODAL 1: Règles Voyageurs Bottom-Sheet -->
+<div class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-end justify-center hidden opacity-0 transition-opacity duration-300" id="rules-modal">
+<div class="bg-white rounded-t-[28px] w-full max-w-[390px] p-5 max-h-[80vh] overflow-y-auto transform translate-y-full transition-transform duration-300 shadow-2xl" id="rules-sheet">
+<div class="w-10 h-1 bg-slate-300 rounded-full mx-auto mb-4"></div>
+<div class="flex items-center justify-between pb-3 border-b border-slate-100">
+<div class="flex items-center space-x-2">
+<div class="w-7 h-7 rounded-lg bg-emerald-100 text-brand-green flex items-center justify-center">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+</svg>
+</div>
+<h3 class="text-base font-bold text-brand-slateText">Charte &amp; Règles Voyageurs</h3>
+</div>
+<button class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200" onclick="closeRulesModal()" type="button">✕</button>
+</div>
+<div class="py-4 space-y-3.5 text-xs text-brand-slateText leading-relaxed">
+<div class="p-3 bg-slate-50 rounded-xl">
+<h4 class="font-bold text-brand-navy mb-1">1. Inspection légale obligatoire</h4>
+<p class="text-brand-muted">Le voyageur a le droit et le devoir de vérifier le contenu du colis avant de l'accepter dans ses bagages.</p>
+</div>
+<div class="p-3 bg-slate-50 rounded-xl">
+<h4 class="font-bold text-brand-navy mb-1">2. Produits interdits</h4>
+<p class="text-brand-muted">Produits illicites, contrefaçons, drogues, liquides inflammables, batteries lithium en soute ou espèces non déclarées sont formellement bannis.</p>
+</div>
+<div class="p-3 bg-slate-50 rounded-xl">
+<h4 class="font-bold text-brand-navy mb-1">3. Séquestre &amp; Paiement garanti</h4>
+<p class="text-brand-muted">L'expéditeur prépaye sur Zecolis. Les fonds sont débloqués sur votre compte dès confirmation de la remise en main propre à destination.</p>
+</div>
+</div>
+<button class="w-full py-3 bg-brand-navy text-white text-xs font-bold rounded-xl active:scale-98 transition-all" onclick="closeRulesModal()" type="button">
+        J'ai compris et j'accepte
+      </button>
+</div>
+</div>
+<!-- MODAL 2: Succès Publication -->
+<div class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center px-5 hidden opacity-0 transition-opacity duration-300" id="success-modal">
+<div class="bg-white rounded-3xl p-6 w-full max-w-xs text-center shadow-2xl transform scale-90 transition-transform duration-300" id="success-box">
+<div class="w-16 h-16 bg-emerald-100 text-brand-green rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner">
+<svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+</div>
+<h3 class="text-lg font-bold font-display text-brand-slateText mb-1">Votre voyage est publié !</h3>
+<p class="text-xs text-brand-muted mb-5 leading-relaxed">
+        Votre proposition est désormais visible par les membres vérifiés de Zecolis. Vous recevrez une notification dès qu'une demande vous sera adressée.
+      </p>
+<div class="space-y-2">
+<button class="w-full py-3 bg-brand-navy text-white text-xs font-bold rounded-xl hover:bg-slate-800 active:scale-98 transition-all" onclick="closeSuccessModal()" type="button">
+          Voir mon annonce
+        </button>
+<button class="w-full py-2.5 text-xs font-semibold text-brand-muted hover:text-brand-slateText" onclick="closeSuccessModal()" type="button">
+          Retour à l'accueil
+        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- END: MobileContainer -->
+<!-- BEGIN: Interactivité Javascript -->
+<script>
+  // Variables d'état
+  let currentDepart = { city: "Cotonou", country: "Bénin (BJ) 🇧🇯" };
+  let currentArrive = { city: "France", country: "Paris, Lyon... (FR) 🇫🇷" };
+  let currentWeight = 10;
+  let currentPricePerKg = 9.0;
+
+  // Swap Trajet
+  const btnSwap = document.getElementById('btn-swap-route');
+  const departCityEl = document.getElementById('depart-city');
+  const departCountryEl = document.getElementById('depart-country');
+  const arriveCityEl = document.getElementById('arrive-city');
+  const arriveCountryEl = document.getElementById('arrive-country');
+  const previewRouteText = document.getElementById('preview-route-text');
+
+  btnSwap.addEventListener('click', () => {
+    // Inversion
+    const temp = { ...currentDepart };
+    currentDepart = { ...currentArrive };
+    currentArrive = temp;
+
+    departCityEl.textContent = currentDepart.city;
+    departCountryEl.textContent = currentDepart.country;
+    arriveCityEl.textContent = currentArrive.city;
+    arriveCountryEl.textContent = currentArrive.country;
+
+    updatePreview();
+  });
+
+  // Gestion des chips de poids
+  const weightChips = document.querySelectorAll('.weight-chip');
+  const weightSummaryText = document.getElementById('weight-summary-text');
+  const previewWeightBadge = document.getElementById('preview-weight-badge');
+
+  weightChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      weightChips.forEach(c => {
+        c.className = 'weight-chip py-2 rounded-xl text-xs font-semibold border border-slate-200 bg-slate-50 text-brand-slateText hover:bg-slate-100 transition-all text-center';
+      });
+
+      chip.className = 'weight-chip active-chip py-2 rounded-xl text-xs font-bold border-2 border-brand-orange bg-[#FFF7ED] text-brand-orange shadow-xs transition-all text-center relative';
+      
+      const val = chip.getAttribute('data-weight');
+      if (val === 'autre') {
+        const custom = prompt("Indiquez le poids en kg :", "15");
+        currentWeight = custom ? parseFloat(custom) || 10 : 10;
+      } else {
+        currentWeight = parseInt(val, 10);
+      }
+
+      weightSummaryText.textContent = `Poids proposé : ${currentWeight} kg maximum`;
+      previewWeightBadge.textContent = `${currentWeight} kg disponibles`;
+      updateCalculations();
+    });
+  });
+
+  // Gestion du type d'espace (Soute, Cabine, Dédié)
+  const spaceButtons = document.querySelectorAll('.space-option-btn');
+  spaceButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      spaceButtons.forEach(b => {
+        b.className = 'space-option-btn p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left transition-all relative';
+        const check = b.querySelector('.checkmark-icon');
+        if (check) {
+          check.className = 'checkmark-icon w-4 h-4 rounded-full bg-transparent text-transparent flex items-center justify-center';
+        }
+      });
+
+      btn.className = 'space-option-btn p-2.5 rounded-xl border-2 border-brand-green bg-emerald-50/60 text-left transition-all relative';
+      const check = btn.querySelector('.checkmark-icon');
+      if (check) {
+        check.className = 'checkmark-icon w-4 h-4 rounded-full bg-brand-green text-white flex items-center justify-center';
+      }
+    });
+  });
+
+  // Prix par kg & Calculateur automatique
+  const inputRate = document.getElementById('input-rate');
+  const priceExampleCalc = document.getElementById('price-example-calc');
+  const previewPriceBadge = document.getElementById('preview-price-badge');
+
+  function updateCalculations() {
+    currentPricePerKg = parseFloat(inputRate.value) || 9.0;
+    const gain5kg = (5 * currentPricePerKg).toFixed(2).replace('.', ',');
+    const gain10kg = (10 * currentPricePerKg).toFixed(2).replace('.', ',');
+    priceExampleCalc.textContent = `Exemple pour 5 kg : ${gain5kg} € • Pour 10 kg : ${gain10kg} €`;
+    previewPriceBadge.textContent = `${currentPricePerKg.toFixed(2).replace('.', ',')} € / kg`;
+  }
+
+  inputRate.addEventListener('input', updateCalculations);
+
+  // Compteur de caractères description
+  const descriptionTextarea = document.getElementById('trip-description');
+  const charCounter = document.getElementById('char-counter');
+  descriptionTextarea.addEventListener('input', () => {
+    charCounter.textContent = `${descriptionTextarea.value.length} / 300`;
+  });
+
+  // Mise à jour de l'aperçu dynamique
+  function updatePreview() {
+    previewRouteText.textContent = `✈️ ${currentDepart.city} → ${currentArrive.city} • 18 sept. 2026`;
+  }
+
+  // Modals : Règles voyageurs
+  const rulesModal = document.getElementById('rules-modal');
+  const rulesSheet = document.getElementById('rules-sheet');
+
+  function openRulesModal() {
+    rulesModal.classList.remove('hidden');
+    setTimeout(() => {
+      rulesModal.classList.remove('opacity-0');
+      rulesSheet.classList.remove('translate-y-full');
+    }, 10);
+  }
+
+  function closeRulesModal() {
+    rulesModal.classList.add('opacity-0');
+    rulesSheet.classList.add('translate-y-full');
+    setTimeout(() => {
+      rulesModal.classList.add('hidden');
+    }, 300);
+  }
+
+  // Soumission et modal de succès
+  const successModal = document.getElementById('success-modal');
+  const successBox = document.getElementById('success-box');
+  const submitBtn = document.getElementById('btn-submit-voyage');
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const checkbox = document.getElementById('checkbox-rules');
+    if (!checkbox.checked) {
+      alert("Veuillez accepter les règles applicables avant de publier.");
+      return;
+    }
+
+    const originalContent = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+      <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <span>Publication en cours…</span>
+    `;
+
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalContent;
+      openSuccessModal();
+    }, 900);
+  }
+
+  function openSuccessModal() {
+    successModal.classList.remove('hidden');
+    setTimeout(() => {
+      successModal.classList.remove('opacity-0');
+      successBox.classList.remove('scale-90');
+      successBox.classList.add('scale-100');
+    }, 10);
+  }
+
+  function closeSuccessModal() {
+    successModal.classList.add('opacity-0');
+    successBox.classList.remove('scale-100');
+    successBox.classList.add('scale-90');
+    setTimeout(() => {
+      successModal.classList.add('hidden');
+    }, 250);
+  }
+</script>
+<!-- END: Interactivité Javascript -->
+
+
+</body></html>

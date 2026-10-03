@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html class="h-full bg-[#F8FAFC]" lang="fr">
+<head>
+<meta charset="utf-8">
+<!-- CORRECTION MOBILE : zoom réautorisé + viewport-fit=cover -->
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
+<meta content="theme-color" name="theme-color" value="#F8FAFC">
+<title>Zecolis - Mot de passe oublié</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'zec-navy': '#0B2A5B',
+          'zec-dark': '#1D1D4B',
+          'zec-orange': '#FF6B00',
+          'zec-green': '#22A55A',
+          'zec-bg': '#F8FAFC'
+        },
+        fontFamily: {
+          /* CORRECTION : Plus Jakarta Sans n'est plus prioritaire, Inter est en tête (§ 4.4) */
+          sans: ['Inter', 'system-ui', 'sans-serif']
+        }
+      }
+    }
+  }
+</script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style data-purpose="mobile-fixes">
+  /* ==== CORRECTIONS MOBILE TRANSVERSES ==== */
+  :root {
+    --sat: env(safe-area-inset-top, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+  }
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    overscroll-behavior-y: auto;
+    /* CORRECTION : la copie de l'adresse e-mail est à nouveau possible */
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  input,
+  button {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  input,
+  select,
+  textarea {
+    /* CORRECTION : 16 px minimum, sinon iOS zoome à la focus et la page déborde */
+    font-size: 16px;
+  }
+  .app-shell {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  .tap {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  :focus-visible {
+    outline: 2px solid #FF6B00;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+  .safe-bottom {
+    padding-bottom: calc(0.75rem + var(--sab));
+  }
+  /* CORRECTION : la bascule de vue devient une vraie transition (l'original animait opacity
+     alors que l'affichage se faisait par la classe hidden, donc sans effet) */
+  .view-switch {
+    transition: opacity 220ms ease, transform 220ms ease;
+  }
+  .view-enter {
+    animation: viewIn 220ms ease both;
+  }
+  @keyframes viewIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 359px) {
+    .stack-header {
+      flex-wrap: wrap;
+    }
+  }
+</style>
+</head>
+<body class="min-h-full w-full bg-[#F8FAFC] text-[#1D1D4B] flex flex-col antialiased">
+<div class="app-shell relative w-full max-w-[430px] mx-auto flex flex-col">
+  <!-- CORRECTION : le conteneur max-w-[390px] du <body> est déplacé sur une div interne :
+       sur un écran large, le fond ne s'arrêtait plus à 390 px -->
+  <header class="w-full px-5 pt-[calc(1rem+var(--sat))] pb-2 shrink-0" style="padding-left:calc(1.25rem + var(--sal));padding-right:calc(1.25rem + var(--sar))">
+    <div class="flex items-center justify-between gap-2 stack-header">
+      <!-- CORRECTION : le bouton retour gagne un repli quand l'historique est vide (ouverture directe du fichier) -->
+      <button aria-label="Retour à l'écran précédent" class="tap rounded-full bg-white border border-[#F1F5F9] shadow-xs active:scale-95 transition-transform text-[#0B2A5B] flex-none" data-purpose="back-button" id="backBtn" type="button">
+        <i class="w-5 h-5" data-lucide="arrow-left"></i>
+      </button>
+      <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-[#F1F5F9] shadow-xs min-w-0">
+        <img alt="" class="h-7 w-auto flex-none object-contain" src="img/logo.png">
+        <span class="text-xs font-semibold text-[#0B2A5B] tracking-tight truncate">Réinitialisation</span>
+      </div>
+      <div class="tap-sm flex items-center gap-1.5 px-3 rounded-full border border-[#F1F5F9] shadow-xs bg-white flex-none">
+        <i class="w-4 h-4 flex-none text-[#22A55A]" data-lucide="shield-check"></i>
+        <span class="text-[11px] font-bold tracking-wide text-[#0B2A5B] uppercase">Sécurisé</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 w-full flex flex-col px-5 pt-6 pb-4" style="padding-left:calc(1.25rem + var(--sal));padding-right:calc(1.25rem + var(--sar))">
+    <!-- Écran 1 : demande de réinitialisation -->
+    <section class="view-switch" id="reset-form-container">
+      <div class="w-[52px] h-[52px] rounded-2xl bg-[#FFF3EB] flex items-center justify-center mb-5">
+        <i class="w-6 h-6 text-[#FF6B00]" data-lucide="key-round"></i>
+      </div>
+      <h1 class="text-[26px] leading-tight font-extrabold tracking-tight text-[#1D1D4B] mb-2">
+        Mot de passe <span class="text-[#FF6B00]">oublié&nbsp;?</span>
+      </h1>
+      <p class="text-[15px] text-[#64748B] leading-relaxed mb-6">
+        Entrez votre adresse e-mail pour recevoir un lien de réinitialisation.
+      </p>
+
+      <form class="space-y-3" id="reset-password-form" method="post" novalidate>
+        <div class="space-y-1.5">
+          <label class="block text-[11px] uppercase tracking-wider font-semibold text-[#64748B]" for="email-input">
+            Adresse e-mail
+          </label>
+          <div class="relative flex items-center">
+            <div class="absolute left-4 pointer-events-none flex items-center text-slate-400">
+              <i class="w-5 h-5" data-lucide="mail"></i>
+            </div>
+            <input aria-describedby="email-hint email-error" autocapitalize="none" autocomplete="email" autocorrect="off" class="w-full h-14 pl-12 pr-4 bg-white rounded-2xl border border-[#F1F5F9] focus:border-[#0B2A5B] focus:ring-1 focus:ring-[#0B2A5B] text-base text-[#1D1D4B] placeholder-slate-400 font-medium shadow-xs transition outline-none" id="email-input" inputmode="email" name="email" placeholder="votre@email.com" required spellcheck="false" type="email">
+          </div>
+          <p class="text-[11px] text-slate-500" id="email-hint">Nous répondrons toujours par la même Confirmation, que le compte existe ou non.</p>
+          <p aria-live="polite" class="hidden flex items-center gap-1.5 text-rose-600 text-[12px] font-medium pt-1" id="email-error" role="alert">
+            <i class="w-3.5 h-3.5 flex-none" data-lucide="alert-circle"></i>
+            <span>Veuillez entrer une adresse e-mail valide.</span>
+          </p>
+        </div>
+
+        <button aria-busy="false" class="tap-sm w-full h-14 mt-3 bg-[#0B2A5B] text-white rounded-2xl font-bold text-base shadow-sm active:scale-[0.98] transition-transform duration-150 flex items-center justify-center gap-2 disabled:opacity-70" id="submit-btn" type="submit">
+          <span id="btn-text">Réinitialiser mon mot de passe</span>
+          <span aria-hidden="true" class="hidden" id="btn-spinner">
+            <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" d="M4 12a8 8 0 0 1 8-8v8H4z" fill="currentColor"></path>
+            </svg>
+          </span>
+        </button>
+      </form>
+
+      <div class="mt-6 text-center">
+        <p class="text-[15px] text-[#64748B]">
+          Vous vous souvenez de votre mot de passe ?
+        </p>
+        <a class="tap-sm inline-flex items-center px-2 text-[15px] text-[#FF6B00] font-semibold" href="connexion_mobile.html">Se connecter</a>
+      </div>
+    </section>
+
+    <!-- Écran 2 : confirmation -->
+    <section aria-live="polite" class="hidden view-switch" id="confirmation-container" tabindex="-1">
+      <div class="w-[52px] h-[52px] rounded-2xl bg-emerald-50 flex items-center justify-center mb-5">
+        <i class="w-6 h-6 text-[#22A55A]" data-lucide="mail-check"></i>
+      </div>
+      <h2 class="text-[26px] font-extrabold tracking-tight text-[#1D1D4B] leading-tight mb-2">
+        Vérifiez votre <span class="text-[#22A55A]">e-mail</span>
+      </h2>
+      <!-- CORRECTION : formulation inchangée (elle ne divulgue pas l'existence d'un compte) -->
+      <p class="text-[15px] text-[#64748B] leading-relaxed mb-4">
+        Si un compte est associé à l'adresse <strong class="text-[#1D1D4B] font-semibold break-all" id="submitted-email-text"></strong>, vous recevrez les instructions pour réinitialiser votre mot de passe.
+      </p>
+      <div class="bg-white rounded-2xl p-4 border border-[#F1F5F9] shadow-xs mb-6">
+        <p class="text-[13px] text-[#64748B] leading-relaxed">
+          Pensez à vérifier votre dossier de courriers indésirables si vous ne trouvez pas notre message d'ici quelques minutes.
+        </p>
+      </div>
+      <!-- CORRECTION : navigation réelle vers l'écran de connexion au lieu d'un simple reset -->
+      <a class="tap-sm w-full h-14 bg-[#0B2A5B] text-white rounded-2xl font-bold text-base shadow-sm active:scale-[0.98] transition-transform duration-150 flex items-center justify-center gap-2" href="connexion_mobile.html" id="back-to-login">
+        Retour à la connexion
+      </a>
+    </section>
+  </main>
+
+  <!-- CORRECTION : l'indicateur d'accueil factice (w-32 h-1) est remplacé par la zone de geste réelle -->
+  <footer class="w-full px-5 safe-bottom shrink-0 flex flex-col items-center gap-2" style="padding-left:calc(1.25rem + var(--sal));padding-right:calc(1.25rem + var(--sar))">
+    <p class="flex items-center gap-1.5">
+      <i class="w-3.5 h-3.5 flex-none text-[#22A55A]" data-lucide="shield"></i>
+      <span class="text-[13px] text-[#64748B]">Vos informations restent sécurisées.</span>
+    </p>
+    <p class="text-[11px] text-slate-500 text-center">Maquette : aucun e-mail n'est réellement envoyé.</p>
+  </footer>
+</div>
+
+<script data-purpose="form-submission-handler">
+  function refreshIcons() {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }
+  refreshIcons();
+
+  /* CORRECTION : retour avec repli si l'historique est vide (ouverture directe de l'URL) */
+  document.getElementById('backBtn').addEventListener('click', function () {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = 'connexion_mobile.html';
+    }
+  });
+
+  function showError(el, visible) {
+    el.classList.toggle('hidden', !visible);
+    el.classList.toggle('flex', visible);
+  }
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+
+    var emailInput = document.getElementById('email-input');
+    var emailError = document.getElementById('email-error');
+    var submitBtn = document.getElementById('submit-btn');
+    var btnText = document.getElementById('btn-text');
+    var btnSpinner = document.getElementById('btn-spinner');
+    var formView = document.getElementById('reset-form-container');
+    var confirmView = document.getElementById('confirmation-container');
+    var emailValue = emailInput.value.trim();
+
+    /* CORRECTION : la ligne de garde `if (!emailValue) return;` de l'original devient un vrai contrôle de format.
+       Dans l'original, « toto » était accepté et la confirmation s'affichait. */
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    emailInput.setAttribute('aria-invalid', 'false');
+    showError(emailError, false);
+    if (!emailValue || !emailPattern.test(emailValue)) {
+      showError(emailError, true);
+      emailInput.setAttribute('aria-invalid', 'true');
+      emailInput.focus();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.setAttribute('aria-busy', 'true');
+    btnText.textContent = 'Envoi en cours…';
+    btnSpinner.classList.remove('hidden');
+
+    /* Simulation d'appel réseau — aucune requête n'est émise dans cette maquette */
+    setTimeout(function () {
+      document.getElementById('submitted-email-text').textContent = emailValue;
+      formView.classList.add('hidden');
+      confirmView.classList.remove('hidden');
+      confirmView.classList.add('view-enter');
+      confirmView.focus();
+
+      submitBtn.disabled = false;
+      submitBtn.setAttribute('aria-busy', 'false');
+      btnText.textContent = 'Réinitialiser mon mot de passe';
+      btnSpinner.classList.add('hidden');
+      refreshIcons();
+    }, 900);
+  }
+
+  document.getElementById('reset-password-form').addEventListener('submit', handleFormSubmit);
+
+  /* Garde-fou : si l'utilisateur revient en arrière après la confirmation, on restaure la vue formulaire */
+  window.addEventListener('pageshow', function (event) {
+    if (event.persisted) {
+      document.getElementById('confirmation-container').classList.add('hidden');
+      document.getElementById('reset-form-container').classList.remove('hidden');
+    }
+  });
+</script>
+</body>
+</html>

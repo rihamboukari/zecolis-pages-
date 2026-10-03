@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zecolis — Maquettes Stitch (planche de contact)</title>
+<style>
+  :root { --navy:#0B2A5B; --orange:#FF6B00; --ink:#0F172A; --muted:#64748B; --line:#E2E8F0; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:24px; background:#F8FAFC; color:var(--ink);
+         font-family:'Plus Jakarta Sans',Inter,system-ui,-apple-system,sans-serif; }
+  h1 { margin:0 0 4px; font-size:22px; color:var(--navy); }
+  .sub { margin:0 0 20px; font-size:13px; color:var(--muted); max-width:80ch; line-height:1.6; }
+  .warn { background:#FFF7ED; border:1px solid #FED7AA; border-left:4px solid var(--orange);
+          padding:12px 14px; border-radius:10px; font-size:13px; line-height:1.6; margin:0 0 24px; max-width:100ch; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:18px; }
+  figure { margin:0; background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden;
+           box-shadow:0 1px 2px rgba(11,42,91,.06); }
+  figure img { display:block; width:100%; height:220px; object-fit:contain; background:#EEF2F7; }
+  figcaption { padding:10px 12px 12px; border-top:1px solid var(--line); }
+  .num { font-size:15px; font-weight:800; color:var(--navy); }
+  .meta { font-size:11px; color:var(--muted); margin-top:4px; line-height:1.6; }
+  code { background:#F1F5F9; padding:1px 5px; border-radius:4px; font-size:10.5px; word-break:break-all; }
+  table { border-collapse:collapse; width:100%; font-size:12.5px; margin-top:8px; }
+  th,td { border:1px solid var(--line); padding:6px 8px; text-align:left; }
+  th { background:#F1F5F9; color:var(--navy); font-weight:700; }
+</style>
+</head>
+<body>
+
+<h1>Planche de contact — 8 maquettes Stitch</h1>
+<p class="sub">
+  Images extraites des 8 fichiers <code>stitch_zecolis_mobile_splash_screen*.zip</code>
+  sitting dans <code>zecolis pages\</code>. Chaque archive ne contenait que
+  <code>screen.png</code> et <code>DESIGN.md</code>&nbsp;: ce sont des <strong>rendus d'écrans</strong>,
+  pas les photos utilisées dans le code. Elles ne peuvent donc pas remplacer les avatars manquants.
+</p>
+
+<p class="warn">
+  <strong>Pourquoi les noms sont numérotés.</strong> Les 8 archives portent toutes le même nom
+  (« splash screen ») et leur <code>DESIGN.md</code> est <strong>rigoureusement identique</strong> dans les 8
+  (empreinte SHA-256 identique). Aucun nom d'écran n'est donc inscrit dans les fichiers.
+  Les noms ci-dessous reprennent l'ordre des archives. Les couleurs mesurées servent de repère&nbsp;:
+  <strong>2 maquettes claires</strong> (01 et 08) et <strong>6 à dominante sombre</strong> (02 à 07).
+  Ouvrez cette page, identifiez chaque écran, et indiquez-moi le nom correspondant pour que je renomme les fichiers.
+</p>
+
+<div class="grid">
+  <figure>
+    <img src="images/stitch-maquette-01_1024x1024.png" alt="Maquette Stitch 01">
+    <figcaption>
+      <div class="num">01 — <code>…splash_screen (1).zip</code></div>
+      <div class="meta">1024 × 1024 · 764 Ko<br>Claire · dominante #E0E0E0 · 89 % de pixels clairs</div>
+    </figcaption>
+  </figure>
+  <figure>
+    <img src="images/stitch-maquette-02_1200x896.png" alt="Maquette Stitch 02">
+    <figcaption>
+      <div class="num">02 — <code>…splash_screen (2).zip</code></div>
+      <div class="meta">1200 × 896 · 1,4 Mo<br>Sombre · dominante #000000 · 30 % de pixels sombres</div>
+    </figcaption>
+  </figure>
+  <figure>
+    <img src="images/stitch-maquette-03_1024x1024.png" alt="Maquette Stitch 03">
+    <figcaption>
+      <div class="num">03 — <code>…splash_screen (3).zip</code></div>
+      <div class="meta">1024 × 1024 · 1,4 Mo<br>Sombre · dominante #000000 · 25 % de pixels sombres</div>
+    </figcaption>
+  </figure>
+  <figure>
+    <img src="images/stitch-maquette-04_1200x896.png" alt="Maquette Stitch 04">
+    <figcaption>
+      <div class="num">04 — <code>…splash_screen (4).zip</code></div>
+      <div class="meta">1200 × 896 · 1,5 Mo<br>Sombre, tons chauds · dominante #604020 · 11 % sombre</div>
+    </figcaption>
+  </figure>
+  <figure>
+    <img src="images/stitch-maquette-05_1024x1024.png" alt="Maquette Stitch 05">
+    <figcaption>
+      <div class="num">05 — <code>…splash_screen (5).zip</code></div>
+      <div class="meta">1024 × 1024 · 1,4 Mo<br>Sombre · dominante #000000 · 32 % de pixels sombres</div>
+    </figcaption>
+  </figure>
+  <figure>
+    <img src="images/stitch-maquette-06_1200x896.png" alt="Maquette Stitch 06">
+    <figcaption>
+      <div class="num">06 — <code>…splash_screen (6).zip</code></div>
+      <div class="meta">1200 × 896 · 1,6 Mo<br>Sombre, tons chauds · dominante #000000 · 22 % sombre</div>
+    </figcaption>
+  </figure>
+  <figure>
+    <img src="images/stitch-maquette-07_1264x848.png" alt="Maquette Stitch 07">
+    <figcaption>
+      <div class="num">07 — <code>…splash_screen (7).zip</code></div>
+      <div class="meta">1264 × 848 · 1,4 Mo<br>Format atypique (seul 1264 × 848) · 12 % sombre</div>
+    </figcaption>
+  </figure>
+  <figure>
+    <img src="images/stitch-maquette-08_1024x1024.png" alt="Maquette Stitch 08">
+    <figcaption>
+      <div class="num">08 — <code>…splash_screen.zip</code> <em>(sans numéro)</em></div>
+      <div class="meta">1024 × 1024 · 807 Ko<br>Claire, tons chauds · dominante #E0E0E0 · 76 % clair</div>
+    </figcaption>
+  </figure>
+</div>
+
+<h2 style="margin:32px 0 6px;font-size:17px;color:var(--navy)">Relevé technique</h2>
+<table>
+  <tr><th>#</th><th>Archive d'origine</th><th>Fichier extrait</th><th>Dimensions</th><th>Poids</th><th>Orange Zecolis</th></tr>
+  <tr><td>01</td><td>(1).zip</td><td>stitch-maquette-01_1024x1024.png</td><td>1024 × 1024</td><td>764 Ko</td><td>0 %</td></tr>
+  <tr><td>02</td><td>(2).zip</td><td>stitch-maquette-02_1200x896.png</td><td>1200 × 896</td><td>1,4 Mo</td><td>0 %</td></tr>
+  <tr><td>03</td><td>(3).zip</td><td>stitch-maquette-03_1024x1024.png</td><td>1024 × 1024</td><td>1,4 Mo</td><td>0 %</td></tr>
+  <tr><td>04</td><td>(4).zip</td><td>stitch-maquette-04_1200x896.png</td><td>1200 × 896</td><td>1,5 Mo</td><td>0 %</td></tr>
+  <tr><td>05</td><td>(5).zip</td><td>stitch-maquette-05_1024x1024.png</td><td>1024 × 1024</td><td>1,4 Mo</td><td>0 %</td></tr>
+  <tr><td>06</td><td>(6).zip</td><td>stitch-maquette-06_1200x896.png</td><td>1200 × 896</td><td>1,6 Mo</td><td>2 %</td></tr>
+  <tr><td>07</td><td>(7).zip</td><td>stitch-maquette-07_1264x848.png</td><td>1264 × 848</td><td>1,4 Mo</td><td>0 %</td></tr>
+  <tr><td>08</td><td>sans numéro</td><td>stitch-maquette-08_1024x1024.png</td><td>1024 × 1024</td><td>807 Ko</td><td>0 %</td></tr>
+</table>
+
+<p class="sub" style="margin-top:18px">
+  <strong>À noter :</strong> la quasi-absence d'orange Zecolis (<code>#FF6B00</code>) dans ces rendus indique
+  qu'ils suivent le système de couleurs Material Polytechnic fourni dans <code>DESIGN.md</code>
+  (<code>secondary: #ab3500</code>), et non la palette marine/orange des maquettes applicatives documentées elsewhere.
+  Ce sont deux systèmes visuels distincts — arbitrage à faire.
+</p>
+
+</body>
+</html>

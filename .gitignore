@@ -1,0 +1,54 @@
+# Dependances et junk
+node_modules/
+package-lock.json
+.yarn/
+vendor/
+
+# Builds
+dist/
+build/
+*.tsbuildinfo
+
+# Environnement / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+id_rsa*
+
+# Editeurs / OS
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Temporaires
+tmp/
+temp/
+.cache/
+*.tmp
+*.bak
+*.orig
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Note : les fichiers volumineux (PNG, ZIP) sont volontairement
+# versionnes - ce sont des livrables du projet, pas des dependances.
+# Decommentez les lignes suivantes si vous preferez un depot leger :
+# *.zip
+# ZECOLIS_DOCUMENTATION/ASSETS/images/
+# ZECOLIS_DOCUMENTATION/ASSETS/photos/

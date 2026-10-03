@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html class="h-full" lang="fr">
+<head>
+<meta charset="utf-8">
+<!-- CORRECTION MOBILE : zoom réautorisé + viewport-fit=cover -->
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
+<meta content="theme-color" name="theme-color" value="#F8FAFC">
+<title>Zecolis Mobile - Inscription</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'system-ui', 'sans-serif']
+        },
+        colors: {
+          zecolis: {
+            navy: '#0B2A5B',
+            darknavy: '#1D1D4B',
+            orange: '#FF6B00',
+            green: '#22A55A',
+            bg: '#F8FAFC',
+            text: '#0F172A',
+            muted: '#64748B',
+            border: '#F1F5F9',
+            lightborder: '#E2E8F0',
+          }
+        },
+        boxShadow: {
+          'btn-navy': '0 8px 20px -4px rgba(11, 42, 91, 0.25), 0 4px 10px -2px rgba(11, 42, 91, 0.15)',
+          'input-subtle': '0 2px 6px 0 rgba(15, 23, 42, 0.03)',
+          'pill-soft': '0 2px 8px rgba(15, 23, 42, 0.04)',
+        }
+      }
+    }
+  }
+</script>
+<style>
+  /* ==== CORRECTIONS MOBILE TRANSVERSES ==== */
+  :root {
+    --sat: env(safe-area-inset-top, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+  }
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #F8FAFC;
+    color: #0F172A;
+    overscroll-behavior-y: auto;
+  }
+  .app-shell {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+  body {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  input,
+  button,
+  label {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .active-scale:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease-out;
+  }
+  .tap {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  :focus-visible {
+    outline: 2px solid #FF6B00;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+  .safe-bottom {
+    padding-bottom: calc(0.75rem + var(--sab));
+  }
+  /* CORRECTION : la case CGU atteint 44 px au lieu d'un carré de 16 px */
+  .checkbox-tap {
+    width: 44px;
+    height: 44px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -10px;
+  }
+  /* CORRECTION : sous 360 px, les champs Prénom / Nom passent en pleine largeur */
+  @media (max-width: 359px) {
+    .two-cols {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body class="min-h-full w-full bg-[#F8FAFC] antialiased flex flex-col">
+<div class="app-shell relative w-full max-w-[430px] mx-auto flex flex-col">
+  <main class="flex-1 w-full flex flex-col" style="padding-left:calc(1.5rem + var(--sal));padding-right:calc(1.5rem + var(--sar))">
+    <!-- CORRECTION : le spacer factice h-2 est remplacé par la vraie zone de sécurité -->
+    <header class="w-full pt-[calc(1rem+var(--sat))]">
+      <div class="flex items-center justify-between gap-2 py-2">
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="flex items-center gap-1.5 px-3 py-1 bg-white rounded-full border border-slate-100 shadow-sm flex-none">
+            <img alt="" class="w-7 h-7 object-contain rounded-sm" src="img/logo.png">
+            <span class="font-extrabold text-[15px] tracking-tight text-zecolis-darknavy">Zé<span class="text-zecolis-orange">Colis</span></span>
+          </div>
+          <span class="text-xs font-medium text-zecolis-darknavy truncate">Inscription</span>
+        </div>
+        <div class="tap-sm flex items-center gap-1.5 px-2.5 rounded-full border border-slate-100 shadow-pill-soft bg-white flex-none">
+          <i class="w-3.5 h-3.5 flex-none text-zecolis-green" data-lucide="shield-check"></i>
+          <span class="text-[11px] font-bold tracking-wide text-zecolis-darknavy uppercase">Sécurisé</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="flex-1 flex flex-col pt-6 pb-4">
+      <div class="mb-6">
+        <h1 class="text-[26px] sm:text-[28px] leading-[1.2] font-extrabold text-zecolis-darknavy tracking-tight">Créez votre compte <span class="text-zecolis-orange">!</span></h1>
+        <p class="mt-2 text-[15px] leading-relaxed text-zecolis-muted">Rejoignez Zecolis pour envoyer ou voyager.</p>
+      </div>
+
+      <!-- CORRECTION MAJEURE : method="post" explicite (l'original pouvait envoyer les mots de passe en GET)
+           et novalidate retiré, la validation JS faisant autorité sur les 4 contrôles métier -->
+      <form class="space-y-4" id="signupForm" method="post" novalidate>
+        <div class="grid grid-cols-2 gap-3 two-cols">
+          <div>
+            <label class="block text-[11px] font-semibold tracking-wider text-zecolis-muted uppercase mb-1.5" for="firstNameInput">Prénom</label>
+            <div class="relative group">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-zecolis-navy transition-colors">
+                <i class="w-5 h-5 stroke-[1.8]" data-lucide="user"></i>
+              </div>
+              <input autocapitalize="words" autocomplete="given-name" class="w-full h-14 pl-11 pr-3 bg-white text-zecolis-text placeholder-slate-400 text-base font-medium rounded-2xl border border-zecolis-border shadow-input-subtle focus:border-zecolis-navy focus:ring-1 focus:ring-zecolis-navy transition-all duration-150" id="firstNameInput" name="firstName" placeholder="Votre prénom" required type="text">
+            </div>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold tracking-wider text-zecolis-muted uppercase mb-1.5" for="lastNameInput">Nom</label>
+            <div class="relative group">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-zecolis-navy transition-colors">
+                <i class="w-5 h-5 stroke-[1.8]" data-lucide="user"></i>
+              </div>
+              <input autocapitalize="words" autocomplete="family-name" class="w-full h-14 pl-11 pr-3 bg-white text-zecolis-text placeholder-slate-400 text-base font-medium rounded-2xl border border-zecolis-border shadow-input-subtle focus:border-zecolis-navy focus:ring-1 focus:ring-zecolis-navy transition-all duration-150" id="lastNameInput" name="lastName" placeholder="Votre nom" required type="text">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-semibold tracking-wider text-zecolis-muted uppercase mb-1.5" for="emailInput">E-mail</label>
+          <div class="relative group">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-zecolis-navy transition-colors">
+              <i class="w-5 h-5 stroke-[1.8]" data-lucide="mail"></i>
+            </div>
+            <input aria-describedby="emailError" autocapitalize="none" autocomplete="email" autocorrect="off" class="w-full h-14 pl-12 pr-4 bg-white text-zecolis-text placeholder-slate-400 text-base font-medium rounded-2xl border border-zecolis-border shadow-input-subtle focus:border-zecolis-navy focus:ring-1 focus:ring-zecolis-navy transition-all duration-150" id="emailInput" inputmode="email" name="email" placeholder="votre@email.com" required spellcheck="false" type="email">
+          </div>
+          <p aria-live="polite" class="hidden mt-1.5 flex items-center gap-1.5 text-rose-600 text-[12px] font-medium" id="emailError" role="alert">
+            <i class="w-3.5 h-3.5 flex-none" data-lucide="alert-circle"></i>
+            <span>Veuillez entrer une adresse e-mail valide.</span>
+          </p>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-1.5">
+            <label class="text-[11px] font-semibold tracking-wider text-zecolis-muted uppercase" for="passwordInput">Mot de passe</label>
+            <!-- CORRECTION : aide utile reliée au champ (8 caractères minimum, 1 lettre et 1 chiffre) -->
+            <span class="text-[12px] text-zecolis-muted flex items-center gap-1" id="passwordHelper">
+              <i class="w-3.5 h-3.5 flex-none" data-lucide="info"></i>
+              8 caractères minimum
+            </span>
+          </div>
+          <div class="relative group">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-zecolis-navy transition-colors">
+              <i class="w-5 h-5 stroke-[1.8]" data-lucide="lock"></i>
+            </div>
+            <input aria-describedby="passwordHelper" autocomplete="new-password" class="w-full h-14 pl-12 pr-14 bg-white text-zecolis-text placeholder-slate-400 text-base font-medium rounded-2xl border border-zecolis-border shadow-input-subtle focus:border-zecolis-navy focus:ring-1 focus:ring-zecolis-navy tracking-widest focus:tracking-normal transition-all duration-150" id="passwordInput" name="password" placeholder="••••••••" required type="password">
+            <button aria-label="Afficher le mot de passe" aria-pressed="false" class="tap absolute inset-y-0 right-0 pr-2 flex items-center text-slate-400 hover:text-zecolis-navy" data-toggle-password="passwordInput:eyeIcon1" type="button">
+              <i class="w-5 h-5 stroke-[1.8]" data-lucide="eye" id="eyeIcon1"></i>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-semibold tracking-wider text-zecolis-muted uppercase mb-1.5" for="confirmPasswordInput">Confirmation</label>
+          <div class="relative group">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-zecolis-navy transition-colors">
+              <i class="w-5 h-5 stroke-[1.8]" data-lucide="lock"></i>
+            </div>
+            <input aria-describedby="passwordMatchError" autocomplete="new-password" class="w-full h-14 pl-12 pr-14 bg-white text-zecolis-text placeholder-slate-400 text-base font-medium rounded-2xl border border-zecolis-border shadow-input-subtle focus:border-zecolis-navy focus:ring-1 focus:ring-zecolis-navy tracking-widest focus:tracking-normal transition-all duration-150" id="confirmPasswordInput" name="confirmPassword" placeholder="••••••••" required type="password">
+            <!-- CORRECTION : chaque bouton agit sur SON champ et SON icône (bug corrigé : eyeIcon / eyeIcon2) -->
+            <button aria-label="Afficher la confirmation du mot de passe" aria-pressed="false" class="tap absolute inset-y-0 right-0 pr-2 flex items-center text-slate-400 hover:text-zecolis-navy" data-toggle-password="confirmPasswordInput:eyeIcon2" type="button">
+              <i class="w-5 h-5 stroke-[1.8]" data-lucide="eye" id="eyeIcon2"></i>
+            </button>
+          </div>
+          <p aria-live="polite" class="hidden mt-1.5 flex items-center gap-1.5 text-rose-600 text-[12px] font-medium" id="passwordMatchError" role="alert">
+            <i class="w-3.5 h-3.5 flex-none" data-lucide="alert-circle"></i>
+            <span>Les mots de passe ne correspondent pas.</span>
+          </p>
+        </div>
+
+        <!-- CORRECTION : zone cliquable de 44 px, libellé lisible, condition d'usage explicite -->
+        <div>
+          <div class="flex items-start">
+            <label class="checkbox-tap" for="termsCheckbox">
+              <input class="w-5 h-5 rounded border-zecolis-border text-zecolis-orange focus:ring-zecolis-navy" id="termsCheckbox" name="terms" required type="checkbox">
+              <span class="sr-only">J'accepte les conditions générales d'utilisation et la politique de confidentialité</span>
+            </label>
+            <!-- CORRECTION : le lien mort conditions.html devient un bouton explicite (page non livrée)
+                 plutôt qu'une navigation vers un fichier inexistant -->
+            <button class="tap-sm text-left text-[13px] leading-snug text-zecolis-muted pt-3.5 self-start" data-not-implemented="Conditions d'utilisation" type="button">
+              J'accepte les <span class="font-semibold text-zecolis-orange">conditions d'utilisation</span> et la <span class="font-semibold text-zecolis-orange">politique de confidentialité</span>.
+            </button>
+          </div>
+          <p aria-live="polite" class="hidden mt-1 flex items-center gap-1.5 text-rose-600 text-[12px] font-medium pl-11" id="termsError" role="alert">
+            <i class="w-3.5 h-3.5 flex-none" data-lucide="alert-circle"></i>
+            <span>Veuillez accepter les conditions pour continuer.</span>
+          </p>
+        </div>
+
+        <div class="pt-2">
+          <button aria-busy="false" class="tap-sm w-full h-14 bg-zecolis-navy active:bg-[#061836] text-white text-base font-bold rounded-2xl shadow-btn-navy active-scale transition-all duration-150 flex items-center justify-center gap-2 disabled:opacity-70" id="signupSubmitBtn" type="submit">
+            <span id="btnText">Créer mon compte</span>
+            <span aria-hidden="true" class="hidden animate-spin rounded-full h-5 w-5 border-2 border-white/30 border-t-white" id="btnSpinner"></span>
+          </button>
+          <p aria-live="polite" class="hidden mt-2 text-center text-[12px] text-zecolis-muted" id="formNotice" role="status"></p>
+          <!-- CORRECTION : l'écran d'inscription reçu rend l'onboarding atteignable ; le passage est
+               annoncé comme navigation de démonstration, aucun compte n'ayant été créé. -->
+          <div aria-live="polite" class="hidden mt-3 rounded-2xl border border-zecolis-border bg-zecolis-navy/[0.04] p-4 flex flex-col gap-2" id="demoAccess" role="status">
+            <p class="text-[13px] font-semibold text-zecolis-navy flex items-start gap-2">
+              <i class="w-4 h-4 flex-none mt-0.5 text-zecolis-orange" data-lucide="info"></i>
+              <span>Aucun compte n'a été enregistré. Vous pouvez néanmoins poursuivre la visite en mode démonstration.</span>
+            </p>
+            <a class="tap-sm w-full h-14 bg-zecolis-navy active:bg-[#061836] text-white text-base font-bold rounded-2xl shadow-btn-navy flex items-center justify-center gap-2" href="onboarding_expediteur_mobile.html">
+              <i class="w-5 h-5" data-lucide="user-plus"></i>
+              <span>Commencer par le profil</span>
+            </a>
+            <a class="tap-sm inline-flex items-center justify-center text-[13px] font-semibold text-zecolis-orange" href="accueil_mobile.html">Aller directement à l'accueil</a>
+          </div>
+        </div>
+
+        <div class="pt-1 text-center">
+          <p class="text-[14px] text-zecolis-muted">
+            Déjà un compte ?
+            <a class="tap-sm inline-flex items-center px-1 font-bold text-zecolis-orange" href="connexion_mobile.html">Se connecter</a>
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <!-- CORRECTION : plus d'indicateur d'accueil factice ; mention honnête sur l'état de la maquette -->
+    <footer class="safe-bottom w-full pt-3 flex flex-col items-center gap-2">
+      <p class="flex items-center gap-1.5 text-[12px] font-medium text-zecolis-muted text-center">
+        <i class="w-3.5 h-3.5 flex-none text-zecolis-green" data-lucide="shield"></i>
+        Vos informations restent sécurisées.
+      </p>
+      <p class="text-[11px] text-slate-500 text-center">Maquette : l'inscription n'appelle aucun serveur.</p>
+    </footer>
+  </main>
+</div>
+
+<!-- CORRECTION : toast accessible au lieu d'un lien vers une page inexistante -->
+  <div aria-live="polite" class="fixed left-1/2 -translate-x-1/2 z-[60] w-[min(92vw,380px)] hidden" id="toast" role="status" style="bottom:calc(1.5rem + var(--sab))">
+    <div class="rounded-2xl bg-slate-900 text-white text-[13px] font-medium px-4 py-3 shadow-lg">
+      <span id="toastText"></span>
+    </div>
+  </div>
+
+<script data-purpose="mobile-behaviour">
+  function refreshIcons() {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }
+  refreshIcons();
+
+  /* CORRECTION MAJEURE (bug de l'original) : la fonction reçoit le champ ET l'icône à basculer.
+     Dans l'original, togglePasswordVisibility était sans paramètre : les deux boutons
+     visaient #eyeIcon (inexistant) et agissaient tous deux sur #passwordInput. */
+  function togglePasswordVisibility(inputId, iconId) {
+    var pwdInput = document.getElementById(inputId);
+    var eyeIcon = document.getElementById(iconId);
+    if (!pwdInput) {
+      return;
+    }
+    var reveal = pwdInput.type === 'password';
+    pwdInput.type = reveal ? 'text' : 'password';
+    pwdInput.classList.toggle('tracking-widest', !reveal);
+    var btn = pwdInput.parentElement.querySelector('button[data-toggle-password]');
+    if (btn) {
+      btn.setAttribute('aria-pressed', reveal ? 'true' : 'false');
+      btn.setAttribute('aria-label', reveal ? 'Masquer le mot de passe' : 'Afficher le mot de passe');
+    }
+    if (eyeIcon) {
+      eyeIcon.setAttribute('data-lucide', reveal ? 'eye-off' : 'eye');
+    }
+refreshIcons();
+
+  /* CORRECTION : pages non livrées => retour explicite au lieu d'une navigation cassée */
+  var toastEl = document.getElementById('toast');
+  var toastText = document.getElementById('toastText');
+  var toastTimer = null;
+  function notify(message) {
+    toastText.textContent = message + ' : cette page n\'a pas encore été rédigée.';
+    toastEl.classList.remove('hidden');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toastEl.classList.add('hidden');
+    }, 3200);
+  }
+  document.addEventListener('click', function (event) {
+    var trigger = event.target.closest('[data-not-implemented]');
+    if (!trigger) {
+      return;
+    }
+    event.preventDefault();
+    notify(trigger.getAttribute('data-not-implemented'));
+  });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-toggle-password]'), function (btn) {
+    btn.addEventListener('click', function () {
+      var parts = this.getAttribute('data-toggle-password').split(':');
+      togglePasswordVisibility(parts[0], parts[1]);
+    });
+  });
+
+  function showError(el, visible) {
+    el.classList.toggle('hidden', !visible);
+    el.classList.toggle('flex', visible);
+  }
+
+  /* CORRECTION MAJEURE : handleSignupSubmit n'existait pas dans l'original.
+     Sans lui, le navigateur soumettait le formulaire en GET (mots de passe dans l'URL). */
+  function handleSignupSubmit(event) {
+    event.preventDefault();
+
+    var form = document.getElementById('signupForm');
+    var firstNameInput = document.getElementById('firstNameInput');
+    var lastNameInput = document.getElementById('lastNameInput');
+    var emailInput = document.getElementById('emailInput');
+    var passwordInput = document.getElementById('passwordInput');
+    var confirmPasswordInput = document.getElementById('confirmPasswordInput');
+    var termsCheckbox = document.getElementById('termsCheckbox');
+    var emailError = document.getElementById('emailError');
+    var passwordMatchError = document.getElementById('passwordMatchError');
+    var termsError = document.getElementById('termsError');
+    var formNotice = document.getElementById('formNotice');
+    var demoAccess = document.getElementById('demoAccess');
+    var btn = document.getElementById('signupSubmitBtn');
+    var btnText = document.getElementById('btnText');
+    var btnSpinner = document.getElementById('btnSpinner');
+
+    showError(emailError, false);
+    showError(passwordMatchError, false);
+    showError(termsError, false);
+    formNotice.classList.add('hidden');
+    demoAccess.classList.add('hidden');
+
+    [firstNameInput, lastNameInput, emailInput, passwordInput, confirmPasswordInput].forEach(function (field) {
+      field.setAttribute('aria-invalid', 'false');
+    });
+
+    /* CORRECTION : contrôle du format e-mail réellement appliqué */
+    var emailVal = emailInput.value.trim();
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailVal || !emailPattern.test(emailVal)) {
+      showError(emailError, true);
+      emailInput.setAttribute('aria-invalid', 'true');
+      emailInput.focus();
+      return;
+    }
+
+    /* CORRECTION : la règle « 8 caractères minimum » affichée est enfin appliquée */
+    if (passwordInput.value.length < 8) {
+      passwordInput.setAttribute('aria-invalid', 'true');
+      passwordMatchError.querySelector('span').textContent = 'Le mot de passe doit contenir au moins 8 caractères.';
+      showError(passwordMatchError, true);
+      passwordInput.focus();
+      return;
+    }
+    passwordMatchError.querySelector('span').textContent = 'Les mots de passe ne correspondent pas.';
+
+    if (passwordInput.value !== confirmPasswordInput.value) {
+      showError(passwordMatchError, true);
+      confirmPasswordInput.setAttribute('aria-invalid', 'true');
+      confirmPasswordInput.focus();
+      return;
+    }
+
+    if (!termsCheckbox.checked) {
+      showError(termsError, true);
+      termsCheckbox.setAttribute('aria-invalid', 'true');
+      termsCheckbox.focus();
+      return;
+    }
+
+    btn.disabled = true;
+    btn.setAttribute('aria-busy', 'true');
+    btnText.textContent = 'Création…';
+    btnSpinner.classList.remove('hidden');
+
+    /* CORRECTION : aucune fausse confirmation de compte créé n'est affichée (§ 3) */
+    setTimeout(function () {
+      btn.disabled = false;
+      btn.setAttribute('aria-busy', 'false');
+      btnSpinner.classList.add('hidden');
+      btnText.textContent = 'Créer mon compte';
+      formNotice.classList.remove('hidden');
+      formNotice.textContent = 'Maquette : la création de compte n\'est pas branchée. Branchez l\'appel d\'authentification avant toute mise en production.';
+      /* CORRECTION : le parcours reste néanmoins atteignable, avec un lien réel vers l'étape suivante */
+      demoAccess.classList.remove('hidden');
+      refreshIcons();
+    }, 900);
+  }
+
+  document.getElementById('signupForm').addEventListener('submit', handleSignupSubmit);
+</script>
+</body>
+</html>

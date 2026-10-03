@@ -1,0 +1,683 @@
+<!DOCTYPE html><html class="h-full bg-slate-50" lang="fr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Zecolis - Accueil</title>
+<!-- Tailwind CSS v3 CDN with forms and container-queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'zecolis-navy-deep': '#1D1D4B',
+            'zecolis-navy': '#0B2A5B',
+            'zecolis-orange': '#FF6B00',
+            'zecolis-orange-light': '#FFF7ED',
+            'zecolis-green': '#22A55A',
+            'zecolis-surface': '#F8FAFC'
+          },
+          fontFamily: {
+            sans: ['Inter', 'Plus Jakarta Sans', 'system-ui', 'sans-serif']
+          },
+          boxShadow: {
+            'dock': '0 10px 25px -5px rgba(11, 42, 91, 0.12), 0 8px 10px -6px rgba(11, 42, 91, 0.08)'
+          }
+        }
+      }
+    }
+  </script>
+<!-- Lucide Icons CDN for sleek mobile iconography -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<!-- Custom Core Styling for Mobile App Viewport -->
+<style data-purpose="mobile-viewport-reset">
+    /* Remove tap highlight & customize smooth scrolling for native feel */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
+    body {
+      touch-action: manipulation;
+      overscroll-behavior-y: none;
+    }
+    /* Hide scrollbars for clean native appearance */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="min-h-full bg-[#F8FAFC] text-[#0F172A] antialiased selection:bg-[#FF6B00]/20 selection:text-[#FF6B00]">
+<!-- BEGIN: MobileContainer -->
+<!-- Native 390px layout container filling standard mobile width with fluid responsiveness -->
+<main class="w-full max-w-[390px] mx-auto min-h-screen bg-[#F8FAFC] relative flex flex-col pb-28">
+<!-- BEGIN: TopFloatingAppBar -->
+<!-- Sticky clean navigation bar with user greeting -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 px-4 pt-3 pb-2 transition-all">
+<div class="flex items-center justify-between">
+<!-- Logo and Corridor Tag -->
+<div class="flex items-center space-x-2.5">
+<img alt="Logo officiel Zecolis" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaTzlXWAjxsJA-Xt34wBL2RxhNudMwI9CpGxjuCapCe9bXbRuArGaDfNdvaUPcbEVIPajugxjqoz3JIzmDqLv5UGANmHMyk4Pyb7DAjMaMa0d2jc1tUJ9rPeNA69d0E7enhu1pSzSIoYuYPNf7JN79Jk8te2lhP-urDSU8JVQLBXdA9KrKOT8fsrBW9Ju42HVvefLdg88YRsKPlISkmSOuqKMPmIhVOjM19kNMeB6H7pQTrnrBSEjqmf9TsjufewBbZrA">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold tracking-widest text-[#FF6B00] uppercase leading-none">Corridor Fiable</span>
+<span class="text-xs font-semibold text-[#0B2A5B]">France ↔ Bénin</span>
+</div>
+</div>
+<!-- Notification & User Avatar -->
+<div class="flex items-center space-x-3">
+<button aria-label="Notifications" class="relative w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 active:scale-95 transition-transform" type="button">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bell" aria-hidden="true" class="lucide lucide-bell w-4 h-4 text-slate-700"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"></path></svg>
+<span class="absolute top-2 right-2 w-2 h-2 bg-[#FF6B00] rounded-full ring-2 ring-white"></span>
+</button>
+<!-- Avatar with Verified Badge -->
+<div class="relative cursor-pointer active:scale-95 transition-transform">
+<img alt="Profil de l'utilisatrice Riham" class="w-9 h-9 rounded-full object-cover ring-2 ring-white shadow-sm" src="https://lh3.googleusercontent.com/aida/AEtjO1Vv6u02JEJWEYlVEGoVkrehP-Z_-0Sn8OFnFCXNZlMWHXFFR_kJtRKu6XM4WH29ni7Y_fq8gdBvQa_Xxm2vM_BKG2OCwEAzfHzeIAbUH9tC6qkrBcQ_PC2LuwVI52thxXBu1MEkQyWaqwx0V8fl1gu-z9ZxfkvQqShwAY3ptzuGS1x0GkK5tQUqMxSRxz-1KUm13qZKAT6Vft10riC6S3adQPFhiV0NGyjTWyCRVdDL7q9UtbOo1mVuQpu9">
+<span class="absolute -bottom-0.5 -right-0.5 bg-[#22A55A] text-white p-0.5 rounded-full ring-1 ring-white">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" class="lucide lucide-check w-2.5 h-2.5 stroke-[3]"><path d="M20 6 9 17l-5-5"></path></svg>
+</span>
+</div>
+</div>
+</div>
+<!-- User Welcome Subtext -->
+<div class="mt-2 flex items-center justify-between text-xs">
+<span class="font-semibold text-slate-900 text-sm">Bonjour, Riham 👋</span>
+<span class="text-[11px] font-medium text-slate-500 flex items-center">
+<span class="w-1.5 h-1.5 rounded-full bg-[#22A55A] mr-1.5 animate-pulse"></span>
+          Réseau Cotonou actif
+        </span>
+</div>
+</header>
+<!-- END: TopFloatingAppBar -->
+<!-- BEGIN: HeroSection -->
+<!-- Hero showcase with authentic airport handover photography -->
+<section class="mx-4 mt-3 relative" data-purpose="hero-concourse">
+<div class="relative rounded-3xl overflow-hidden shadow-md h-[270px] bg-slate-900">
+<!-- Authentic Cotonou Handover Photo -->
+<img alt="Voyageur et expéditrice échangeant un colis à l'aéroport de Cotonou Cadjehoun" class="w-full h-full object-cover object-center transform scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiXIjWMaZ33JAppC8rFjrijTn0_p3ON4Ocz0QeaZugoLZ0YlRRCZ1sWS1c_t2yOvvOV1qFnXxrd8MnCD4YpMQJeytHQOjVgUsFZ3wALT-K32OUZHWAOZXkxe7uT5KIrOrchb3S0eyR22RoxBy3tmXm3ZX7BDvwccLHY_USo0rrJo1bBNO_c1lYZOZQemSN8c1JRjgDx03kujNDbocj9pYXRjW3K9hwcLY7HwtZLoWrvgon-8TD5OBTGQ">
+<!-- Legibility Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-[#0B2A5B]/95 via-[#0B2A5B]/40 to-transparent"></div>
+<!-- Hero Content Overlay -->
+<div class="absolute inset-0 p-5 flex flex-col justify-between">
+<!-- Corridor Pill Badge -->
+<div class="flex items-center space-x-1.5">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#FF6B00] text-white shadow-sm">
+              FRANCE ↔ BÉNIN
+            </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-medium bg-black/40 backdrop-blur-sm text-white">
+              Départs quotidiens
+            </span>
+</div>
+<!-- Hero Titles -->
+<div class="mb-1">
+<h1 class="text-2xl font-bold text-white leading-tight tracking-tight">
+              Votre colis peut déjà <span class="text-[#FF6B00]">voyager.</span>
+</h1>
+<p class="text-xs text-slate-200 mt-1 font-normal">
+              Trouvez quelqu'un qui part déjà.
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: SmartRouteSearch -->
+<!-- Interactive route selector card overlapping the hero -->
+<section class="mx-4 -mt-7 relative z-20" data-purpose="route-search-card">
+<div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-4">
+<span class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2.5">Vous allez où ?</span>
+<!-- Route Fields Container -->
+<div class="relative flex flex-col space-y-2">
+<!-- Departure Field -->
+<div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5">
+<div class="w-6 flex items-center justify-center text-[#FF6B00]">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="map-pin" aria-hidden="true" class="lucide lucide-map-pin w-4 h-4"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+</div>
+<div class="ml-2 flex-1">
+<span class="block text-[9px] font-bold uppercase text-slate-400 leading-tight">Départ</span>
+<span class="block text-sm font-semibold text-[#0B2A5B]">Cotonou (COO)</span>
+</div>
+</div>
+<!-- Swap Icon Button (Centered Overlap) -->
+<button aria-label="Inverser le trajet" class="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-[#0B2A5B] active:rotate-180 transition-transform duration-300" type="button">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-up-down" aria-hidden="true" class="lucide lucide-arrow-up-down w-4 h-4"><path d="m21 16-4 4-4-4"></path><path d="M17 20V4"></path><path d="m3 8 4-4 4 4"></path><path d="M7 4v16"></path></svg>
+</button>
+<!-- Destination Field -->
+<div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5">
+<div class="w-6 flex items-center justify-center text-[#22A55A]">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="navigation-2" aria-hidden="true" class="lucide lucide-navigation-2 w-4 h-4"><polygon points="12 2 19 21 12 17 5 21 12 2"></polygon></svg>
+</div>
+<div class="ml-2 flex-1">
+<span class="block text-[9px] font-bold uppercase text-slate-400 leading-tight">Arrivée</span>
+<span class="block text-sm font-semibold text-[#0B2A5B]">France (Paris, Lyon...)</span>
+</div>
+</div>
+</div>
+<!-- Search Action Button -->
+<button class="w-full mt-3.5 bg-[#FF6B00] active:bg-[#e05e00] text-white py-3.5 px-4 rounded-xl font-semibold text-sm shadow-md shadow-[#FF6B00]/25 flex items-center justify-center space-x-2 transition-colors" type="button">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" aria-hidden="true" class="lucide lucide-search w-4 h-4"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+<span class="">Rechercher</span>
+</button>
+</div>
+</section>
+<!-- END: SmartRouteSearch -->
+<!-- BEGIN: QuickIntentions -->
+<!-- Two asymmetric action cards for primary user pathways -->
+<section class="mx-4 mt-6" data-purpose="intentions">
+<h2 class="font-bold text-base text-slate-900 mb-3">Que voulez-vous faire ?</h2>
+<div class="grid grid-cols-2 gap-3"><!-- Option A: Envoyer -->
+<a class="relative rounded-2xl overflow-hidden p-3.5 h-36 flex flex-col justify-between active:scale-[0.98] transition-transform shadow-sm group border border-slate-100" href="#envoyer">
+<img alt="Colis 3D" class="absolute inset-0 w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida/AEtjO1UlYNk7xFid2mJXnBnqN8zYeKjEacvTjAcrMsHpHueM4FJjpGA0zQuUzs2No1ZWtQ3QzaRtQt7Ca2G8NQhJCcqCduNjn5Xo2Cd2gwjGH10mPHknHxRDDNl8s9XNAAkIH_8heqeS5izro1qm54KDaM7o9T8BViZ6zp4XIdqGqIZDeUirio8JNgcCa9t5zg5P0yGXeRhCL_Tv0WK1xKIE_K7fdsMbADECXv2MxeSqGJKFv1b1DgBZPYb2sDA">
+<div class="absolute inset-0 bg-gradient-to-t from-[#0B2A5B]/90 via-[#0B2A5B]/40 to-transparent"></div>
+<div class="relative z-10">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#FF6B00] text-white shadow-sm mb-1.5">Expédition</span>
+<h3 class="font-bold text-base text-white leading-tight tracking-tight">Envoyer un colis</h3>
+<p class="text-xs text-white/90 font-medium mt-1 leading-snug">Je cherche un voyageur disponible</p>
+</div>
+<div class="relative z-10 flex items-center text-xs font-bold text-[#FF6B00] bg-white px-3 py-1.5 rounded-full w-fit shadow-sm group-hover:scale-105 transition-transform">
+<span class="">Continuer</span>
+<svg class="lucide lucide-arrow-right w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</div>
+</a>
+<!-- Option B: Voyager -->
+<a class="relative rounded-2xl overflow-hidden p-3.5 h-36 flex flex-col justify-between active:scale-[0.98] transition-transform shadow-sm group border border-slate-100" href="#voyager">
+<img alt="Avion 3D" class="absolute inset-0 w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida/AEtjO1UHkgky0OwCMKV1Hhc_euWEyj7Ja_AY2pnxK3sQ3DPDh1P5Xcq_kJoMCtxtkX5IpXIuoTqcqZR_BhyIuXhMgBq80zIVBzfjRhLyHXuFu3CK2HBif00jcK-BOMrFUuYSg0Q-H_-aU4zNxOX4u1Xylu8tBPnN_fBx2STXCYcUZS4JQcBTHgiWm3-y43SljATAmOhadUwbBgpHSu-iFS3OkJ9OBPHOjEayuO-z7YfEy6RYeFpW1mE90QyneGxl">
+<div class="absolute inset-0 bg-gradient-to-t from-[#0B2A5B]/90 via-[#0B2A5B]/40 to-transparent"></div>
+<div class="relative z-10">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-white/30 backdrop-blur-md text-white shadow-sm mb-1.5">Voyageur</span>
+<h3 class="font-bold text-base text-white leading-tight tracking-tight">Voyager avec un colis</h3>
+<p class="text-xs text-white/90 font-medium mt-1 leading-snug">Je propose de l'espace valise</p>
+</div>
+<div class="relative z-10 flex items-center text-xs font-bold text-[#0B2A5B] bg-white px-3 py-1.5 rounded-full w-fit shadow-sm group-hover:scale-105 transition-transform">
+<span class="">Publier</span>
+<svg class="lucide lucide-arrow-right w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</div>
+</a></div>
+</section>
+<!-- END: QuickIntentions -->
+<!-- BEGIN: ActiveStatusStrip -->
+<!-- Minimalist tracking bar showing ongoing user context -->
+<section class="mx-4 mt-4" data-purpose="user-activity-strip">
+<div class="bg-white rounded-xl p-3 border border-slate-200/80 shadow-sm flex items-center justify-between">
+<div class="flex items-center space-x-2.5">
+<span class="w-2.5 h-2.5 rounded-full bg-[#22A55A] animate-pulse"></span>
+<div>
+<div class="text-[11px] font-bold text-slate-900 flex items-center">
+              1 envoi en cours <span class="text-slate-400 font-normal ml-1">#COL-7852</span>
+</div>
+<div class="text-[10px] text-slate-500">
+              2 colis • 1 voyage réservé
+            </div>
+</div>
+</div>
+<a class="text-xs font-bold text-[#FF6B00] flex items-center hover:underline" href="#suivi">
+<span class="">Suivi</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right w-3.5 h-3.5 ml-0.5"><path d="m9 18 6-6-6-6"></path></svg>
+</a>
+</div>
+</section>
+<!-- END: ActiveStatusStrip -->
+<!-- BEGIN: LiveMarketplaceTravel -->
+<!-- Horizontal scrollable travel opportunities carousel -->
+<section class="mx-4 mt-6" data-purpose="featured-traveler-section">
+<div class="flex items-center justify-between mb-2.5">
+<div>
+<h2 class="font-bold text-base text-slate-900 leading-tight">Des opportunités près de vous</h2>
+<p class="text-[11px] text-slate-500">Des trajets disponibles prochainement</p>
+</div>
+<a class="text-xs font-bold text-[#FF6B00] hover:underline" href="#marketplace">Tout voir</a>
+</div>
+<!-- Horizontal Scrollable Container -->
+<div class="flex gap-3.5 overflow-x-auto snap-x no-scrollbar pb-2 pt-1 -mx-4 px-4">
+<!-- Card 1: KPO Ivy -->
+<article class="w-[285px] shrink-0 snap-start bg-white rounded-2xl p-4 shadow-sm border border-slate-100 hover:border-slate-200 transition-all flex flex-col justify-between">
+<div>
+<!-- Top Meta Pill -->
+<div class="flex items-center justify-between mb-3">
+<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase bg-blue-50 text-[#0B2A5B] border border-blue-100">
+            VOYAGE CONFIRMÉ
+          </span>
+<span class="text-xs font-semibold text-slate-500 flex items-center">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" aria-hidden="true" class="lucide lucide-calendar w-3 h-3 mr-1 text-slate-400"><path d="M8 2v3"></path><path d="M16 2v3"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path></svg>
+            14 mai 2025
+          </span>
+</div>
+<!-- Route & Capacity -->
+<div class="flex items-center justify-between pb-3 border-b border-slate-100">
+<div>
+<div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Trajet direct</div>
+<div class="text-base font-extrabold text-[#0B2A5B]">Cotonou → France</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-bold text-[#FF6B00]">9 kg dispos</div>
+<div class="text-sm font-extrabold text-slate-900">9 € / kg</div>
+</div>
+</div>
+<!-- Traveler Profile Row -->
+<div class="mt-3 flex items-center justify-between">
+<div class="flex items-center space-x-2.5">
+<img alt="Portrait du voyageur KPO Ivy" class="w-10 h-10 rounded-full object-cover border border-slate-100" src="https://lh3.googleusercontent.com/aida/AEtjO1VCVrL36o5An1_57zCqj2uQMksuzbFkImdYfa7syvesrskezMlpxdWKvuulUeM1VLroVfepuocb7NoKwfNsFcDDt5JORHIvChf9XOoFGYJMaprF12dFQBoNlzGhPu2wR_pR9sw6PpnZOzrpkwpIuOM6Iz-1-Wc9OlP9gRPMoNWGpHq3wnCTCoKHd5Tt-AWMaTKfaPX_mQ9mpTRvkVWKLpljMITe7A5SFo0nfgGU-YemFyapFEet_lM4lUbc">
+<div>
+<div class="flex items-center space-x-1">
+<span class="text-xs font-bold text-slate-900">KPO Ivy</span>
+<span class="inline-flex items-center text-[10px] font-semibold text-[#22A55A]">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="badge-check" aria-hidden="true" class="lucide lucide-badge-check w-3 h-3 ml-0.5 fill-[#22A55A] text-white"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m16 9-5.5 5.5L8 12"></path></svg>
+                  Vérifié
+                </span>
+</div>
+<div class="text-[11px] text-slate-500 flex items-center">
+<span class="text-amber-500 font-bold mr-1">★ 4,9</span> (34 avis vérifiés)
+              </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Action Button -->
+<button class="w-full mt-3.5 bg-[#0B2A5B] active:bg-[#071c3d] text-white py-2.5 px-4 rounded-xl font-medium text-xs flex items-center justify-center space-x-1.5 shadow-sm transition-colors" type="button">
+<span class="">Voir le voyage</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" aria-hidden="true" class="lucide lucide-arrow-right w-3.5 h-3.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</button>
+</article>
+<!-- Card 2: Koffi D. -->
+<article class="w-[285px] shrink-0 snap-start bg-white rounded-2xl p-4 shadow-sm border border-slate-100 hover:border-slate-200 transition-all flex flex-col justify-between">
+<div>
+<!-- Top Meta Pill -->
+<div class="flex items-center justify-between mb-3">
+<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase bg-emerald-50 text-[#22A55A] border border-emerald-100">
+            VOYAGE CONFIRMÉ
+          </span>
+<span class="text-xs font-semibold text-slate-500 flex items-center">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" aria-hidden="true" class="lucide lucide-calendar w-3 h-3 mr-1 text-slate-400"><path d="M8 2v3"></path><path d="M16 2v3"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path></svg>
+            18 mai 2025
+          </span>
+</div>
+<!-- Route & Capacity -->
+<div class="flex items-center justify-between pb-3 border-b border-slate-100">
+<div>
+<div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Trajet direct</div>
+<div class="text-base font-extrabold text-[#0B2A5B]">Paris (CDG) → Cotonou</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-bold text-[#FF6B00]">14 kg dispos</div>
+<div class="text-sm font-extrabold text-slate-900">10 € / kg</div>
+</div>
+</div>
+<!-- Traveler Profile Row -->
+<div class="mt-3 flex items-center justify-between">
+<div class="flex items-center space-x-2.5">
+<img alt="Portrait du voyageur Koffi D." class="w-10 h-10 rounded-full object-cover border border-slate-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMbtjDc-QwDJuchR4e4YZkpQB3HWDJNw_bd4CJU5XCBhAolPl8yFfylpJB9xstinFKzOEcel9ir1qW3rylRSuPfbuepH0WoEXBW61t8IgmByEANb8g8VYInA3fi1ZKN-B3X0IfYgP6Zl_6Eeh96qs3pMej5D0wc9oAdL8t2pVs0_vxkSBCnqP5a61isC7BrOn0Izl9uXkPMMGHiT9k-JVAl1I10kaPF0B8Po2-SLZufMD8e44MsJUwxw">
+<div>
+<div class="flex items-center space-x-1">
+<span class="text-xs font-bold text-slate-900">Koffi D.</span>
+<span class="inline-flex items-center text-[10px] font-semibold text-[#22A55A]">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="badge-check" aria-hidden="true" class="lucide lucide-badge-check w-3 h-3 ml-0.5 fill-[#22A55A] text-white"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m16 9-5.5 5.5L8 12"></path></svg>
+                  Vérifié
+                </span>
+</div>
+<div class="text-[11px] text-slate-500 flex items-center">
+<span class="text-amber-500 font-bold mr-1">★ 5,0</span> (18 avis)
+              </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Action Button -->
+<button class="w-full mt-3.5 bg-[#0B2A5B] active:bg-[#071c3d] text-white py-2.5 px-4 rounded-xl font-medium text-xs flex items-center justify-center space-x-1.5 shadow-sm transition-colors" type="button">
+<span class="">Voir le voyage</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" aria-hidden="true" class="lucide lucide-arrow-right w-3.5 h-3.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</button>
+</article>
+<!-- Card 3: Amina S. -->
+<article class="w-[285px] shrink-0 snap-start bg-white rounded-2xl p-4 shadow-sm border border-slate-100 hover:border-slate-200 transition-all flex flex-col justify-between">
+<div>
+<!-- Top Meta Pill -->
+<div class="flex items-center justify-between mb-3">
+<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase bg-blue-50 text-[#0B2A5B] border border-blue-100">
+            VOYAGE CONFIRMÉ
+          </span>
+<span class="text-xs font-semibold text-slate-500 flex items-center">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" aria-hidden="true" class="lucide lucide-calendar w-3 h-3 mr-1 text-slate-400"><path d="M8 2v3"></path><path d="M16 2v3"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path></svg>
+            22 mai 2025
+          </span>
+</div>
+<!-- Route & Capacity -->
+<div class="flex items-center justify-between pb-3 border-b border-slate-100">
+<div>
+<div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Trajet direct</div>
+<div class="text-base font-extrabold text-[#0B2A5B]">Cotonou → Lyon</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-bold text-[#FF6B00]">6 kg dispos</div>
+<div class="text-sm font-extrabold text-slate-900">8 € / kg</div>
+</div>
+</div>
+<!-- Traveler Profile Row -->
+<div class="mt-3 flex items-center justify-between">
+<div class="flex items-center space-x-2.5">
+<img alt="Portrait de la voyageuse Amina S." class="w-10 h-10 rounded-full object-cover border border-slate-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD20VrvfWAICWKa3YyHlY1RtZo__l-YuKD1pWYJCWrFuITa-W1XVF-t81NTw_O0c1UGVQ1Ud-mQOaGDubgrzsehmdW_aZc9w5YdfULgwshVIy-qQ1Hm8gXrF0kpaNllzqOGH9WFHUVguBAAtAD1RBjmMhYWmVxu111AzhF5EEMOHdtXpOiX9w41cRQllYt3IeoStQP68E0FN0npamJUulSSvn3mjCgNKCVzvty9Sww4gQ7GWlV8lraSNA">
+<div>
+<div class="flex items-center space-x-1">
+<span class="text-xs font-bold text-slate-900">Amina S.</span>
+<span class="inline-flex items-center text-[10px] font-semibold text-[#22A55A]">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="badge-check" aria-hidden="true" class="lucide lucide-badge-check w-3 h-3 ml-0.5 fill-[#22A55A] text-white"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m16 9-5.5 5.5L8 12"></path></svg>
+                  Vérifiée
+                </span>
+</div>
+<div class="text-[11px] text-slate-500 flex items-center">
+<span class="text-amber-500 font-bold mr-1">★ 4,9</span> (42 avis)
+              </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Action Button -->
+<button class="w-full mt-3.5 bg-[#0B2A5B] active:bg-[#071c3d] text-white py-2.5 px-4 rounded-xl font-medium text-xs flex items-center justify-center space-x-1.5 shadow-sm transition-colors" type="button">
+<span class="">Voir le voyage</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" aria-hidden="true" class="lucide lucide-arrow-right w-3.5 h-3.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</button>
+</article>
+</div>
+</section>
+<!-- END: LiveMarketplaceTravel -->
+<!-- BEGIN: FeaturedParcelSection -->
+<!-- Horizontal scrollable parcels carousel seeking traveler -->
+<section class="mx-4 mt-6" data-purpose="featured-parcel-section">
+<div class="flex items-center justify-between mb-2.5">
+<div>
+<h2 class="font-bold text-base text-slate-900 leading-tight">Des colis cherchent un voyageur</h2>
+<p class="text-[11px] text-slate-500">Prêts à être transportés dans votre valise</p>
+</div>
+</div>
+<!-- Horizontal Scrollable Container -->
+<div class="flex gap-3.5 overflow-x-auto snap-x no-scrollbar pb-2 pt-1 -mx-4 px-4">
+<!-- Parcel Card 1: Carton compact scellé -->
+<article class="w-[280px] shrink-0 snap-start bg-white rounded-2xl p-3.5 shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between">
+<div>
+<!-- Packaging Real Photography -->
+<div class="relative h-36 w-full rounded-xl overflow-hidden mb-3 bg-slate-100">
+<img alt="Colis soigneusement emballé prêt pour le départ à Cotonou avec valise et passeport" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCexU6icjXcWdb4AAGlwJ52oFYkowjlymW-m6o7BhnT5iKH1qaORNdBtGog2JPeMbmOlzZzuqYLKyYLZJZBIJlg38vMg5dFuiGkH8_Pg_UdSTxjR3--VfCYIG3LuA8X--9RlZ5eeV_Kuk5gbaWzspkJIyM0AlgEo6cixUawhKFO5eNEufmiwpImKSHw6acxQdaOGFScrxOiEVMczRCECCncx1pzA4KMugo4jrJo08_zyeoPyKUjeQ2FvQ">
+<span class="absolute top-2 left-2 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-0.5 rounded-md">
+            TECH &amp; DOCUMENTS
+          </span>
+<span class="absolute bottom-2 right-2 bg-[#22A55A] text-white text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" class="lucide lucide-check w-2.5 h-2.5 mr-1 stroke-[3]"><path d="M20 6 9 17l-5-5"></path></svg> Colis prêt
+          </span>
+</div>
+<!-- Parcel Info Details -->
+<div class="flex items-center justify-between mb-2">
+<div>
+<div class="text-xs font-bold text-slate-900">Carton compact scellé</div>
+<div class="text-[11px] text-slate-500">Cotonou (COO) → Paris (CDG)</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-bold text-[#FF6B00]">5 kg</div>
+<div class="text-sm font-extrabold text-slate-900">12 € <span class="text-[10px] font-normal text-slate-400">/ kg</span></div>
+</div>
+</div>
+</div>
+<!-- Card CTA -->
+<button class="w-full mt-1 border border-[#FF6B00] text-[#FF6B00] active:bg-[#FF6B00]/5 py-2.5 rounded-xl font-semibold text-xs flex items-center justify-center space-x-1.5 transition-colors" type="button">
+<span class="">Voir le colis</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="external-link" aria-hidden="true" class="lucide lucide-external-link w-3.5 h-3.5"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+</button>
+</article>
+<!-- Parcel Card 2: Appareil photo & accessoires -->
+<article class="w-[280px] shrink-0 snap-start bg-white rounded-2xl p-3.5 shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between">
+<div>
+<!-- Packaging Real Photography -->
+<div class="relative h-36 w-full rounded-xl overflow-hidden mb-3 bg-slate-100">
+<img alt="Authentic photograph of a safely packaged electronic gadget box with bubble wrap" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4BwOHWiFKBanY0n1cgcQIYW2Kb_QyJiJ2phYW4KYK2VYvBKANij9QlSQD5Uh2hK8R0uotZUjLChst1bAUrG0zZ6aMlf507iViwq_NKsxSDj8iFVxl82VzaMGjXJTbauqVrvxuA6rnx3-e_hZ711kE-YH7nxYV27h1sXe0Ly6tq0cJq_7l_07ptfIlvNQhGE_t9CSaz1rDMkfGrCISh8pCrPPHCVG3VgNXd_4Jwp_U6z4xdNaNAR9h5A">
+<span class="absolute top-2 left-2 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-0.5 rounded-md">
+            TECH &amp; ACCESSOIRES
+          </span>
+<span class="absolute bottom-2 right-2 bg-[#22A55A] text-white text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" class="lucide lucide-check w-2.5 h-2.5 mr-1 stroke-[3]"><path d="M20 6 9 17l-5-5"></path></svg> Colis prêt
+          </span>
+</div>
+<!-- Parcel Info Details -->
+<div class="flex items-center justify-between mb-2">
+<div>
+<div class="text-xs font-bold text-slate-900">Appareil photo &amp; accessoires</div>
+<div class="text-[11px] text-slate-500">Paris (ORY) → Cotonou</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-bold text-[#FF6B00]">3,2 kg</div>
+<div class="text-sm font-extrabold text-slate-900">15 € <span class="text-[10px] font-normal text-slate-400">/ kg</span></div>
+</div>
+</div>
+</div>
+<!-- Card CTA -->
+<button class="w-full mt-1 border border-[#FF6B00] text-[#FF6B00] active:bg-[#FF6B00]/5 py-2.5 rounded-xl font-semibold text-xs flex items-center justify-center space-x-1.5 transition-colors" type="button">
+<span class="">Voir le colis</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="external-link" aria-hidden="true" class="lucide lucide-external-link w-3.5 h-3.5"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+</button>
+</article>
+<!-- Parcel Card 3: Dossier notarié sous pli scellé -->
+<article class="w-[280px] shrink-0 snap-start bg-white rounded-2xl p-3.5 shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between">
+<div>
+<!-- Packaging Real Photography -->
+<div class="relative h-36 w-full rounded-xl overflow-hidden mb-3 bg-slate-100">
+<img alt="Dossier sous pli scellé avec cachet de cire pour expédition officielle" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxkIOgmFefu9pgNjZkXxgeh4Qm-lg-Kr0AYPALPejaMZzoIbR_1IK9YtdgZngP7Bt5WJsjRNGwmP2plTa0BrguPHnY6SRlNozxkNDazY9EsTDW93mjoz9vQlnSbM08Rgm38rfbDq08-QTnL9vH_Kl66lUSVPtEPOgVYetxaVUNJzfbvnL3Y74o6swCowFL6wVIQGkbb8MN7t1HiSTRBgXWIAe8YraMgv5EOAfoFCQJax5FDIAilkoUtQ">
+<span class="absolute top-2 left-2 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-0.5 rounded-md">
+            DOCUMENTS OFFICIELS
+          </span>
+<span class="absolute bottom-2 right-2 bg-[#22A55A] text-white text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" class="lucide lucide-check w-2.5 h-2.5 mr-1 stroke-[3]"><path d="M20 6 9 17l-5-5"></path></svg> Pli vérifié
+          </span>
+</div>
+<!-- Parcel Info Details -->
+<div class="flex items-center justify-between mb-2">
+<div>
+<div class="text-xs font-bold text-slate-900">Dossier notarié sous pli scellé</div>
+<div class="text-[11px] text-slate-500">Cotonou → France (Toulouse)</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-bold text-[#FF6B00]">1,2 kg</div>
+<div class="text-sm font-extrabold text-slate-900">20 € <span class="text-[10px] font-normal text-slate-400">forfait</span></div>
+</div>
+</div>
+</div>
+<!-- Card CTA -->
+<button class="w-full mt-1 border border-[#FF6B00] text-[#FF6B00] active:bg-[#FF6B00]/5 py-2.5 rounded-xl font-semibold text-xs flex items-center justify-center space-x-1.5 transition-colors" type="button">
+<span class="">Voir le colis</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="external-link" aria-hidden="true" class="lucide lucide-external-link w-3.5 h-3.5"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+</button>
+</article>
+</div>
+</section>
+<!-- END: FeaturedParcelSection -->
+<!-- BEGIN: CommunityTrustBanner -->
+<!-- Reassurance elements and platform credentials -->
+<section class="mx-4 mt-6" data-purpose="trust-community"><div class="flex items-center justify-between mb-2.5 px-0.5">
+<div class="flex items-center space-x-1.5">
+<span class="flex h-2 w-2 rounded-full bg-[#22A55A]"></span>
+<h2 class="font-bold text-xs uppercase tracking-wider text-[#0B2A5B]">Engagements &amp; Sécurité</h2>
+</div>
+<span class="text-[10px] font-semibold text-slate-400">Faites glisser →</span>
+</div>
+<!-- Horizontal Scrollable Carousel -->
+<div class="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory py-1 -mx-4 px-4"> <!-- Card 1: Garantie Zecolis (Rich Mint / Emerald Tint) -->
+<div class="min-w-[310px] max-w-[310px] snap-center rounded-2xl p-4 border border-emerald-200/80 shadow-sm flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-[#ECFDF5] via-[#E6F8F0] to-[#D1FAE5]">
+<div class="absolute top-0 right-0 w-24 h-24 bg-[#22A55A]/10 rounded-full blur-xl pointer-events-none"></div>
+<div class="relative z-10">
+<div class="flex items-center space-x-1.5 text-[#0B2A5B] font-bold text-xs uppercase tracking-wider mb-1.5">
+<svg class="lucide lucide-shield-check w-4 h-4 text-[#22A55A]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+<span class="text-[#0B2A5B] font-extrabold tracking-tight">GARANTIE ZECOLIS</span>
+</div>
+<h3 class="font-bold text-sm text-slate-900 leading-snug">
+        Une communauté qui voyage en confiance.
+      </h3>
+<p class="text-[11px] text-slate-700 mt-1 leading-relaxed font-normal">
+        Identité vérifiée, avis des membres et échanges intégrés à chaque annonce.
+      </p>
+<div class="flex flex-wrap gap-1.5 mt-3">
+<span class="inline-flex items-center px-2 py-1 rounded-lg text-[10px] font-semibold bg-white text-slate-800 border border-emerald-200/80 shadow-2xs">
+<svg class="lucide lucide-check-circle-2 w-3 h-3 text-[#22A55A] mr-1" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><path d="m16 9-5.5 5.5L8 12"></path></svg> Identité vérifiée
+        </span>
+<span class="inline-flex items-center px-2 py-1 rounded-lg text-[10px] font-semibold bg-white text-slate-800 border border-emerald-200/80 shadow-2xs">
+<svg class="lucide lucide-star w-3 h-3 text-amber-500 mr-1 fill-amber-500" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.123 2.123 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.123 2.123 0 0 0 1.597-1.16z"></path></svg> Avis certifiés
+        </span>
+<span class="inline-flex items-center px-2 py-1 rounded-lg text-[10px] font-semibold bg-white text-slate-800 border border-emerald-200/80 shadow-2xs">
+<svg class="lucide lucide-lock w-3 h-3 text-[#0B2A5B] mr-1" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Échanges garantis
+        </span>
+</div>
+</div>
+<a class="relative z-10 inline-block mt-3 text-[11px] font-bold text-[#147a3f] hover:underline" href="#garantie">
+      En savoir plus sur la garantie Zecolis →
+    </a>
+</div>
+<!-- Card 2: Paiement Sécurisé & Séquestre (Warm Apricot / Peach Tint) -->
+<div class="min-w-[310px] max-w-[310px] snap-center rounded-2xl p-4 border border-orange-200/80 shadow-sm flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-[#FFF7ED] via-[#FFEDD5] to-[#FED7AA]/60">
+<div class="absolute top-0 right-0 w-24 h-24 bg-[#FF6B00]/10 rounded-full blur-xl pointer-events-none"></div>
+<div class="relative z-10">
+<div class="flex items-center space-x-1.5 text-[#0B2A5B] font-bold text-xs uppercase tracking-wider mb-1.5">
+<svg class="lucide lucide-lock w-4 h-4 text-[#FF6B00]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+<span class="text-[#0B2A5B] font-extrabold tracking-tight">PAIEMENT SÉCURISÉ &amp; SÉQUESTRE</span>
+</div>
+<h3 class="font-bold text-sm text-slate-900 leading-snug">
+        Vos fonds protégés jusqu'à la remise.
+      </h3>
+<p class="text-[11px] text-slate-700 mt-1 leading-relaxed font-normal">
+        Votre argent reste bloqué jusqu'à la remise en main propre confirmée avec code OTP unique.
+      </p>
+<div class="flex flex-wrap gap-1.5 mt-3">
+<span class="inline-flex items-center px-2 py-1 rounded-lg text-[10px] font-semibold bg-white text-slate-800 border border-orange-200/80 shadow-2xs">
+<svg class="lucide lucide-shield-check w-3 h-3 text-[#22A55A] mr-1" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg> Séquestre 100% garanti
+        </span>
+<span class="inline-flex items-center px-2 py-1 rounded-lg text-[10px] font-semibold bg-white text-slate-800 border border-orange-200/80 shadow-2xs">
+<svg class="lucide lucide-check w-3 h-3 text-[#FF6B00] mr-1 stroke-[2.5]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg> Code OTP unique
+        </span>
+<span class="inline-flex items-center px-2 py-1 rounded-lg text-[10px] font-semibold bg-white text-slate-800 border border-orange-200/80 shadow-2xs">
+<svg class="lucide lucide-check-circle-2 w-3 h-3 text-[#22A55A] mr-1" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><path d="m16 9-5.5 5.5L8 12"></path></svg> Remboursement garanti
+        </span>
+</div>
+</div>
+<a class="relative z-10 inline-block mt-3 text-[11px] font-bold text-[#FF6B00] hover:underline" href="#paiement-protection">
+      Découvrir la protection des paiements →
+    </a>
+</div>
+<!-- Card 3: Contrôle & Douane (Light Sky / Azure Protection Tint) -->
+<div class="min-w-[310px] max-w-[310px] snap-center rounded-2xl p-4 border border-blue-200/80 shadow-sm flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-[#F0F9FF] via-[#E0F2FE] to-[#BAE6FD]/60">
+<div class="absolute top-0 right-0 w-24 h-24 bg-[#0B2A5B]/10 rounded-full blur-xl pointer-events-none"></div>
+<div class="relative z-10">
+<div class="flex items-center space-x-1.5 text-[#0B2A5B] font-bold text-xs uppercase tracking-wider mb-1.5">
+<svg class="lucide lucide-badge-check w-4 h-4 text-[#0B2A5B]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m16 9-5.5 5.5L8 12"></path></svg>
+<span class="text-[#0B2A5B] font-extrabold tracking-tight">CONTRÔLE &amp; DOUANE</span>
+</div>
+<h3 class="font-bold text-sm text-slate-900 leading-snug">
+        Chaque colis inspecté et scellé.
+      </h3>
+<p class="text-[11px] text-slate-700 mt-1 leading-relaxed font-normal">
+        Inspection conjointe au départ et scellé inviolable pour un voyage 100% serein et en règle.
+      </p>
+<div class="flex flex-wrap gap-1.5 mt-3">
+<span class="inline-flex items-center px-2 py-1 rounded-lg text-[10px] font-semibold bg-white text-slate-800 border border-blue-200/80 shadow-2xs">
+<svg class="lucide lucide-check-circle-2 w-3 h-3 text-[#22A55A] mr-1" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><path d="m16 9-5.5 5.5L8 12"></path></svg> Inspection conjointe
+        </span>
+<span class="inline-flex items-center px-2 py-1 rounded-lg text-[10px] font-semibold bg-white text-slate-800 border border-blue-200/80 shadow-2xs">
+<svg class="lucide lucide-lock w-3 h-3 text-[#0B2A5B] mr-1" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Scellé sécurisé
+        </span>
+<span class="inline-flex items-center px-2 py-1 rounded-lg text-[10px] font-semibold bg-white text-slate-800 border border-blue-200/80 shadow-2xs">
+<svg class="lucide lucide-shield-check w-3 h-3 text-[#22A55A] mr-1" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg> Assistance 24/7
+        </span>
+</div>
+</div>
+<a class="relative z-10 inline-block mt-3 text-[11px] font-bold text-[#0B2A5B] hover:underline" href="#guide-douane">
+      Guide douane &amp; règles bagages →
+    </a>
+</div></div>
+<!-- Carousel Pagination Dots -->
+<div class="flex items-center justify-center space-x-1.5 mt-2.5">
+<span class="w-5 h-1 rounded-full bg-[#FF6B00]"></span>
+<span class="w-1.5 h-1 rounded-full bg-slate-300"></span>
+<span class="w-1.5 h-1 rounded-full bg-slate-300"></span>
+</div></section>
+<!-- END: CommunityTrustBanner -->
+<!-- BEGIN: ContextualProfileStatus -->
+<!-- Minimal profile onboarding reminder -->
+<section class="mx-4 mt-4 mb-2" data-purpose="profile-completion">
+<div class="bg-white rounded-xl p-3 border border-slate-100 flex items-center justify-between shadow-2xs">
+<div class="flex-1 mr-3">
+<div class="flex items-center justify-between text-[11px] mb-1">
+<span class="font-semibold text-slate-700">Profil complété à 70%</span>
+<span class="font-bold text-[#FF6B00]">Étape 2/3</span>
+</div>
+<!-- Progress bar -->
+<div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+<div class="bg-[#FF6B00] h-1.5 rounded-full w-[70%]"></div>
+</div>
+</div>
+<a class="text-xs font-bold text-[#0B2A5B] bg-slate-100 px-2.5 py-1.5 rounded-lg whitespace-nowrap active:bg-slate-200" href="#profile-edit">
+          Compléter
+        </a>
+</div>
+</section><!-- BEGIN: FloatingScannerFAB --><div class="fixed bottom-24 right-3.5 z-40 flex flex-col items-end pointer-events-auto"><button aria-label="Ouvrir le scanner Zecolis" class="group relative flex items-center gap-2.5 bg-gradient-to-br from-[#0B2A5B] via-[#0D346E] to-[#071c3d] text-white pl-2.5 pr-3.5 py-2 rounded-full shadow-2xl shadow-[#0B2A5B]/40 border border-white/20 active:scale-95 transition-all duration-300 backdrop-blur-md hover:border-orange-200/80" onclick="document.getElementById('qr-scanner-modal')?.classList.remove('hidden')" type="button"><span class="absolute -top-1 -right-1 flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22A55A] opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-[#22A55A] ring-2 ring-white shadow-sm"></span></span><div class="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center relative shadow-inner group-hover:scale-105 transition-transform"><svg class="w-4 h-4 text-[#FF6B00] stroke-[2.2]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><circle cx="12" cy="12" r="2.5" class="fill-[#FF6B00]/30"></circle><rect height="4" rx="0.5" width="4" x="10" y="10"></rect></svg></div><div class="flex flex-col text-left"><div class="flex items-center gap-1.5"><span class="text-[11px] font-bold tracking-tight text-white leading-tight">Scanner</span><span class="inline-flex items-center px-1.5 py-0.2 rounded-full bg-[#FF6B00] text-white text-[8px] font-extrabold tracking-wider uppercase leading-tight">Live</span></div><span class="text-[9px] font-medium text-slate-300 leading-none mt-0.5">Colis &amp; QR</span></div></button></div><!-- Interactive Scanner Modal Overlay --><div class="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-md hidden flex flex-col justify-between p-4 max-w-[390px] mx-auto" id="qr-scanner-modal"><div class="w-full flex items-center justify-between pt-2 pb-1 z-20"><button aria-label="Fermer le scanner" class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white active:scale-95 transition-all shadow-sm" onclick="document.getElementById('qr-scanner-modal')?.classList.add('hidden')" type="button"><svg class="w-5 h-5 stroke-[2.2]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m15 18-6-6 6-6"></path></svg></button><div class="flex flex-col items-center"><div class="flex items-center space-x-1.5 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10"><span class="w-2 h-2 rounded-full bg-[#22A55A] animate-pulse"></span><span class="text-xs font-bold text-white tracking-wide">Scanner Zecolis</span></div></div><button aria-label="Activer le flash" class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white active:scale-95 transition-all active:bg-amber-500/20 shadow-sm" onclick="this.classList.toggle('bg-amber-500'); this.classList.toggle('text-slate-900')" type="button"><svg class="w-5 h-5 stroke-[2.2]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></button></div><div class="flex-1 flex flex-col items-center justify-center relative my-auto z-10"><div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-[#FF6B00]/10 border border-[#FF6B00] text-[#FF6B00] text-[11px] font-bold uppercase tracking-wider mb-4 shadow-sm"><svg class="w-3.5 h-3.5 stroke-[2.5]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><path d="m12 6v6l4 2"></path></svg><span class="">Détection en direct</span></div><div class="relative w-[280px] h-[270px] rounded-3xl overflow-hidden border border-white/10 bg-black/40 shadow-2xl flex items-center justify-center"><div class="absolute top-3 left-3 w-7 h-7 border-t-2 border-l-2 border-[#FF6B00] rounded-tl-xl"></div><div class="absolute top-3 right-3 w-7 h-7 border-t-2 border-r-2 border-[#FF6B00] rounded-tr-xl"></div><div class="absolute bottom-3 left-3 w-7 h-7 border-b-2 border-l-2 border-[#22A55A] rounded-bl-xl"></div><div class="absolute bottom-3 right-3 w-7 h-7 border-b-2 border-r-2 border-[#22A55A] rounded-br-xl"></div><div class="absolute inset-x-4 top-2 h-0.5 bg-gradient-to-r from-transparent via-[#FF6B00] to-transparent shadow-lg animate-pulse"></div><div class="text-center px-4"><div class="w-16 h-16 mx-auto rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 mb-3"><svg class="w-8 h-8 stroke-[1.5]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><rect height="6" rx="1" width="6" x="7" y="7"></rect><rect height="4" rx="1" width="4" x="14" y="14"></rect></svg></div><p class="text-xs font-semibold text-white/90 leading-snug">Alignez le QR code du colis ou du voyageur</p><p class="text-[10px] text-white/50 mt-1">Lecture automatique sans contact</p></div><div class="absolute bottom-3 inset-x-0 flex justify-center"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold bg-[#22A55A]/20 text-[#22A55A] border border-[#22A55A]/40"><svg class="w-3 h-3 mr-1 stroke-[2.5]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5"></path></svg>Protégé par Zecolis Shield</span></div></div><div class="flex items-center justify-center space-x-3 mt-4"><button class="flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-medium border border-white/10 active:scale-95 transition-all" onclick="alert('Sélectionnez une photo de code QR')" type="button"><svg class="w-3.5 h-3.5 text-amber-500" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg><span class="">Importer une image</span></button></div></div><div class="w-full pb-4 z-20 flex flex-col space-y-2.5"><button class="w-full bg-gradient-to-r from-[#FF6B00] to-[#e05e00] text-white py-3.5 rounded-2xl font-bold text-sm shadow-lg shadow-[#FF6B00]/30 active:scale-[0.98] transition-all flex items-center justify-center space-x-2 border border-orange-200/80" onclick="document.getElementById('qr-scanner-modal')?.classList.add('hidden')" type="button"><svg class="w-4 h-4 stroke-[2.5]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="14" rx="2" width="18" x="3" y="5"></rect><path d="M7 15h.01"></path><path d="M12 15h.01"></path><path d="M17 15h.01"></path><path d="M7 11h.01"></path><path d="M12 11h.01"></path><path d="M17 11h.01"></path></svg><span class="">Saisir le code PIN / OTP manuel</span></button><button class="w-full py-2.5 text-xs font-semibold text-white/80 active:text-white transition-colors text-center" onclick="document.getElementById('qr-scanner-modal')?.classList.add('hidden')" type="button">Annuler et retourner à l'accueil</button></div></div><!-- END: FloatingScannerFAB -->
+<!-- END: ContextualProfileStatus -->
+</main>
+<!-- END: MobileContainer -->
+<!-- BEGIN: FixedFloatingBottomNavigation -->
+<!-- Native iOS style floating dock bar with central published CTA -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none pb-2">
+<div class="w-full max-w-[390px] px-3 pointer-events-auto">
+<div class="bg-white/95 backdrop-blur-lg rounded-3xl shadow-dock border border-slate-200/90 px-3 py-1.5 flex items-center justify-between relative">
+<!-- Tab 1: Accueil (Active) -->
+<a class="flex flex-col items-center justify-center w-14 py-1 text-[#FF6B00]" href="#accueil">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="home" aria-hidden="true" class="lucide lucide-home w-5 h-5 stroke-[2.2]"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+<span class="text-[10px] font-bold mt-0.5">Accueil</span>
+<span class="w-1 h-1 bg-[#FF6B00] rounded-full mt-0.5"></span>
+</a>
+<!-- Tab 2: Recherche -->
+<a class="flex flex-col items-center justify-center w-14 py-1 text-slate-400 active:text-slate-600" href="#recherche">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" aria-hidden="true" class="lucide lucide-search w-5 h-5"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+<span class="text-[10px] font-medium mt-0.5">Recherche</span>
+<span class="w-1 h-1 bg-transparent rounded-full mt-0.5"></span>
+</a>
+<!-- Tab 3: Central Raised Action Button (Publier) -->
+<div class="flex flex-col items-center -mt-6">
+<button aria-label="Publier une annonce" class="w-12 h-12 rounded-full bg-[#FF6B00] active:scale-95 shadow-lg shadow-[#FF6B00]/40 flex items-center justify-center text-white ring-4 ring-white transition-all" type="button">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus" aria-hidden="true" class="lucide lucide-plus w-6 h-6 stroke-[2.5]"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+</button>
+<span class="text-[10px] font-bold text-slate-800 mt-1">Publier</span>
+</div>
+<!-- Tab 4: Messages -->
+<a class="flex flex-col items-center justify-center w-14 py-1 text-slate-400 active:text-slate-600 relative" href="#messages">
+<div class="relative">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="message-square" aria-hidden="true" class="lucide lucide-message-square w-5 h-5"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"></path></svg>
+<span class="absolute -top-1 -right-1.5 bg-[#FF6B00] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center ring-1 ring-white">2</span>
+</div>
+<span class="text-[10px] font-medium mt-0.5">Messages</span>
+<span class="w-1 h-1 bg-transparent rounded-full mt-0.5"></span>
+</a>
+<!-- Tab 5: Profil -->
+<a class="flex flex-col items-center justify-center w-14 py-1 text-slate-400 active:text-slate-600" href="#profil">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user" aria-hidden="true" class="lucide lucide-user w-5 h-5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<span class="text-[10px] font-medium mt-0.5">Profil</span>
+<span class="w-1 h-1 bg-transparent rounded-full mt-0.5"></span>
+</a>
+</div>
+<!-- Native iOS Home Indicator Space -->
+<div class="h-4 w-full"></div>
+</div>
+</nav>
+<!-- END: FixedFloatingBottomNavigation -->
+<!-- BEGIN: IconInitialization -->
+<!-- Initialize Feather / Lucide icons on render -->
+<script data-purpose="icon-setup">
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    });
+  </script>
+<!-- END: IconInitialization -->
+
+
+
+
+
+
+</body></html>
